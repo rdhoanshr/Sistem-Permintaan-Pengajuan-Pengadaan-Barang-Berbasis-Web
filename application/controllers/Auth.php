@@ -894,6 +894,26 @@ class Auth extends CI_Controller
 		$this->_render_page('auth' . DIRECTORY_SEPARATOR . 'edit_group', $this->data);
 	}
 
+	public function delete_user($id)
+	{
+		if (!$this->ion_auth->logged_in() || (!$this->ion_auth->is_admin() && !($this->ion_auth->user()->row()->id == $id))) {
+			redirect(base_url(), 'refresh');
+		}
+
+		if ($this->ion_auth->is_admin()) {
+			// Update the groups user belongs to
+			if ($this->ion_auth->delete_user($id)) {
+				// redirect them back to the admin page if admin, or to the base url if non admin
+				$this->session->set_flashdata('pesanbaik', 'Pengguna Berhasil di Hapus');
+				redirect("auth/pengguna", 'refresh');
+			} else {
+				// redirect them back to the admin page if admin, or to the base url if non admin
+				$this->session->set_flashdata('message', $this->ion_auth->errors());
+				redirect("auth/pengguna", 'refresh');
+			}
+		}
+	}
+
 	/**
 	 * @return array A CSRF key-value pair
 	 */
