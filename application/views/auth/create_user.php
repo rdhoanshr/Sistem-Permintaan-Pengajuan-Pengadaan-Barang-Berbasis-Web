@@ -1,57 +1,94 @@
-<h1><?php echo lang('create_user_heading');?></h1>
-<p><?php echo lang('create_user_subheading');?></p>
+<!-- Memanggil file header.php -->
+<?php $this->load->view("layout_backoffice/header") ?>
 
-<div id="infoMessage"><?php echo $message;?></div>
+<!-- Memanggil file navbar.php -->
+<?php $this->load->view("layout_backoffice/navbar") ?>
 
-<?php echo form_open("auth/create_user");?>
-
-      <p>
-            <?php echo lang('create_user_fname_label', 'first_name');?> <br />
-            <?php echo form_input($first_name);?>
-      </p>
-
-      <p>
-            <?php echo lang('create_user_lname_label', 'last_name');?> <br />
-            <?php echo form_input($last_name);?>
-      </p>
-      
-      <?php
-      if($identity_column!=='email') {
-          echo '<p>';
-          echo lang('create_user_identity_label', 'identity');
-          echo '<br />';
-          echo form_error('identity');
-          echo form_input($identity);
-          echo '</p>';
-      }
-      ?>
-
-      <p>
-            <?php echo lang('create_user_company_label', 'company');?> <br />
-            <?php echo form_input($company);?>
-      </p>
-
-      <p>
-            <?php echo lang('create_user_email_label', 'email');?> <br />
-            <?php echo form_input($email);?>
-      </p>
-
-      <p>
-            <?php echo lang('create_user_phone_label', 'phone');?> <br />
-            <?php echo form_input($phone);?>
-      </p>
-
-      <p>
-            <?php echo lang('create_user_password_label', 'password');?> <br />
-            <?php echo form_input($password);?>
-      </p>
-
-      <p>
-            <?php echo lang('create_user_password_confirm_label', 'password_confirm');?> <br />
-            <?php echo form_input($password_confirm);?>
-      </p>
+<!-- Memanggil file sidebar.php -->
+<?php $this->load->view("layout_backoffice/sidebar") ?>
 
 
-      <p><?php echo form_submit('submit', lang('create_user_submit_btn'));?></p>
 
-<?php echo form_close();?>
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Menampilkan notif flashdata -->
+    <div class="flash-data" data-flashdata="<?= $this->session->flashdata('message') ?>"></div>
+    <?php if ($this->session->flashdata('message')) : ?>
+
+    <?php endif; ?>
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            Tambah Pengguna
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="<?= base_url(); ?>"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li><a href="<?= base_url(); ?>auth/pengguna">Pengguna</a></li>
+            <li class="active">Tambah</li>
+        </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <!-- /.box -->
+                    <div class="box">
+                        <!-- /.box-header -->
+                        <div class="box-body">
+                            <?php echo form_open("auth/create_user"); ?>
+
+                            <div class="form-group">
+                                <label for=""> Username </label>
+                                <input type="text" name="username" class="form-control">
+                                <div class="form-text text-danger"><?= form_error('username'); ?></div>
+
+                            </div>
+                            <div class="form-group">
+                                <label for=""> <?php echo lang('create_user_email_label', 'email'); ?> </label>
+                                <input type="email" name="email" class="form-control">
+                                <div class="form-text text-danger"><?= form_error('email'); ?></div>
+
+                            </div>
+                            <div class="form-group">
+                                <label for=""> <?php echo lang('create_user_password_label', 'password'); ?></label>
+                                <input type="password" name="password" class="form-control">
+                                <div class="form-text text-danger"><?= form_error('password'); ?></div>
+
+                            </div>
+                            <div class="form-group">
+                                <label for=""> <?php echo lang('create_user_password_confirm_label', 'password_confirm'); ?> </label>
+                                <input type="password" name="password_confirm" class="form-control">
+                                <div class="form-text text-danger"><?= form_error('password_confirm'); ?></div>
+
+                            </div>
+                            <div class="form-group">
+                                <label for="">Level</label>
+                                <select name="group" id="group" class="form-control">
+                                    <?php foreach ($groups as $g) : ?>
+                                        <option value="<?= $g->id; ?>"><?= $g->name; ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+
+                            </div>
+                            <button type="submit" class="btn btn-primary">Simpan</button>
+                            <a href="<?= base_url('auth/pengguna'); ?>" class="btn btn-info">Batal</a>
+                            <?php echo form_close(); ?>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
+<!-- Memanggil file footer.php -->
+<?php $this->load->view("layout_backoffice/footer") ?>

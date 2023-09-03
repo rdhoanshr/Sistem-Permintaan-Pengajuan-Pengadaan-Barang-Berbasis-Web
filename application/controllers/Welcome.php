@@ -34,7 +34,7 @@ class Welcome extends CI_Controller
 	public function index()
 	{
 		if ($this->ion_auth->logged_in()) {
-			if ($this->ion_auth->in_group('unit')) {
+			if ($this->ion_auth->in_group('staff')) {
 				// die(var_dump($this->ion_auth->user()->row()->email));
 				$data['title'] = 'Dashboard';
 				$this->load->view('layout_backoffice/index', $data);

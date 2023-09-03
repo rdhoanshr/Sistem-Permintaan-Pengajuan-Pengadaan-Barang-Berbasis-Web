@@ -12,9 +12,15 @@
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Menampilkan notif flashdata -->
-    <div class="flash-data" data-flashdata="<?= $this->session->flashdata('message') ?>"></div>
     <?php if ($this->session->flashdata('message')) : ?>
-
+        <div class="alert alert-danger" role="alert">
+            <?php echo $message; ?>
+        </div>
+    <?php endif; ?>
+    <?php if ($this->session->flashdata('pesanbaik')) : ?>
+        <div class="alert alert-success" role="alert">
+            <?php echo $this->session->flashdata('pesanbaik'); ?>
+        </div>
     <?php endif; ?>
     <!-- Content Header (Page header) -->
     <section class="content-header">
