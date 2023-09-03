@@ -245,7 +245,7 @@ class Auth extends CI_Controller
 
 					if ($change) {
 						// if the password was successfully changed
-						$this->session->set_flashdata('message', $this->ion_auth->messages());
+						$this->session->set_flashdata('pesanbaik', $this->ion_auth->messages());
 						redirect("auth/login", 'refresh');
 					} else {
 						$this->session->set_flashdata('message', $this->ion_auth->errors());
@@ -535,7 +535,7 @@ class Auth extends CI_Controller
 	{
 		$this->data['title'] = $this->lang->line('create_user_heading');
 
-		if (!$this->ion_auth->logged_in() || !$this->ion_auth->is_admin()) {
+		if (!$this->ion_auth->logged_in()) {
 			redirect('auth', 'refresh');
 		}
 
