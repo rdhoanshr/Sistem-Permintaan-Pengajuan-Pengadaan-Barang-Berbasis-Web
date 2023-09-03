@@ -1,4 +1,4 @@
-<body class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition sidebar-mini">
     <div class="wrapper">
 
         <header class="main-header">
@@ -28,20 +28,22 @@
                             </a>
                             <ul class="dropdown-menu">
                                 <!-- User image -->
-                                <li class="user-header">
+                                <!-- <li class="user-header">
                                     <img src="<?= base_url(); ?>assets/AdminLTE/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
 
                                     <p>
                                         <?= $this->ion_auth->user()->row()->username; ?>
                                     </p>
-                                </li>
+                                </li> -->
                                 <!-- Menu Body -->
                                 <li class="user-body">
-                                    <div class="pull-left">
-                                        <a href="<?= base_url(); ?>assets/AdminLTE/#" class="btn btn-default btn-flat">Profile</a>
-                                    </div>
+                                    <!-- <div class="pull-left">
+                                        </div> -->
                                     <div class="pull-right">
-                                        <a href="<?= base_url(); ?>auth/logout" class="btn btn-default btn-flat">Sign out</a>
+                                        <!-- <div class="row"></div> -->
+                                        <a href="<?= base_url(); ?>assets/AdminLTE/#" class="btn btn-default">Profile</a>
+                                        <a href="<?= base_url(); ?>auth/logout" class="btn btn-default">Logout</a>
+
                                     </div>
                                 </li>
                             </ul>
