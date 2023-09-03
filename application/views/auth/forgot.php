@@ -24,7 +24,7 @@
                     ?>
                 </div>
             <?php endif; ?>
-            <?php if ($message) : ?>
+            <?php if (isset($message)) : ?>
                 <div class="alert alert-danger" role="alert">
                     <?php echo $message ?>
                 </div>
