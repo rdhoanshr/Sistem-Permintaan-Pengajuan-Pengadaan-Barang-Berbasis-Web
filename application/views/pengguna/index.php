@@ -69,17 +69,17 @@
                                                 <td>
                                                     <?php foreach ($user->groups as $group) : ?>
                                                         <?php if ($group->name == 'admin') : ?>
-                                                            <a href="<?= base_url('auth/edit_group/') . $group->id; ?>" class="btn btn-sm btn-primary"><?= $group->name; ?></a>
+                                                            <button class="btn btn-sm btn-primary"><?= $group->name; ?></button>
                                                         <?php else : ?>
-                                                            <a href="<?= base_url('auth/edit_group/') . $group->id; ?>" class="btn btn-sm btn-info"><?= $group->name; ?></a>
+                                                            <button class="btn btn-sm btn-info"><?= $group->name; ?></button>
                                                         <?php endif; ?>
                                                     <?php endforeach ?>
                                                 </td>
                                                 <td class="text-center">
                                                     <?php if ($user->active) : ?>
-                                                        <a href="<?= base_url('auth/deactivate/') . $user->id ?>" class="btn btn-sm btn-success">Aktif</a>
+                                                        <button class="btn btn-sm btn-success">Aktif</button>
                                                     <?php else : ?>
-                                                        <a href="<?= base_url('auth/activate/') . $user->id ?>" class="btn btn-sm btn-dark btn-aktif">Nonaktif</a>
+                                                        <button class="btn btn-sm btn-warning btn-aktif">Non Aktif</button>
                                                     <?php endif; ?>
                                                 </td>
                                                 <td>

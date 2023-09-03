@@ -1,55 +1,105 @@
-<h1><?php echo lang('edit_user_heading');?></h1>
-<p><?php echo lang('edit_user_subheading');?></p>
+<!-- Memanggil file header.php -->
+<?php $this->load->view("layout_backoffice/header") ?>
 
-<div id="infoMessage"><?php echo $message;?></div>
+<!-- Memanggil file navbar.php -->
+<?php $this->load->view("layout_backoffice/navbar") ?>
 
-<?php echo form_open(uri_string());?>
+<!-- Memanggil file sidebar.php -->
+<?php $this->load->view("layout_backoffice/sidebar") ?>
 
-      <p>
-            <?php echo lang('edit_user_fname_label', 'first_name');?> <br />
-            <?php echo form_input($first_name);?>
-      </p>
 
-      <p>
-            <?php echo lang('edit_user_lname_label', 'last_name');?> <br />
-            <?php echo form_input($last_name);?>
-      </p>
 
-      <p>
-            <?php echo lang('edit_user_company_label', 'company');?> <br />
-            <?php echo form_input($company);?>
-      </p>
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Menampilkan notif flashdata -->
+    <div class="flash-data" data-flashdata="<?= $this->session->flashdata('message') ?>"></div>
+    <?php if ($this->session->flashdata('message')) : ?>
 
-      <p>
-            <?php echo lang('edit_user_phone_label', 'phone');?> <br />
-            <?php echo form_input($phone);?>
-      </p>
+    <?php endif; ?>
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            Edit Pengguna
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="<?= base_url(); ?>"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li><a href="<?= base_url(); ?>auth/pengguna">Pengguna</a></li>
+            <li class="active">Edit</li>
+        </ol>
+    </section>
 
-      <p>
-            <?php echo lang('edit_user_password_label', 'password');?> <br />
-            <?php echo form_input($password);?>
-      </p>
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <!-- /.box -->
+                    <div class="box">
+                        <!-- /.box-header -->
+                        <div class="box-body">
+                            <?php echo form_open(uri_string()); ?>
 
-      <p>
-            <?php echo lang('edit_user_password_confirm_label', 'password_confirm');?><br />
-            <?php echo form_input($password_confirm);?>
-      </p>
+                            <div class="form-group">
+                                <label for=""> Username </label>
+                                <input type="text" name="username" class="form-control" value="<?= $user->username; ?>">
+                                <div class="form-text text-danger"><?= form_error('username'); ?></div>
 
-      <?php if ($this->ion_auth->is_admin()): ?>
+                            </div>
+                            <div class="form-group">
+                                <label for=""> <?php echo lang('create_user_email_label', 'email'); ?> </label>
+                                <input type="email" name="email" class="form-control" value="<?= $user->email; ?>">
+                                <div class="form-text text-danger"><?= form_error('email'); ?></div>
 
-          <h3><?php echo lang('edit_user_groups_heading');?></h3>
-          <?php foreach ($groups as $group):?>
-              <label class="checkbox">
-              <input type="checkbox" name="groups[]" value="<?php echo $group['id'];?>" <?php echo (in_array($group, $currentGroups)) ? 'checked="checked"' : null; ?>>
-              <?php echo htmlspecialchars($group['name'],ENT_QUOTES,'UTF-8');?>
-              </label>
-          <?php endforeach?>
+                            </div>
+                            <div class="form-group">
+                                <label for=""> <?php echo lang('create_user_password_label', 'password'); ?></label>
+                                <input type="password" name="password" class="form-control" placeholder="Isi Jika Password diganti">
+                                <div class="form-text text-danger"><?= form_error('password'); ?></div>
 
-      <?php endif ?>
+                            </div>
+                            <div class="form-group">
+                                <label for=""> <?php echo lang('create_user_password_confirm_label', 'password_confirm'); ?> </label>
+                                <input type="password" name="password_confirm" class="form-control" placeholder="Isi Jika Password diganti">
+                                <div class="form-text text-danger"><?= form_error('password_confirm'); ?></div>
 
-      <?php echo form_hidden('id', $user->id);?>
-      <?php echo form_hidden($csrf); ?>
+                            </div>
+                            <div class="form-group">
+                                <label for="">Level</label>
+                                <select name="group[]" id="group" class="form-control">
+                                    <?php
+                                    foreach ($groups as $g) : ?>
+                                        <option value="<?= $g['id']; ?>" <?= ($currentGroups['id'] == $g['id']) ? 'Selected' : ''; ?>><?= $g['name']; ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="">Status</label>
+                                <select name="status" id="status" class="form-control">
+                                    <option value="0" <?= ($user->active == 0) ? 'Selected' : ''; ?>>Non Aktif</option>
+                                    <option value="1" <?= ($user->active == 1) ? 'Selected' : ''; ?>>Aktif</option>
+                                </select>
+                            </div>
 
-      <p><?php echo form_submit('submit', lang('edit_user_submit_btn'));?></p>
+                            <?php echo form_hidden('id', $user->id); ?>
+                            <?php echo form_hidden($csrf); ?>
 
-<?php echo form_close();?>
+                            <button type="submit" class="btn btn-primary">Update</button>
+                            <a href="<?= base_url('auth/pengguna'); ?>" class="btn btn-info">Batal</a>
+                            <?php echo form_close(); ?>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
+<!-- Memanggil file footer.php -->
+<?php $this->load->view("layout_backoffice/footer") ?>

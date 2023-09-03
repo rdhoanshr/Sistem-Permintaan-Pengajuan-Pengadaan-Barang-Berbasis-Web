@@ -642,23 +642,44 @@ class Auth extends CI_Controller
 	{
 		$this->data['title'] = $this->lang->line('edit_user_heading');
 
-		if (!$this->ion_auth->logged_in() || (!$this->ion_auth->is_admin() && !($this->ion_auth->user()->row()->id == $id))) {
-			redirect('auth', 'refresh');
+		if (!$this->ion_auth->logged_in() || (!$this->ion_auth->in_group('staff') && !($this->ion_auth->user()->row()->id == $id))) {
+			redirect(base_url(), 'refresh');
 		}
 
 		$user = $this->ion_auth->user($id)->row();
 		$groups = $this->ion_auth->groups()->result_array();
-		$currentGroups = $this->ion_auth->get_users_groups($id)->result_array();
+		$currentGroups = $this->ion_auth->get_users_groups($id)->row_array();
 
+		$tables = $this->config->item('tables', 'ion_auth');
+		$identity_column = $this->config->item('identity', 'ion_auth');
+		$this->data['identity_column'] = $identity_column;
+
+
+		// die(var_dump($currentGroups));
 		//USAGE NOTE - you can do more complicated queries like this
 		//$groups = $this->ion_auth->where(['field' => 'value'])->groups()->result_array();
 
 
 		// validate form input
-		$this->form_validation->set_rules('first_name', $this->lang->line('edit_user_validation_fname_label'), 'trim|required');
-		$this->form_validation->set_rules('last_name', $this->lang->line('edit_user_validation_lname_label'), 'trim|required');
-		$this->form_validation->set_rules('phone', $this->lang->line('edit_user_validation_phone_label'), 'trim');
-		$this->form_validation->set_rules('company', $this->lang->line('edit_user_validation_company_label'), 'trim');
+		if ($this->input->post('username') != $user->username) {
+			$is_unique =  '|is_unique[' . $tables['users'] . '.username]';
+		} else {
+			$is_unique =  '';
+		}
+		if ($this->input->post('email') != $user->email) {
+			$is_unique_email =  '|is_unique[' . $tables['users'] . '.email]';
+		} else {
+			$is_unique_email =  '';
+		}
+		$this->load->library('form_validation');
+		$this->load->helper(array('security'));
+		$this->form_validation->set_rules('username', 'Username', 'trim|required|xss_clean' . $is_unique);
+		$this->form_validation->set_rules('email', $this->lang->line('create_user_validation_email_label'), 'trim|required|valid_email' . $is_unique_email);
+
+		// $this->form_validation->set_rules('first_name', $this->lang->line('edit_user_validation_fname_label'), 'trim|required');
+		// $this->form_validation->set_rules('last_name', $this->lang->line('edit_user_validation_lname_label'), 'trim|required');
+		// $this->form_validation->set_rules('phone', $this->lang->line('edit_user_validation_phone_label'), 'trim');
+		// $this->form_validation->set_rules('company', $this->lang->line('edit_user_validation_company_label'), 'trim');
 
 		if (isset($_POST) && !empty($_POST)) {
 			// do we have a valid request?
@@ -674,10 +695,10 @@ class Auth extends CI_Controller
 
 			if ($this->form_validation->run() === TRUE) {
 				$data = [
-					'first_name' => $this->input->post('first_name'),
-					'last_name' => $this->input->post('last_name'),
-					'company' => $this->input->post('company'),
-					'phone' => $this->input->post('phone'),
+					'username' => $this->input->post('username'),
+					'email' => $this->input->post('email'),
+					'active' => $this->input->post('status'),
+					// 'phone' => $this->input->post('phone'),
 				];
 
 				// update the password if it was posted
@@ -686,11 +707,12 @@ class Auth extends CI_Controller
 				}
 
 				// Only allow updating groups if user is admin
-				if ($this->ion_auth->is_admin()) {
+				if ($this->ion_auth->in_group('staff')) {
 					// Update the groups user belongs to
 					$this->ion_auth->remove_from_group('', $id);
 
-					$groupData = $this->input->post('groups');
+					$groupData = $this->input->post('group');
+					// die(var_dump($groupData));
 					if (isset($groupData) && !empty($groupData)) {
 						foreach ($groupData as $grp) {
 							$this->ion_auth->add_to_group($grp, $id);
@@ -701,12 +723,12 @@ class Auth extends CI_Controller
 				// check to see if we are updating the user
 				if ($this->ion_auth->update($user->id, $data)) {
 					// redirect them back to the admin page if admin, or to the base url if non admin
-					$this->session->set_flashdata('message', $this->ion_auth->messages());
-					$this->redirectUser();
+					$this->session->set_flashdata('pesanbaik', $this->ion_auth->messages());
+					redirect('auth/pengguna', 'refresh');
 				} else {
 					// redirect them back to the admin page if admin, or to the base url if non admin
-					$this->session->set_flashdata('message', $this->ion_auth->errors());
-					$this->redirectUser();
+					$this->session->set_flashdata('pesanbaik', $this->ion_auth->errors());
+					redirect('auth/pengguna', 'refresh');
 				}
 			}
 		}
@@ -721,6 +743,8 @@ class Auth extends CI_Controller
 		$this->data['user'] = $user;
 		$this->data['groups'] = $groups;
 		$this->data['currentGroups'] = $currentGroups;
+
+		// die(var_dump($this->data['currentGroups']));
 
 		$this->data['first_name'] = [
 			'name'  => 'first_name',
