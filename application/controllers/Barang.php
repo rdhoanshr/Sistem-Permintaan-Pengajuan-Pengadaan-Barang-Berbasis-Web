@@ -50,43 +50,29 @@ class Barang extends CI_Controller
         }
     }
 
-    // public function edit($id)
-    // {
-    //     $data['title'] = 'SIPB Kertak Hanyar | Edit Penduduk';
-    //     $data['sesi_user'] = $this->ion_auth->user()->row();
-    //     $data['penduduk'] = $this->PendudukModel->getPenduduk($id);
-    //     $data['agama'] = $this->PendudukModel->agama();
-    //     $data['pendidikan'] = $this->PendudukModel->pendidikan();
-    //     $data['status_kawin'] = $this->PendudukModel->status_kawin();
+    public function edit($id)
+    {
+        $data['title'] = 'Edit Barang';
+        $data['barang'] = $this->BarangModel->getBarang($id);
 
-    //     $data['akses'] = 'admin';
+        $this->form_validation->set_rules('nama_barang', 'Nama Barang', 'required');
+        $this->form_validation->set_rules('jenis_barang', 'Jenis Barang', 'required');
+        $this->form_validation->set_rules('satuan', 'Satuan', 'required');
+        $this->form_validation->set_rules('keterangan', 'Keterangan', 'required');
 
-    //     $this->form_validation->set_rules('nik', 'NIK', 'required');
-    //     $this->form_validation->set_rules('no_kk', 'No. Kartu Keluarga', 'required');
-    //     $this->form_validation->set_rules('nama_penduduk', 'Nama Penduduk', 'required');
-    //     $this->form_validation->set_rules('tempat_lahir', 'Tempat Lahir', 'required');
-    //     $this->form_validation->set_rules('tgl_lahir', 'Tanggal Lahir', 'required');
-    //     $this->form_validation->set_rules('alamat', 'Alamat', 'required');
-    //     $this->form_validation->set_rules('pekerjaan', 'Pekerjaan', 'required');
-    //     $this->form_validation->set_rules('no_rt', 'No. RT', 'required');
-    //     $this->form_validation->set_rules('no_rw', 'No. RW', 'required');
-    //     $this->form_validation->set_rules('nm_ayah', 'Nama Ayah', 'required');
-    //     $this->form_validation->set_rules('nm_ibu', 'Nama Ibu', 'required');
-    //     $this->form_validation->set_rules('hubungan_keluarga', 'Status Hubungan Dalam Keluarga', 'required');
-
-    //     if ($this->form_validation->run() == false) {
-    //         $this->load->view('admin/penduduk/edit', $data);
-    //     } else {
-    //         $this->PendudukModel->proses_edit($id);
-    //         $err = $this->db->error();
-    //         if ($err['code'] !== 0) {
-    //             echo $err['message'];
-    //         } else {
-    //             $this->session->set_flashdata('message', 'Penduduk Berhasil Di update');
-    //             redirect('admin/penduduk');
-    //         }
-    //     }
-    // }
+        if ($this->form_validation->run() == false) {
+            $this->load->view('barang/edit_barang', $data);
+        } else {
+            $this->BarangModel->proses_edit($id);
+            $err = $this->db->error();
+            if ($err['code'] !== 0) {
+                echo $err['message'];
+            } else {
+                $this->session->set_flashdata('pesanbaik', 'Barang Berhasil Di update');
+                redirect('barang');
+            }
+        }
+    }
     // public function hapus($id)
     // {
     //     $this->PendudukModel->hapus($id);

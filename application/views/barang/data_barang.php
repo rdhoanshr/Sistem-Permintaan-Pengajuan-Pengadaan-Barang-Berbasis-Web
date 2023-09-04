@@ -61,7 +61,7 @@
                                         foreach ($barang as $b) : ?>
                                             <tr>
                                                 <td><?= $i++; ?></td>
-                                                <td><?= $b['nama_barang']; ?>></td>
+                                                <td><?= $b['nama_barang']; ?></td>
                                                 <td><?= $b['jenis_barang']; ?></td>
                                                 <td><?= $b['satuan']; ?> </td>
                                                 <td><?= $b['keterangan']; ?> </td>

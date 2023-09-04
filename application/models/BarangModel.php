@@ -22,37 +22,23 @@ class BarangModel extends CI_model
         $this->db->insert('barang', $data);
     }
 
-    // public function getPenduduk($id)
-    // {
-    //     return $this->db->get_where('penduduk', ['id' => $id])->row_array();
-    // }
+    public function getBarang($id)
+    {
+        return $this->db->get_where('barang', ['id_barang' => $id])->row_array();
+    }
 
-    // public function proses_edit($id)
-    // {
-    //     $data = [
-    //         "nik" => $this->input->post('nik', true),
-    //         "no_kk" => $this->input->post('no_kk', true),
-    //         "nama_penduduk" => $this->input->post('nama_penduduk', true),
-    //         "jenis_kelamin" => $this->input->post('jenis_kelamin', true),
-    //         "tempat_lahir" => $this->input->post('tempat_lahir', true),
-    //         "tgl_lahir" => $this->input->post('tgl_lahir', true),
-    //         "gol_darah" => $this->input->post('gol_darah', true),
-    //         "alamat" => $this->input->post('alamat', true),
-    //         "no_rt" => $this->input->post('no_rt', true),
-    //         "no_rw" => $this->input->post('no_rw', true),
-    //         "pekerjaan" => $this->input->post('pekerjaan', true),
-    //         "id_agama" => $this->input->post('id_agama', true),
-    //         "id_pendidikan" => $this->input->post('id_pendidikan', true),
-    //         "id_statuskawin" => $this->input->post('id_statuskawin', true),
-    //         "nm_ayah" => $this->input->post('nm_ayah', true),
-    //         "nm_ibu" => $this->input->post('nm_ibu', true),
-    //         "hub_keluarga" => $this->input->post('hubungan_keluarga', true),
-    //         "status" => $this->input->post('status', true),
-    //     ];
+    public function proses_edit($id)
+    {
+        $data = [
+            "nama_barang" => $this->input->post('nama_barang', true),
+            "jenis_barang" => $this->input->post('jenis_barang', true),
+            "satuan" => $this->input->post('satuan', true),
+            "keterangan" => $this->input->post('keterangan', true),
+        ];
 
-    //     $this->db->where('id', $id);
-    //     $this->db->update('penduduk', $data);
-    // }
+        $this->db->where('id_barang', $id);
+        $this->db->update('barang', $data);
+    }
 
 
     // public function hapus($id)
