@@ -49,24 +49,21 @@ class Unit extends CI_Controller
 
     public function edit($id)
     {
-        $data['title'] = 'Edit Barang';
-        $data['barang'] = $this->BarangModel->getBarang($id);
+        $data['title'] = 'Edit Unit';
+        $data['unit'] = $this->UnitModel->getUnit($id);
 
-        $this->form_validation->set_rules('nama_barang', 'Nama Barang', 'required');
-        $this->form_validation->set_rules('jenis_barang', 'Jenis Barang', 'required');
-        $this->form_validation->set_rules('satuan', 'Satuan', 'required');
-        $this->form_validation->set_rules('keterangan', 'Keterangan', 'required');
+        $this->form_validation->set_rules('nama_unit', 'Nama Unit', 'required');
 
         if ($this->form_validation->run() == false) {
-            $this->load->view('barang/edit_barang', $data);
+            $this->load->view('unit/edit_unit', $data);
         } else {
-            $this->BarangModel->proses_edit($id);
+            $this->UnitModel->proses_edit($id);
             $err = $this->db->error();
             if ($err['code'] !== 0) {
                 echo $err['message'];
             } else {
-                $this->session->set_flashdata('pesanbaik', 'Barang Berhasil Di update');
-                redirect('barang');
+                $this->session->set_flashdata('pesanbaik', 'Unit Berhasil Di update');
+                redirect('unit');
             }
         }
     }

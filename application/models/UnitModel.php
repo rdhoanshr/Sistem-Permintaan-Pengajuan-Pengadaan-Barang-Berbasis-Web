@@ -19,22 +19,19 @@ class UnitModel extends CI_model
         $this->db->insert('unit', $data);
     }
 
-    public function getBarang($id)
+    public function getUnit($id)
     {
-        return $this->db->get_where('barang', ['id_barang' => $id])->row_array();
+        return $this->db->get_where('unit', ['id_unit' => $id])->row_array();
     }
 
     public function proses_edit($id)
     {
         $data = [
-            "nama_barang" => $this->input->post('nama_barang', true),
-            "jenis_barang" => $this->input->post('jenis_barang', true),
-            "satuan" => $this->input->post('satuan', true),
-            "keterangan" => $this->input->post('keterangan', true),
+            "nama_unit" => $this->input->post('nama_unit', true),
         ];
 
-        $this->db->where('id_barang', $id);
-        $this->db->update('barang', $data);
+        $this->db->where('id_unit', $id);
+        $this->db->update('unit', $data);
     }
 
 
