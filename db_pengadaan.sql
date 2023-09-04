@@ -22,13 +22,17 @@ CREATE TABLE IF NOT EXISTS `barang` (
   `id_barang` int(11) NOT NULL AUTO_INCREMENT,
   `nama_barang` varchar(50) DEFAULT NULL,
   `jenis_barang` varchar(50) DEFAULT NULL,
-  `satuan` int(20) DEFAULT NULL,
+  `satuan` varchar(20) DEFAULT NULL,
   `keterangan` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id_barang`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
--- Membuang data untuk tabel db_pengadaan.barang: ~0 rows (lebih kurang)
+-- Membuang data untuk tabel db_pengadaan.barang: ~3 rows (lebih kurang)
 /*!40000 ALTER TABLE `barang` DISABLE KEYS */;
+INSERT INTO `barang` (`id_barang`, `nama_barang`, `jenis_barang`, `satuan`, `keterangan`) VALUES
+	(1, 'Oxygen', 'Alat Kesehatan', 'Tabung', 'Tabung Oxygen'),
+	(2, 'Oxygen', 'Alat Kesehatan', '1', 'Tabung Oxygen'),
+	(4, 'Voluptates in sequi ', 'Ullam eius aut iure ', 'Accusantium beatae i', 'Ratione exercitation');
 /*!40000 ALTER TABLE `barang` ENABLE KEYS */;
 
 -- membuang struktur untuk table db_pengadaan.groups
@@ -39,7 +43,7 @@ CREATE TABLE IF NOT EXISTS `groups` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
--- Membuang data untuk tabel db_pengadaan.groups: ~5 rows (lebih kurang)
+-- Membuang data untuk tabel db_pengadaan.groups: ~4 rows (lebih kurang)
 /*!40000 ALTER TABLE `groups` DISABLE KEYS */;
 INSERT INTO `groups` (`id`, `name`, `description`) VALUES
 	(1, 'unit', 'Unit'),
@@ -56,10 +60,14 @@ CREATE TABLE IF NOT EXISTS `login_attempts` (
   `login` varchar(100) NOT NULL,
   `time` int(11) unsigned DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
--- Membuang data untuk tabel db_pengadaan.login_attempts: ~0 rows (lebih kurang)
+-- Membuang data untuk tabel db_pengadaan.login_attempts: ~3 rows (lebih kurang)
 /*!40000 ALTER TABLE `login_attempts` DISABLE KEYS */;
+INSERT INTO `login_attempts` (`id`, `ip_address`, `login`, `time`) VALUES
+	(1, '::1', 'admin@admin.com', 1693723567),
+	(2, '::1', 'admin@admin.com', 1693723580),
+	(3, '::1', 'administator', 1693737206);
 /*!40000 ALTER TABLE `login_attempts` ENABLE KEYS */;
 
 -- membuang struktur untuk table db_pengadaan.unit
@@ -67,10 +75,13 @@ CREATE TABLE IF NOT EXISTS `unit` (
   `id_unit` int(11) NOT NULL AUTO_INCREMENT,
   `nama_unit` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id_unit`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
--- Membuang data untuk tabel db_pengadaan.unit: ~0 rows (lebih kurang)
+-- Membuang data untuk tabel db_pengadaan.unit: ~2 rows (lebih kurang)
 /*!40000 ALTER TABLE `unit` DISABLE KEYS */;
+INSERT INTO `unit` (`id_unit`, `nama_unit`) VALUES
+	(1, 'IGD'),
+	(2, 'Farmasi');
 /*!40000 ALTER TABLE `unit` ENABLE KEYS */;
 
 -- membuang struktur untuk table db_pengadaan.users
@@ -99,14 +110,14 @@ CREATE TABLE IF NOT EXISTS `users` (
   UNIQUE KEY `uc_activation_selector` (`activation_selector`),
   UNIQUE KEY `uc_forgotten_password_selector` (`forgotten_password_selector`),
   UNIQUE KEY `uc_remember_selector` (`remember_selector`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
--- Membuang data untuk tabel db_pengadaan.users: ~1 rows (lebih kurang)
+-- Membuang data untuk tabel db_pengadaan.users: ~3 rows (lebih kurang)
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` (`id`, `ip_address`, `username`, `password`, `email`, `activation_selector`, `activation_code`, `forgotten_password_selector`, `forgotten_password_code`, `forgotten_password_time`, `remember_selector`, `remember_code`, `created_on`, `last_login`, `active`, `first_name`, `last_name`, `company`, `phone`) VALUES
-	(1, '127.0.0.1', 'administrator', '$2y$10$KkdQPqflSstEJk7bBaaayOOVfHk64baOs4HI.ZTESK2vtJnX92VfW', 'admin@admin.com', NULL, '', NULL, NULL, NULL, NULL, NULL, 1268889823, 1693701268, 1, 'Admin', 'istrator', 'ADMIN', '0'),
-	(2, '::1', 'edo', '$2y$10$jEV6mCyQf33idPW3FHzsxe0M5gZZHlrXpDuZJvtECfs6Tq97pgRBe', 'admin@edo.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1693698271, 1693700463, 1, NULL, NULL, NULL, NULL),
-	(3, '::1', 'tes', '$2y$10$oqja8XtUtoZXnM6X2rPzC.r9ct9tuy7Z6./uwfA7ma/rKvwFVFM46', 'tes@tes.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1693698551, 1693698557, 1, NULL, NULL, NULL, NULL);
+	(1, '127.0.0.1', 'administrator', '$2y$10$aBtR.PqzP0FMJGXFCZKK8uDg9CvaSrrHwGW5/0/soE6jxle84RV7K', 'admin@admin.com', NULL, '', NULL, NULL, NULL, NULL, NULL, 1268889823, 1693805024, 1, 'Admin', 'istrator', 'ADMIN', '0'),
+	(6, '::1', 'kabag', '$2y$10$HGBa.hKuR5RQL5yux0YEyuAvycRDch4oXRLmR2ONtp1wFcP7RlT4i', 'kabag@gmai.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1693785028, 1693785040, 1, NULL, NULL, NULL, NULL),
+	(7, '::1', 'unit', '$2y$10$pPYaHXROBXAf54B4qun2/.ExwvmXMN8QeWs9GV9WIeoCJ56s80gJq', 'unit@unit.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1693785094, 1693785116, 1, NULL, NULL, NULL, NULL);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 
 -- membuang struktur untuk table db_pengadaan.users_groups
@@ -120,16 +131,33 @@ CREATE TABLE IF NOT EXISTS `users_groups` (
   KEY `fk_users_groups_groups1_idx` (`group_id`),
   CONSTRAINT `fk_users_groups_groups1` FOREIGN KEY (`group_id`) REFERENCES `groups` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
   CONSTRAINT `fk_users_groups_users1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 
--- Membuang data untuk tabel db_pengadaan.users_groups: ~2 rows (lebih kurang)
+-- Membuang data untuk tabel db_pengadaan.users_groups: ~3 rows (lebih kurang)
 /*!40000 ALTER TABLE `users_groups` DISABLE KEYS */;
 INSERT INTO `users_groups` (`id`, `user_id`, `group_id`) VALUES
-	(1, 1, 1),
 	(2, 1, 2),
-	(3, 2, 5),
-	(4, 3, 5);
+	(12, 6, 3),
+	(13, 7, 1);
 /*!40000 ALTER TABLE `users_groups` ENABLE KEYS */;
+
+-- membuang struktur untuk table db_pengadaan.vendor
+CREATE TABLE IF NOT EXISTS `vendor` (
+  `id` int(20) NOT NULL AUTO_INCREMENT,
+  `nama` varchar(50) DEFAULT NULL,
+  `alamat` varchar(50) DEFAULT NULL,
+  `no_telp` varchar(15) DEFAULT NULL,
+  `email` varchar(50) DEFAULT NULL,
+  `situs_web` varchar(50) DEFAULT NULL,
+  `catatan` varchar(250) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+-- Membuang data untuk tabel db_pengadaan.vendor: ~0 rows (lebih kurang)
+/*!40000 ALTER TABLE `vendor` DISABLE KEYS */;
+INSERT INTO `vendor` (`id`, `nama`, `alamat`, `no_telp`, `email`, `situs_web`, `catatan`) VALUES
+	(1, 'PT. ABCD', 'Banjarmasin', '081232312839', 'abc@abc.com', 'abc.com', '-');
+/*!40000 ALTER TABLE `vendor` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IFNULL(@OLD_FOREIGN_KEY_CHECKS, 1) */;
