@@ -70,13 +70,13 @@ class Unit extends CI_Controller
 
     public function hapus($id)
     {
-        $this->BarangModel->hapus($id);
+        $this->UnitModel->hapus($id);
         $err = $this->db->error();
         if ($err['code'] !== 0) {
             echo $err['message'];
         } else {
-            $this->session->set_flashdata('pesanbaik', 'Barang Berhasil Di Hapus');
-            redirect('barang');
+            $this->session->set_flashdata('pesanbaik', 'Unit Berhasil Di Hapus');
+            redirect('unit');
         }
     }
 }

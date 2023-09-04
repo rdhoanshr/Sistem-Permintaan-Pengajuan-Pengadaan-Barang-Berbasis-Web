@@ -61,7 +61,7 @@
                                                 <td><?= $u['nama_unit']; ?></td>
                                                 <td>
                                                     <a href="<?= base_url('unit/edit/') . $u['id_unit']; ?>" class="btn btn-sm btn-warning"><i class="fa fa-edit"></i></a>
-                                                    <a href="<?= base_url('unit/hapus/') . $u['id_unit']; ?>" class="btn btn-sm btn-danger" onclick="return confirm('Apakah Anda Yakin Menghapus Barang ini ?')"><i class="fa fa-trash"></i></a>
+                                                    <a href="<?= base_url('unit/hapus/') . $u['id_unit']; ?>" class="btn btn-sm btn-danger" onclick="return confirm('Apakah Anda Yakin Menghapus Unit ini ?')"><i class="fa fa-trash"></i></a>
                                                 </td>
                                             </tr>
                                         <?php endforeach; ?>

@@ -37,7 +37,7 @@ class UnitModel extends CI_model
 
     public function hapus($id)
     {
-        $this->db->where('id_barang', $id);
-        $this->db->delete('barang');
+        $this->db->where('id_unit', $id);
+        $this->db->delete('unit');
     }
 }
