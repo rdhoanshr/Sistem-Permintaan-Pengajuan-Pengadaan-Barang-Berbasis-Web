@@ -24,19 +24,24 @@ class VendorModel extends CI_model
         $this->db->insert('vendor', $data);
     }
 
-    public function getUnit($id)
+    public function getVendor($id)
     {
-        return $this->db->get_where('unit', ['id_unit' => $id])->row_array();
+        return $this->db->get_where('vendor', ['id' => $id])->row_array();
     }
 
     public function proses_edit($id)
     {
         $data = [
-            "nama_unit" => $this->input->post('nama_unit', true),
+            "nama" => $this->input->post('nama', true),
+            "alamat" => $this->input->post('alamat', true),
+            "no_telp" => $this->input->post('no_telp', true),
+            "email" => $this->input->post('email', true),
+            "situs_web" => $this->input->post('situs_web', true),
+            "catatan" => $this->input->post('catatan', true),
         ];
 
-        $this->db->where('id_unit', $id);
-        $this->db->update('unit', $data);
+        $this->db->where('id', $id);
+        $this->db->update('vendor', $data);
     }
 
 

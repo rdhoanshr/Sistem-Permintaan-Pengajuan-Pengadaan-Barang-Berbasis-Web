@@ -54,21 +54,26 @@ class Vendor extends CI_Controller
 
     public function edit($id)
     {
-        $data['title'] = 'Edit Unit';
-        $data['unit'] = $this->UnitModel->getUnit($id);
+        $data['title'] = 'Edit Vendor';
+        $data['vendor'] = $this->VendorModel->getVendor($id);
 
-        $this->form_validation->set_rules('nama_unit', 'Nama Unit', 'required');
+        $this->form_validation->set_rules('nama', 'Nama', 'required');
+        $this->form_validation->set_rules('alamat', 'Alamat', 'required');
+        $this->form_validation->set_rules('no_telp', 'No Telp', 'required|min_length[10]|max_length[14]');
+        $this->form_validation->set_rules('email', 'Email', 'required|valid_email');
+        $this->form_validation->set_rules('situs_web', 'Situs Web', 'required');
+        $this->form_validation->set_rules('catatan', 'Catatan', 'required');
 
         if ($this->form_validation->run() == false) {
-            $this->load->view('unit/edit_unit', $data);
+            $this->load->view('vendor/edit_vendor', $data);
         } else {
-            $this->UnitModel->proses_edit($id);
+            $this->VendorModel->proses_edit($id);
             $err = $this->db->error();
             if ($err['code'] !== 0) {
                 echo $err['message'];
             } else {
-                $this->session->set_flashdata('pesanbaik', 'Unit Berhasil Di update');
-                redirect('unit');
+                $this->session->set_flashdata('pesanbaik', 'Vendor Berhasil Di update');
+                redirect('vendor');
             }
         }
     }

@@ -25,11 +25,11 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-            Edit Unit
+            Edit Vendor
         </h1>
         <ol class="breadcrumb">
             <li><a href="<?= base_url(); ?>"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li><a href="<?= base_url(); ?>unit">Data Unit</a></li>
+            <li><a href="<?= base_url(); ?>vendor">Data Vendor</a></li>
             <li class="active">Edit</li>
         </ol>
     </section>
@@ -45,13 +45,38 @@
                         <div class="box-body">
                             <form action="" method="post">
                                 <div class="form-group">
-                                    <label for=""> Nama Unit </label>
-                                    <input type="text" name="nama_unit" class="form-control" value="<?= $unit['nama_unit']; ?>">
-                                    <div class="form-text text-danger"><?= form_error('nama_unit'); ?></div>
+                                    <label for=""> Nama </label>
+                                    <input type="text" name="nama" class="form-control" value="<?= $vendor['nama']; ?>">
+                                    <div class="form-text text-danger"><?= form_error('nama'); ?></div>
+                                </div>
+                                <div class="form-group">
+                                    <label for=""> Alamat </label>
+                                    <input type="text" name="alamat" class="form-control" value="<?= $vendor['alamat']; ?>">
+                                    <div class="form-text text-danger"><?= form_error('alamat'); ?></div>
+                                </div>
+                                <div class="form-group">
+                                    <label for=""> No Telp </label>
+                                    <input type="number" name="no_telp" class="form-control" value="<?= $vendor['no_telp']; ?>">
+                                    <div class="form-text text-danger"><?= form_error('no_telp'); ?></div>
+                                </div>
+                                <div class="form-group">
+                                    <label for=""> Email </label>
+                                    <input type="email" name="email" class="form-control" value="<?= $vendor['email']; ?>">
+                                    <div class="form-text text-danger"><?= form_error('email'); ?></div>
+                                </div>
+                                <div class="form-group">
+                                    <label for=""> Situs Web </label>
+                                    <input type="text" name="situs_web" class="form-control" value="<?= $vendor['situs_web']; ?>">
+                                    <div class="form-text text-danger"><?= form_error('situs_web'); ?></div>
+                                </div>
+                                <div class="form-group">
+                                    <label for=""> Catatan </label>
+                                    <input type="text" name="catatan" class="form-control" value="<?= $vendor['catatan']; ?>">
+                                    <div class="form-text text-danger"><?= form_error('catatan'); ?></div>
                                 </div>
 
                                 <button type="submit" class="btn btn-primary">Update</button>
-                                <a href="<?= base_url('unit'); ?>" class="btn btn-info">Batal</a>
+                                <a href="<?= base_url('vendor'); ?>" class="btn btn-info">Batal</a>
 
                             </form>
                         </div>
