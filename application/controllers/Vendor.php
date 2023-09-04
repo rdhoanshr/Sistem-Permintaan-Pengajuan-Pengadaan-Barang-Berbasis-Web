@@ -80,13 +80,13 @@ class Vendor extends CI_Controller
 
     public function hapus($id)
     {
-        $this->UnitModel->hapus($id);
+        $this->VendorModel->hapus($id);
         $err = $this->db->error();
         if ($err['code'] !== 0) {
             echo $err['message'];
         } else {
-            $this->session->set_flashdata('pesanbaik', 'Unit Berhasil Di Hapus');
-            redirect('unit');
+            $this->session->set_flashdata('pesanbaik', 'Vendor Berhasil Di Hapus');
+            redirect('vendor');
         }
     }
 }

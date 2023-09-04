@@ -47,7 +47,7 @@ class VendorModel extends CI_model
 
     public function hapus($id)
     {
-        $this->db->where('id_unit', $id);
-        $this->db->delete('unit');
+        $this->db->where('id', $id);
+        $this->db->delete('vendor');
     }
 }
