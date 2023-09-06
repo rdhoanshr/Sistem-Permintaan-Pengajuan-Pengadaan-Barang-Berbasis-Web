@@ -256,6 +256,34 @@
         })
     })
 </script>
+<script>
+    // Input value unit
+    if ($('#group').val() == 1) {
+        $('.unit').show();
+    } else {
+        $('.unit').hide();
+    }
+    $('#group').change(function() {
+        if ($('#group').val() == 1) {
+            $('.unit').show();
+        } else {
+            $('.unit').hide();
+        }
+    });
+    // Input value unit
+    if ($('#group').val() == 5) {
+        $('.vendor').show();
+    } else {
+        $('.vendor').hide();
+    }
+    $('#group').change(function() {
+        if ($('#group').val() == 5) {
+            $('.vendor').show();
+        } else {
+            $('.vendor').hide();
+        }
+    });
+</script>
 </body>
 
 </html>

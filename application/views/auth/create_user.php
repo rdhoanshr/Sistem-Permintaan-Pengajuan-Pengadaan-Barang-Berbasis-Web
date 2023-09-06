@@ -72,6 +72,26 @@
                                 </select>
 
                             </div>
+                            <div class="form-group unit">
+                                <label for="">Unit</label>
+                                <select name="unit" id="unit" class="form-control">
+                                    <option selected disabled>-- Pilih Unit --</option>
+                                    <?php foreach ($unit as $u) : ?>
+                                        <option value="<?= $u['id_unit']; ?>"><?= $u['nama_unit']; ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+
+                            </div>
+                            <div class="form-group vendor">
+                                <label for="">Vendor</label>
+                                <select name="vendor" id="vendor" class="form-control">
+                                    <option selected disabled>-- Pilih Vendor --</option>
+                                    <?php foreach ($vendor as $u) : ?>
+                                        <option value="<?= $u['id']; ?>"><?= $u['nama']; ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+
+                            </div>
                             <button type="submit" class="btn btn-primary">Simpan</button>
                             <a href="<?= base_url('auth/pengguna'); ?>" class="btn btn-info">Batal</a>
                             <?php echo form_close(); ?>
@@ -89,6 +109,5 @@
     <!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
-
 <!-- Memanggil file footer.php -->
 <?php $this->load->view("layout_backoffice/footer") ?>

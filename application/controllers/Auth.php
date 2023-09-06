@@ -542,6 +542,11 @@ class Auth extends CI_Controller
 		$tables = $this->config->item('tables', 'ion_auth');
 		$identity_column = $this->config->item('identity', 'ion_auth');
 		$this->data['identity_column'] = $identity_column;
+		// $UnitModel = $this->load->model('UnitModel');
+		$this->load->model('UnitModel');
+		$this->load->model('VendorModel');
+		$this->data['unit'] = $this->UnitModel->lihat();
+		$this->data['vendor'] = $this->VendorModel->lihat();
 
 		// validate form input
 		$this->load->library('form_validation');
@@ -556,7 +561,10 @@ class Auth extends CI_Controller
 			$identity = ($identity_column === 'email') ? $email : $this->input->post('username');
 			$password = $this->input->post('password');
 
-			$additional_data = [];
+			$additional_data = [
+				'id_unit' => $this->input->post('unit'),
+				'id_vendor' => $this->input->post('vendor')
+			];
 			$groups = array($this->input->post('group'));
 		}
 		if ($this->form_validation->run() === TRUE && $this->ion_auth->register($identity, $password, $email, $additional_data, $groups)) {
@@ -654,6 +662,12 @@ class Auth extends CI_Controller
 		$identity_column = $this->config->item('identity', 'ion_auth');
 		$this->data['identity_column'] = $identity_column;
 
+		$this->load->model('UnitModel');
+		$this->load->model('VendorModel');
+		$this->data['unit'] = $this->UnitModel->lihat();
+		$this->data['vendor'] = $this->VendorModel->lihat();
+
+
 
 		// die(var_dump($currentGroups));
 		//USAGE NOTE - you can do more complicated queries like this
@@ -698,7 +712,8 @@ class Auth extends CI_Controller
 					'username' => $this->input->post('username'),
 					'email' => $this->input->post('email'),
 					'active' => $this->input->post('status'),
-					// 'phone' => $this->input->post('phone'),
+					'id_unit' => $this->input->post('unit'),
+					'id_vendor' => $this->input->post('vendor'),
 				];
 
 				// update the password if it was posted
