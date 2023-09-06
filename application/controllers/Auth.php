@@ -498,6 +498,7 @@ class Auth extends CI_Controller
 			$this->form_validation->set_rules('email', $this->lang->line('create_user_validation_email_label'), 'trim|required|valid_email|is_unique[' . $tables['users'] . '.email]');
 			$this->form_validation->set_rules('password', 'Password', 'trim|required|xss_clean|matches[password_confirm]');
 			$this->form_validation->set_rules('password_confirm', $this->lang->line('create_user_validation_password_confirm_label'), 'required');
+			$this->form_validation->set_rules('group[]', 'Pilih Role', 'required');
 
 			if ($this->form_validation->run() == false) {
 				$this->session->set_flashdata('message', $this->ion_auth->messages());
@@ -512,7 +513,7 @@ class Auth extends CI_Controller
 					// 'nik' => $this->input->post('nik'),
 					// 'phone' => $this->input->post('phone')
 				);
-				$group = array('5'); // Sets user ke grup member
+				$group = array($this->input->post('group')); // Sets user ke grup member
 				if ($this->ion_auth->register($username, $password, $email, $additional_data, $group)) {
 					$this->session->set_flashdata('pesanbaik', 'Akun telah didaftarkan. Silakan Login');
 					redirect('auth/login');

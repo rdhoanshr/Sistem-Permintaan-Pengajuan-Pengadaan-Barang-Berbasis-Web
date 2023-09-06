@@ -46,6 +46,15 @@
                     <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                 </div>
                 <div class="form-text text-danger"><?= form_error('password_confirm'); ?></div>
+                <div class="form-group has-feedback">
+                    <select name="group[]" id="group" class="form-control">
+                        <option selected disabled>-- Daftar Sebagai --</option>
+                        <option value="1">Unit</option>
+                        <option value="5">Vendor</option>
+                    </select>
+                    <!-- <span class="glyphicon glyphicon-lock form-control-feedback"></span> -->
+                </div>
+                <div class="form-text text-danger"><?= form_error('group'); ?></div>
                 <div class="row">
 
                     <!-- /.col -->
