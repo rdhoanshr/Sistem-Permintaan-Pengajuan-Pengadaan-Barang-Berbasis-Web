@@ -206,4 +206,16 @@ class PengajuanModel extends CI_model
         $this->db->where('id', $id);
         $this->db->delete('pengajuan');
     }
+
+    public function acc_staff($id)
+    {
+        $user = $this->ion_auth->user()->row();
+        $data = [
+            "status" => 2,
+            "verifikasi_1" => $user->id,
+        ];
+
+        $this->db->where('id', $id);
+        $this->db->update('pengajuan', $data);
+    }
 }

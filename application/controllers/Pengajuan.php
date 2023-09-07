@@ -264,4 +264,16 @@ class Pengajuan extends CI_Controller
             redirect('pengajuan');
         }
     }
+
+    public function acc_staff($id)
+    {
+        $this->PengajuanModel->acc_staff($id);
+        $err = $this->db->error();
+        if ($err['code'] !== 0) {
+            echo $err['message'];
+        } else {
+            $this->session->set_flashdata('pesanbaik', 'Pengajuan Berhasil Di Setujui');
+            redirect('pengajuan');
+        }
+    }
 }

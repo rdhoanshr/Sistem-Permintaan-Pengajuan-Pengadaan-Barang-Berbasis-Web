@@ -88,6 +88,7 @@
                                                 <label for="" class="col-sm-4">Status</label>
                                                 <div class="col-sm-8">
                                                     : <?= ($row['status'] == 0) ? 'Menunggu' : ''; ?>
+                                                    <?= ($row['status'] == 2) ? 'Approved Staff' : ''; ?>
                                                 </div>
                                             </div>
                                         </div>
@@ -138,9 +139,14 @@
                             </div>
                         </div>
 
-
-                        <a href="<?= base_url('pengajuan'); ?>" class="btn btn-info">Kembali</a>
-
+                        <div class="form-group">
+                            <?php if ($this->ion_auth->in_group('staff')) : ?>
+                                <?php if ($row['status'] == 0) : ?>
+                                    <a href="<?= base_url('pengajuan/acc_staff/' . $row['id']); ?>" class="btn btn-success" onclick="return confirm('Apakah Anda Yakin Acc Pengajuan ini ?')"><i class="fa fa-check"></i> Acc</a>
+                                <?php endif; ?>
+                            <?php endif; ?>
+                            <a href="<?= base_url('pengajuan'); ?>" class="btn btn-info">Kembali</a>
+                        </div>
                     </div>
                     <!-- /.card-body -->
                 </div>
