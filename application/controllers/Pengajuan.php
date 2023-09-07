@@ -148,6 +148,16 @@ class Pengajuan extends CI_Controller
             redirect('pengajuan/tambah');
         }
     }
+
+    public function detail($id)
+    {
+        $data['title'] = 'Detail Pengajuan';
+        $data['row'] = $this->PengajuanModel->getPengajuan($id);
+        $data['barang'] = $this->PengajuanModel->detail($id);
+
+        $this->load->view('pengajuan/detail_pengajuan', $data);
+    }
+
     public function edit($id)
     {
         $data['title'] = 'Edit Unit';

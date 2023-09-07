@@ -78,7 +78,9 @@
                                                 <td><?= $u['jenis_pengajuan']; ?></td>
                                                 <td><?= $u['tgl_pengajuan']; ?></td>
                                                 <td>Rp. <?= number_format($u['total']); ?></td>
-                                                <td><?= $u['status']; ?></td>
+                                                <td>
+                                                    <?= ($u['status'] == 0) ? '<button type="button" class="btn btn-sm btn-white">Menunggu</button>' : ''; ?>
+                                                </td>
                                                 <td>
                                                     <a href="<?= base_url('pengajuan/detail/') . $u['id']; ?>" class="btn btn-sm btn-info"><i class="fa fa-eye"></i></a>
                                                     <?php if ($u['status'] == 0) : ?>

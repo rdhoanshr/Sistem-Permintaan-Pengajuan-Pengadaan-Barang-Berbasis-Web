@@ -129,9 +129,25 @@ class PengajuanModel extends CI_model
         }
     }
 
-    public function getUnit($id)
+    public function getPengajuan($id)
     {
-        return $this->db->get_where('unit', ['id_unit' => $id])->row_array();
+        $this->db->select('pengajuan.id,kode_pengajuan,pengajuan,jenis_pengajuan,tgl_pengajuan,keterangan,total,status,users.id_unit,nama_unit');
+        $this->db->from('pengajuan');
+        $this->db->join('users', 'pengajuan.id_user = users.id');
+        $this->db->join('unit', 'users.id_unit = unit.id_unit');
+        $this->db->where('pengajuan.id', $id);
+
+        return $this->db->get()->row_array();
+    }
+
+    public function detail($id)
+    {
+        $this->db->select('*');
+        $this->db->from('detail_pengajuan');
+        $this->db->join('barang', 'detail_pengajuan.id_barang=barang.id_barang');
+        $this->db->where('id_pengajuan', $id);
+
+        return $this->db->get()->result_array();
     }
 
     public function proses_edit($id)
