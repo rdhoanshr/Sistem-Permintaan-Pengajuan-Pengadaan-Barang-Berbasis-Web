@@ -41,7 +41,7 @@
                                         </div> -->
                                     <div class="pull-right">
                                         <!-- <div class="row"></div> -->
-                                        <a href="<?= base_url(); ?>assets/AdminLTE/#" class="btn btn-default">Profile</a>
+                                        <a href="<?= base_url(); ?>profile" class="btn btn-default">Profile</a>
                                         <a href="<?= base_url(); ?>auth/logout" class="btn btn-default">Logout</a>
 
                                     </div>

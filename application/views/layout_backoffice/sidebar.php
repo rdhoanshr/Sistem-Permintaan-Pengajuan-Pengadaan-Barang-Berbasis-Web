@@ -46,7 +46,7 @@
                 </li>
             <?php endif; ?>
             <li>
-                <a href="#">
+                <a href="<?= base_url(); ?>profile">
                     <i class="fa fa-laptop"></i>
                     <span>Profile</span>
                     <span class="pull-right-container">
