@@ -12,6 +12,17 @@ class PengajuanModel extends CI_model
         return $this->db->get()->result_array();
     }
 
+    public function lihat_kabagdirut()
+    {
+        $this->db->select('pengajuan.id,kode_pengajuan,pengajuan,jenis_pengajuan,tgl_pengajuan,keterangan,total,status,users.id_unit,nama_unit');
+        $this->db->from('pengajuan');
+        $this->db->join('users', 'pengajuan.id_user = users.id');
+        $this->db->join('unit', 'users.id_unit = unit.id_unit');
+        $this->db->where_not_in('status', 0);
+
+        return $this->db->get()->result_array();
+    }
+
     public function lihat_unit()
     {
         $id_user = $this->ion_auth->user()->row()->id;
@@ -229,5 +240,32 @@ class PengajuanModel extends CI_model
 
         $this->db->where('id', $id);
         $this->db->update('pengajuan', $data);
+    }
+
+    public function acc_direktur($id)
+    {
+        $user = $this->ion_auth->user()->row();
+        $kode = $this->db->query("SELECT kode_pengajuan FROM pengajuan WHERE id=$id")->row_array();
+        if ($kode != null) {
+            $no_surat =  implode("", $kode);
+        } else {
+            $kode = null;
+        }
+
+        $data = [
+            "status" => 4,
+            "verifikasi_3" => $user->id,
+        ];
+
+        $data_surat = [
+            "ttd_aprover" => $user->ttd,
+            "tgl_persetujuan" => date('Y-m-d'),
+        ];
+
+        $this->db->where('id', $id);
+        $this->db->update('pengajuan', $data);
+
+        $this->db->where('no_surat', $no_surat);
+        $this->db->update('surat', $data_surat);
     }
 }

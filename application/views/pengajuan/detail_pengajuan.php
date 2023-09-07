@@ -14,12 +14,18 @@
     <!-- Menampilkan notif flashdata -->
     <?php if ($this->session->flashdata('message')) : ?>
         <div class="alert alert-danger" role="alert">
-            <?php echo $message; ?>
+            <?php echo $this->session->flashdata('message'); ?>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
         </div>
     <?php endif; ?>
     <?php if ($this->session->flashdata('pesanbaik')) : ?>
         <div class="alert alert-success" role="alert">
             <?php echo $this->session->flashdata('pesanbaik'); ?>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
         </div>
     <?php endif; ?>
     <!-- Content Header (Page header) -->
@@ -90,6 +96,7 @@
                                                     : <?= ($row['status'] == 0) ? 'Menunggu' : ''; ?>
                                                     <?= ($row['status'] == 2) ? 'Approved Staff' : ''; ?>
                                                     <?= ($row['status'] == 3) ? 'Approved Kabag' : ''; ?>
+                                                    <?= ($row['status'] == 4) ? 'Approved Direktur' : ''; ?>
                                                 </div>
                                             </div>
                                         </div>
@@ -149,6 +156,11 @@
                             <?php if ($this->ion_auth->in_group('kabag')) : ?>
                                 <?php if ($row['status'] == 2) : ?>
                                     <a href="<?= base_url('pengajuan/acc_kabag/' . $row['id']); ?>" class="btn btn-success" onclick="return confirm('Apakah Anda Yakin Acc Pengajuan ini ?')"><i class="fa fa-check"></i> Acc</a>
+                                <?php endif; ?>
+                            <?php endif; ?>
+                            <?php if ($this->ion_auth->in_group('direktur')) : ?>
+                                <?php if ($row['status'] == 3) : ?>
+                                    <a href="<?= base_url('pengajuan/acc_direktur/' . $row['id']); ?>" class="btn btn-success" onclick="return confirm('Apakah Anda Yakin Acc Pengajuan ini ?')"><i class="fa fa-check"></i> Acc</a>
                                 <?php endif; ?>
                             <?php endif; ?>
                             <a href="<?= base_url('pengajuan'); ?>" class="btn btn-info">Kembali</a>

@@ -698,7 +698,7 @@ class Auth extends CI_Controller
 
 		if (isset($_POST) && !empty($_POST)) {
 			// do we have a valid request?
-			if ($this->_valid_csrf_nonce() === FALSE || $id != $this->input->post('id')) {
+			if ($id != $this->input->post('id')) {
 				show_error($this->lang->line('error_csrf'));
 			}
 

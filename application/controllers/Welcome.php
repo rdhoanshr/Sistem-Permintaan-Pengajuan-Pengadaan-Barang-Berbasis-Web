@@ -44,6 +44,9 @@ class Welcome extends CI_Controller
 			} elseif ($this->ion_auth->in_group('kabag')) {
 				$data['title'] = 'Dashboard';
 				$this->load->view('layout_backoffice/index', $data);
+			} elseif ($this->ion_auth->in_group('direktur')) {
+				$data['title'] = 'Dashboard';
+				$this->load->view('layout_backoffice/index', $data);
 			}
 		} else {
 			$data['title'] = 'Login';

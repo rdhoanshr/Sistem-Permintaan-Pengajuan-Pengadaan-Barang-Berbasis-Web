@@ -27,6 +27,8 @@ class Pengajuan extends CI_Controller
         $data['title'] = 'Data Pengajuan';
         if ($this->ion_auth->in_group('unit')) {
             $data['pengajuan'] = $this->PengajuanModel->lihat_unit();
+        } elseif ($this->ion_auth->in_group('kabag') || $this->ion_auth->in_group('direktur')) {
+            $data['pengajuan'] = $this->PengajuanModel->lihat_kabagdirut();
         } else {
             $data['pengajuan'] = $this->PengajuanModel->lihat();
         }
@@ -267,6 +269,11 @@ class Pengajuan extends CI_Controller
 
     public function acc_staff($id)
     {
+        $user = $this->ion_auth->user()->row();
+        if ($user->ttd == null) {
+            $this->session->set_flashdata('message', 'Acc Pengajuan Gagal - Harap Lengkapi Profil Anda Terlebih Dahulu');
+            redirect('pengajuan/detail/' . $id);
+        }
         $this->PengajuanModel->acc_staff($id);
         $err = $this->db->error();
         if ($err['code'] !== 0) {
@@ -279,7 +286,29 @@ class Pengajuan extends CI_Controller
 
     public function acc_kabag($id)
     {
+        $user = $this->ion_auth->user()->row();
+        if ($user->ttd == null) {
+            $this->session->set_flashdata('message', 'Acc Pengajuan Gagal - Harap Lengkapi Profil Anda Terlebih Dahulu');
+            redirect('pengajuan/detail/' . $id);
+        }
         $this->PengajuanModel->acc_kabag($id);
+        $err = $this->db->error();
+        if ($err['code'] !== 0) {
+            echo $err['message'];
+        } else {
+            $this->session->set_flashdata('pesanbaik', 'Pengajuan Berhasil Di Setujui');
+            redirect('pengajuan');
+        }
+    }
+
+    public function acc_direktur($id)
+    {
+        $user = $this->ion_auth->user()->row();
+        if ($user->ttd == null) {
+            $this->session->set_flashdata('message', 'Acc Pengajuan Gagal - Harap Lengkapi Profil Anda Terlebih Dahulu');
+            redirect('pengajuan/detail/' . $id);
+        }
+        $this->PengajuanModel->acc_direktur($id);
         $err = $this->db->error();
         if ($err['code'] !== 0) {
             echo $err['message'];
