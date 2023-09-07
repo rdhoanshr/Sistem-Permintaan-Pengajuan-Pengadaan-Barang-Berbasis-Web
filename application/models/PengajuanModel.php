@@ -218,4 +218,16 @@ class PengajuanModel extends CI_model
         $this->db->where('id', $id);
         $this->db->update('pengajuan', $data);
     }
+
+    public function acc_kabag($id)
+    {
+        $user = $this->ion_auth->user()->row();
+        $data = [
+            "status" => 3,
+            "verifikasi_2" => $user->id,
+        ];
+
+        $this->db->where('id', $id);
+        $this->db->update('pengajuan', $data);
+    }
 }

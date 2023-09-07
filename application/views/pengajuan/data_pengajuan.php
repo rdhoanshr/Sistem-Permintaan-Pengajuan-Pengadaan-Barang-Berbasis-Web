@@ -81,6 +81,7 @@
                                                 <td>
                                                     <?= ($u['status'] == 0) ? '<button type="button" class="btn btn-sm btn-white">Menunggu</button>' : ''; ?>
                                                     <?= ($u['status'] == 2) ? '<button type="button" class="btn btn-sm btn-primary">Approved Staff</button>' : ''; ?>
+                                                    <?= ($u['status'] == 3) ? '<button type="button" class="btn btn-sm btn-success">Approved Kabag</button>' : ''; ?>
                                                 </td>
                                                 <td>
                                                     <a href="<?= base_url('pengajuan/detail/') . $u['id']; ?>" class="btn btn-sm btn-info"><i class="fa fa-eye"></i></a>
