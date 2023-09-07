@@ -287,6 +287,7 @@
 <script>
     $(document).ready(function() {
         databarang();
+        detail_pengajuan();
     });
 
     function temp_barang() {
@@ -323,6 +324,57 @@
             url: "<?= base_url('pengajuan/data_barang'); ?>",
             data: {
                 id_user: $('#id_user').val(),
+                id: $('#id').val(),
+            },
+            dataType: "json",
+            beforeSend: function(response) {
+                $('.databarang').html('<i class="fas fa-spin fa-spinner"></i>')
+            },
+            success: function(response) {
+                if (response.data) {
+                    $('.databarang').html(response.data);
+                }
+            },
+            error: function(xhr, ajaxOptions, thrownError) {
+                alert(xhr.status + "\n" + xhr.responseText + "\n" +
+                    thrownError);
+            }
+        });
+    }
+
+    function insert_detail() {
+        $.ajax({
+            type: "post",
+            url: "<?= base_url('pengajuan/insert_detail') ?>",
+            data: {
+                id: $('#id').val(),
+                id_user: $('#id_user').val(),
+                id_barang: $('#id_barang').val(),
+                jumlah: $('#jumlah').val(),
+                biaya: $('#biaya').val(),
+            },
+            dataType: "json",
+            success: function(response) {
+                if (response.sukses) {
+                    alert('Barang Berhasil Ditambah');
+                    detail_pengajuan();
+                }
+                if (response.gagal) {
+                    alert(response.gagal);
+                }
+            },
+            error: function(xhr, ajaxOptions, thrownError) {
+                alert(xhr.status + "\n" + xhr.responseText + "\n" +
+                    thrownError);
+            }
+        });
+    }
+
+    function detail_pengajuan() {
+        $.ajax({
+            type: "post",
+            url: "<?= base_url('pengajuan/detail_pengajuan'); ?>",
+            data: {
                 id: $('#id').val(),
             },
             dataType: "json",

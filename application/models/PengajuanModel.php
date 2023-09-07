@@ -37,6 +37,19 @@ class PengajuanModel extends CI_model
         $this->db->insert('temp_detailpengajuan', $insert);
     }
 
+    public function insertdetail($data)
+    {
+        $insert = [
+            'id_pengajuan' => $data['id_pengajuan'],
+            'id_barang' => $data['id_barang'],
+            'jumlah' => $data['jumlah'],
+            'biaya' => $data['biaya'],
+            'id_user' => $data['id_user'],
+        ];
+
+        $this->db->insert('detail_pengajuan', $insert);
+    }
+
     public function temp_barang($id, $id_user)
     {
         $this->db->select('*');
@@ -59,10 +72,26 @@ class PengajuanModel extends CI_model
         return $this->db->get()->row_array();
     }
 
+    public function total_pagudetail($id)
+    {
+        $this->db->select_sum('biaya', 'total');
+        $this->db->from('detail_pengajuan');
+        $this->db->join('barang', 'detail_pengajuan.id_barang=barang.id_barang');
+        $this->db->where('id_pengajuan', $id);
+
+        return $this->db->get()->row_array();
+    }
+
     public function hapus_barang($id)
     {
         $this->db->where('id', $id);
         $this->db->delete('temp_detailpengajuan');
+    }
+
+    public function hapus_detail($id)
+    {
+        $this->db->where('id', $id);
+        $this->db->delete('detail_pengajuan');
     }
 
     public function proses_tambah($total)
@@ -131,7 +160,7 @@ class PengajuanModel extends CI_model
 
     public function getPengajuan($id)
     {
-        $this->db->select('pengajuan.id,kode_pengajuan,pengajuan,jenis_pengajuan,tgl_pengajuan,keterangan,total,status,users.id_unit,nama_unit');
+        $this->db->select('pengajuan.id,kode_pengajuan,pengajuan,jenis_pengajuan,tgl_pengajuan,keterangan,total,status,users.id_unit,nama_unit,id_user');
         $this->db->from('pengajuan');
         $this->db->join('users', 'pengajuan.id_user = users.id');
         $this->db->join('unit', 'users.id_unit = unit.id_unit');
@@ -150,14 +179,22 @@ class PengajuanModel extends CI_model
         return $this->db->get()->result_array();
     }
 
-    public function proses_edit($id)
+    public function proses_edit($id, $total)
     {
-        $data = [
-            "nama_unit" => $this->input->post('nama_unit', true),
-        ];
+        $id = $this->input->post('id');
 
-        $this->db->where('id_unit', $id);
-        $this->db->update('unit', $data);
+        $data = [
+            "pengajuan" => $this->input->post('pengajuan', true),
+            "jenis_pengajuan" => $this->input->post('jenis_pengajuan', true),
+            "keterangan" => $this->input->post('keterangan', true),
+            "total" => implode("", $total),
+        ];
+        if ($this->ion_auth->in_group('unit')) {
+            $data['status'] = 0;
+        }
+
+        $this->db->where('id', $id);
+        $this->db->update('pengajuan', $data);
     }
 
 

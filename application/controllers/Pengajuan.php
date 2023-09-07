@@ -76,7 +76,6 @@ class Pengajuan extends CI_Controller
                 redirect('pengajuan/tambah');
             } else {
                 $total = $this->PengajuanModel->total_pagu($id, $id_user);
-                // die(var_dump($total));
                 $this->PengajuanModel->proses_tambah($total);
                 $err = $this->db->error();
                 if ($err['code'] !== 0) {
@@ -161,21 +160,96 @@ class Pengajuan extends CI_Controller
     public function edit($id)
     {
         $data['title'] = 'Edit Unit';
-        $data['unit'] = $this->UnitModel->getUnit($id);
+        $data['barang'] = $this->BarangModel->lihat();
+        $data['row'] = $this->PengajuanModel->getPengajuan($id);
 
-        $this->form_validation->set_rules('nama_unit', 'Nama Unit', 'required');
+        $this->form_validation->set_rules('pengajuan', 'Nama Pengajuan', 'required');
+        $this->form_validation->set_rules('jenis_pengajuan', 'Jenis Pengajuan', 'required');
+        $this->form_validation->set_rules('tgl_pengajuan', 'Tanggal Pengajuan', 'required');
+        $this->form_validation->set_rules('keterangan', 'Keterangan', 'required');
 
         if ($this->form_validation->run() == false) {
-            $this->load->view('unit/edit_unit', $data);
+            $this->load->view('pengajuan/edit_pengajuan', $data);
         } else {
-            $this->UnitModel->proses_edit($id);
+            if (!$this->PengajuanModel->detail($id)) {
+                $this->session->set_flashdata('message', 'Tidak Ada Barang Yang Di Ajukan');
+                redirect('pengajuan/edit/' . $id);
+            } else {
+                $total = $this->PengajuanModel->total_pagudetail($id);
+                $this->PengajuanModel->proses_edit($id, $total);
+                $err = $this->db->error();
+                if ($err['code'] !== 0) {
+                    echo $err['message'];
+                } else {
+                    $this->session->set_flashdata('pesanbaik', 'Pengajuan Berhasil Di update');
+                    redirect('Pengajuan');
+                }
+            }
+        }
+    }
+
+    public function detail_pengajuan()
+    {
+        $id = $this->input->post('id');
+        $getData = $this->PengajuanModel->detail($id);
+
+        $data = [
+            'barang' => $getData,
+        ];
+
+        $view = $this->load->view('pengajuan/detail_barang', $data, TRUE);
+        $msg = [
+            'data' => $view
+        ];
+
+        echo json_encode($msg);
+    }
+
+    public function insert_detail()
+    {
+        $id_barang = $this->input->post('id_barang');
+        $id_user = $this->input->post('id_user');
+        $id = $this->input->post('id');
+        $jumlah = $this->input->post('jumlah');
+        $biaya = $this->input->post('biaya');
+
+        if ($id_barang == null && $jumlah == null && $biaya == null) {
+            $msg = [
+                'gagal' => 'Gagal - Barang Harus Diisi'
+            ];
+        } else {
+            $data = [
+                'id_pengajuan' => $id,
+                'id_barang' => $id_barang,
+                'jumlah' => $jumlah,
+                'biaya' => $biaya,
+                'id_user' => $id_user,
+            ];
+
+            $this->PengajuanModel->insertdetail($data);
+
+            $msg = [
+                'sukses' => 'Berhasil'
+            ];
+        }
+        echo json_encode($msg);
+    }
+
+    public function hapus_detail($id)
+    {
+        $id_p = $this->input->get('id_p');
+        if ($id_p != null) {
+            $this->PengajuanModel->hapus_detail($id);
             $err = $this->db->error();
             if ($err['code'] !== 0) {
                 echo $err['message'];
             } else {
-                $this->session->set_flashdata('pesanbaik', 'Unit Berhasil Di update');
-                redirect('unit');
+                $this->session->set_flashdata('pesanbaik', 'Barang Berhasil Di Hapus');
+                redirect('pengajuan/edit/' . $id_p);
             }
+        } else {
+            $this->session->set_flashdata('message', 'Barang Gagal Di Hapus');
+            redirect('pengajuan');
         }
     }
 
