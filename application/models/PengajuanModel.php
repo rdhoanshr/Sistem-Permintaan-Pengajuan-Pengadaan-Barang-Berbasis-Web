@@ -4,7 +4,7 @@ class PengajuanModel extends CI_model
 {
     public function lihat()
     {
-        $this->db->select('*');
+        $this->db->select('pengajuan.id,kode_pengajuan,pengajuan,jenis_pengajuan,tgl_pengajuan,keterangan,total,status,users.id_unit,nama_unit');
         $this->db->from('pengajuan');
         $this->db->join('users', 'pengajuan.id_user = users.id');
         $this->db->join('unit', 'users.id_unit = unit.id_unit');
@@ -15,7 +15,7 @@ class PengajuanModel extends CI_model
     public function lihat_unit()
     {
         $id_user = $this->ion_auth->user()->row()->id;
-        $this->db->select('*');
+        $this->db->select('pengajuan.id,kode_pengajuan,pengajuan,jenis_pengajuan,tgl_pengajuan,keterangan,total,status,users.id_unit,nama_unit');
         $this->db->from('pengajuan');
         $this->db->join('users', 'pengajuan.id_user = users.id');
         $this->db->join('unit', 'users.id_unit = unit.id_unit');
@@ -147,7 +147,10 @@ class PengajuanModel extends CI_model
 
     public function hapus($id)
     {
-        $this->db->where('id_unit', $id);
-        $this->db->delete('unit');
+        $this->db->where('id_pengajuan', $id);
+        $this->db->delete('detail_pengajuan');
+
+        $this->db->where('id', $id);
+        $this->db->delete('pengajuan');
     }
 }

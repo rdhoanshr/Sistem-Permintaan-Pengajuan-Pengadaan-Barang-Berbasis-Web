@@ -77,12 +77,14 @@
                                                 <td><?= $u['nama_unit']; ?></td>
                                                 <td><?= $u['jenis_pengajuan']; ?></td>
                                                 <td><?= $u['tgl_pengajuan']; ?></td>
-                                                <td><?= $u['total']; ?></td>
+                                                <td>Rp. <?= number_format($u['total']); ?></td>
                                                 <td><?= $u['status']; ?></td>
                                                 <td>
-                                                    <a href="<?= base_url('pengajuan/detail/') . $u['kode_pengajuan']; ?>" class="btn btn-sm btn-warning"><i class="fa fa-edit"></i></a>
-                                                    <a href="<?= base_url('pengajuan/edit/') . $u['kode_pengajuan']; ?>" class="btn btn-sm btn-warning"><i class="fa fa-edit"></i></a>
-                                                    <a href="<?= base_url('pengajuan/hapus/') . $u['kode_pengajuan']; ?>" class="btn btn-sm btn-danger" onclick="return confirm('Apakah Anda Yakin Menghapus Pengajuan ini ?')"><i class="fa fa-trash"></i></a>
+                                                    <a href="<?= base_url('pengajuan/detail/') . $u['id']; ?>" class="btn btn-sm btn-info"><i class="fa fa-eye"></i></a>
+                                                    <?php if ($u['status'] == 0) : ?>
+                                                        <a href="<?= base_url('pengajuan/edit/') . $u['id']; ?>" class="btn btn-sm btn-warning"><i class="fa fa-edit"></i></a>
+                                                        <a href="<?= base_url('pengajuan/hapus/') . $u['id']; ?>" class="btn btn-sm btn-danger" onclick="return confirm('Apakah Anda Yakin Menghapus Pengajuan ini ?')"><i class="fa fa-trash"></i></a>
+                                                    <?php endif; ?>
                                                 </td>
                                             </tr>
                                         <?php endforeach; ?>
