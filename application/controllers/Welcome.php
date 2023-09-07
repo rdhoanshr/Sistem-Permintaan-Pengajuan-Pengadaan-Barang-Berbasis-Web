@@ -38,9 +38,9 @@ class Welcome extends CI_Controller
 				// die(var_dump($this->ion_auth->user()->row()->email));
 				$data['title'] = 'Dashboard';
 				$this->load->view('layout_backoffice/index', $data);
-			} else {
-				// die(var_dump($this->ion_auth->user()->row()));
-				$this->load->view('welcome_message');
+			} elseif ($this->ion_auth->in_group('unit')) {
+				$data['title'] = 'Dashboard';
+				$this->load->view('layout_backoffice/index', $data);
 			}
 		} else {
 			$data['title'] = 'Login';

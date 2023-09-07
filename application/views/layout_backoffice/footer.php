@@ -284,6 +284,63 @@
         }
     });
 </script>
+<script>
+    $(document).ready(function() {
+        databarang();
+    });
+
+    function temp_barang() {
+        $.ajax({
+            type: "post",
+            url: "<?= base_url('pengajuan/temp_barang') ?>",
+            data: {
+                id: $('#id').val(),
+                id_user: $('#id_user').val(),
+                id_barang: $('#id_barang').val(),
+                jumlah: $('#jumlah').val(),
+                biaya: $('#biaya').val(),
+            },
+            dataType: "json",
+            success: function(response) {
+                if (response.sukses) {
+                    alert('Barang Berhasil Ditambah');
+                    databarang();
+                }
+                if (response.gagal) {
+                    alert(response.gagal);
+                }
+            },
+            error: function(xhr, ajaxOptions, thrownError) {
+                alert(xhr.status + "\n" + xhr.responseText + "\n" +
+                    thrownError);
+            }
+        });
+    }
+
+    function databarang() {
+        $.ajax({
+            type: "post",
+            url: "<?= base_url('pengajuan/data_barang'); ?>",
+            data: {
+                id_user: $('#id_user').val(),
+                id: $('#id').val(),
+            },
+            dataType: "json",
+            beforeSend: function(response) {
+                $('.databarang').html('<i class="fas fa-spin fa-spinner"></i>')
+            },
+            success: function(response) {
+                if (response.data) {
+                    $('.databarang').html(response.data);
+                }
+            },
+            error: function(xhr, ajaxOptions, thrownError) {
+                alert(xhr.status + "\n" + xhr.responseText + "\n" +
+                    thrownError);
+            }
+        });
+    }
+</script>
 </body>
 
 </html>
