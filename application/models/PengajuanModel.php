@@ -12,6 +12,18 @@ class PengajuanModel extends CI_model
         return $this->db->get()->result_array();
     }
 
+    public function lihat_vendor()
+    {
+        $id_user = $this->ion_auth->user()->row()->id_vendor;
+        $this->db->select('pengajuan.id,no_surat,tgl_persetujuan,kode_pengajuan,pengajuan,jenis_pengajuan,pengajuan.tgl_pengajuan,keterangan,total,status,users.id_unit,nama_unit');
+        $this->db->from('pengajuan');
+        $this->db->join('surat', 'pengajuan.kode_pengajuan = surat.no_surat');
+        $this->db->join('users', 'pengajuan.id_user = users.id');
+        $this->db->join('unit', 'users.id_unit = unit.id_unit');
+        $this->db->where('pengajuan.id_vendor', $id_user);
+        return $this->db->get()->result_array();
+    }
+
     public function lihat_kabagdirut()
     {
         $this->db->select('pengajuan.id,kode_pengajuan,pengajuan,jenis_pengajuan,tgl_pengajuan,keterangan,total,status,users.id_unit,nama_unit');
@@ -180,6 +192,18 @@ class PengajuanModel extends CI_model
         return $this->db->get()->row_array();
     }
 
+    public function getPengajuan_vendor($id)
+    {
+        $this->db->select('pengajuan.id,no_surat,kode_pengajuan,pengajuan,jenis_pengajuan,pengajuan.tgl_pengajuan,tgl_persetujuan,keterangan,total,status,users.id_unit,nama_unit,id_user');
+        $this->db->from('pengajuan');
+        $this->db->join('surat', 'pengajuan.kode_pengajuan = surat.no_surat');
+        $this->db->join('users', 'pengajuan.id_user = users.id');
+        $this->db->join('unit', 'users.id_unit = unit.id_unit');
+        $this->db->where('pengajuan.id', $id);
+
+        return $this->db->get()->row_array();
+    }
+
     public function detail($id)
     {
         $this->db->select('*');
@@ -267,5 +291,16 @@ class PengajuanModel extends CI_model
 
         $this->db->where('no_surat', $no_surat);
         $this->db->update('surat', $data_surat);
+    }
+
+    public function kirim_vendor($id)
+    {
+        $data = [
+            "status" => 5,
+            "id_vendor" => $this->input->post('vendor'),
+        ];
+
+        $this->db->where('id', $id);
+        $this->db->update('pengajuan', $data);
     }
 }

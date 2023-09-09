@@ -286,8 +286,11 @@
 </script>
 <script>
     $(document).ready(function() {
-        databarang();
-        detail_pengajuan();
+        <?php if ($this->ion_auth->in_group('unit')) : ?>
+            databarang();
+        <?php elseif ($this->ion_auth->in_group('staff')) : ?>
+            detail_pengajuan();
+        <?php endif; ?>
     });
 
     function temp_barang() {
@@ -385,6 +388,24 @@
                 if (response.data) {
                     $('.databarang').html(response.data);
                 }
+            },
+            error: function(xhr, ajaxOptions, thrownError) {
+                alert(xhr.status + "\n" + xhr.responseText + "\n" +
+                    thrownError);
+            }
+        });
+    }
+
+    function kirim_vendor(id) {
+        $.ajax({
+            type: "post",
+            url: "<?= base_url('pengajuan/modal_kirim'); ?>",
+            data: {
+                id: id,
+            },
+            dataType: "json",
+            success: function(response) {
+                $('#modal_kirim').attr('action', response.sukses);
             },
             error: function(xhr, ajaxOptions, thrownError) {
                 alert(xhr.status + "\n" + xhr.responseText + "\n" +

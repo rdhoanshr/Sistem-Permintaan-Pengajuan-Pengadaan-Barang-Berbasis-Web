@@ -50,7 +50,7 @@ CREATE TABLE IF NOT EXISTS `detail_pengajuan` (
   CONSTRAINT `FK_detail_pengajuan_pengajuan` FOREIGN KEY (`id_pengajuan`) REFERENCES `pengajuan` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
 
--- Membuang data untuk tabel db_pengadaan.detail_pengajuan: ~0 rows (lebih kurang)
+-- Membuang data untuk tabel db_pengadaan.detail_pengajuan: ~4 rows (lebih kurang)
 /*!40000 ALTER TABLE `detail_pengajuan` DISABLE KEYS */;
 INSERT INTO `detail_pengajuan` (`id`, `id_pengajuan`, `id_barang`, `jumlah`, `biaya`, `id_user`) VALUES
 	(11, 1, 1, 12, 90123000, 7),
@@ -104,14 +104,15 @@ CREATE TABLE IF NOT EXISTS `pengajuan` (
   `verifikasi_3` int(11) DEFAULT NULL,
   `status` int(11) DEFAULT NULL,
   `id_user` int(11) DEFAULT NULL,
+  `id_vendor` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
--- Membuang data untuk tabel db_pengadaan.pengajuan: ~0 rows (lebih kurang)
+-- Membuang data untuk tabel db_pengadaan.pengajuan: ~2 rows (lebih kurang)
 /*!40000 ALTER TABLE `pengajuan` DISABLE KEYS */;
-INSERT INTO `pengajuan` (`id`, `kode_pengajuan`, `pengajuan`, `jenis_pengajuan`, `tgl_pengajuan`, `keterangan`, `total`, `verifikasi_1`, `verifikasi_2`, `verifikasi_3`, `status`, `id_user`) VALUES
-	(1, '004/PB/9/2023', 'Pengadaan Kantin', 'Fisik', '2023-09-07', 'Kantin Baru', 99323000, 1, 6, 14, 4, 7),
-	(2, '005/PB/9/2023', 'Voluptatem ipsam rer', 'Fugiat repellendus', '2023-09-07', 'Est itaque dolor la', 83, NULL, NULL, NULL, 0, 7);
+INSERT INTO `pengajuan` (`id`, `kode_pengajuan`, `pengajuan`, `jenis_pengajuan`, `tgl_pengajuan`, `keterangan`, `total`, `verifikasi_1`, `verifikasi_2`, `verifikasi_3`, `status`, `id_user`, `id_vendor`) VALUES
+	(1, '004/PB/9/2023', 'Pengadaan Kantin', 'Fisik', '2023-09-07', 'Kantin Baru', 99323000, 1, 6, 14, 5, 7, 1),
+	(2, '005/PB/9/2023', 'Voluptatem ipsam rer', 'Fugiat repellendus', '2023-09-07', 'Est itaque dolor la', 83, NULL, NULL, NULL, 0, 7, NULL);
 /*!40000 ALTER TABLE `pengajuan` ENABLE KEYS */;
 
 -- membuang struktur untuk table db_pengadaan.surat
@@ -125,7 +126,7 @@ CREATE TABLE IF NOT EXISTS `surat` (
   PRIMARY KEY (`id_surat`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 
--- Membuang data untuk tabel db_pengadaan.surat: ~3 rows (lebih kurang)
+-- Membuang data untuk tabel db_pengadaan.surat: ~2 rows (lebih kurang)
 /*!40000 ALTER TABLE `surat` DISABLE KEYS */;
 INSERT INTO `surat` (`id_surat`, `no_surat`, `ttd_pengaju`, `ttd_aprover`, `tgl_pengajuan`, `tgl_persetujuan`) VALUES
 	(9, '004/PB/9/2023', 'WhatsApp_Image_2023-09-01_at_19_05_58_(1)1.jpeg', 'WhatsApp_Image_2023-09-01_at_19_05_58_(1).jpeg', '2023-09-07', '2023-09-07'),
@@ -143,7 +144,7 @@ CREATE TABLE IF NOT EXISTS `temp_detailpengajuan` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=latin1;
 
--- Membuang data untuk tabel db_pengadaan.temp_detailpengajuan: ~1 rows (lebih kurang)
+-- Membuang data untuk tabel db_pengadaan.temp_detailpengajuan: ~0 rows (lebih kurang)
 /*!40000 ALTER TABLE `temp_detailpengajuan` DISABLE KEYS */;
 /*!40000 ALTER TABLE `temp_detailpengajuan` ENABLE KEYS */;
 
@@ -192,14 +193,14 @@ CREATE TABLE IF NOT EXISTS `users` (
   UNIQUE KEY `uc_remember_selector` (`remember_selector`)
 ) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 
--- Membuang data untuk tabel db_pengadaan.users: ~4 rows (lebih kurang)
+-- Membuang data untuk tabel db_pengadaan.users: ~5 rows (lebih kurang)
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` (`id`, `ip_address`, `username`, `password`, `email`, `activation_selector`, `activation_code`, `forgotten_password_selector`, `forgotten_password_code`, `forgotten_password_time`, `remember_selector`, `remember_code`, `created_on`, `last_login`, `active`, `first_name`, `last_name`, `company`, `phone`, `id_unit`, `id_vendor`, `ttd`) VALUES
-	(1, '127.0.0.1', 'administrator', '$2y$10$aBtR.PqzP0FMJGXFCZKK8uDg9CvaSrrHwGW5/0/soE6jxle84RV7K', 'admin@admin.com', NULL, '', NULL, NULL, NULL, NULL, NULL, 1268889823, 1694070386, 1, 'Admin', 'istrator', 'ADMIN', '0', NULL, NULL, ''),
-	(6, '::1', 'kabag', '$2y$10$HGBa.hKuR5RQL5yux0YEyuAvycRDch4oXRLmR2ONtp1wFcP7RlT4i', 'kabag@gmai.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1693785028, 1694071687, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	(7, '::1', 'unit', '$2y$10$pPYaHXROBXAf54B4qun2/.ExwvmXMN8QeWs9GV9WIeoCJ56s80gJq', 'unit@unit.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1693785094, 1694071424, 1, NULL, NULL, NULL, NULL, 1, NULL, 'WhatsApp_Image_2023-09-01_at_19_05_58_(1)1.jpeg'),
-	(10, '::1', 'vendor', '$2y$10$oPGIGCDmr59HSOyWaZHum.KB8S369yYv7IofuWypCXpfkZceT23jy', 'vendor@vendor.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1693962128, NULL, 1, NULL, NULL, NULL, NULL, NULL, 1, NULL),
-	(14, '::1', 'direktur', '$2y$10$gkQAk11y99jyBlLzXsy2jerrq09DPRNpeZ/E5WSxcLLUP.TOfYKIi', 'direktur@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1694070426, 1694071703, 1, NULL, NULL, NULL, NULL, NULL, NULL, 'WhatsApp_Image_2023-09-01_at_19_05_58_(1).jpeg');
+	(1, '127.0.0.1', 'staff', '$2y$10$aBtR.PqzP0FMJGXFCZKK8uDg9CvaSrrHwGW5/0/soE6jxle84RV7K', 'admin@admin.com', NULL, '', NULL, NULL, NULL, NULL, NULL, 1268889823, 1694251285, 1, 'Admin', 'istrator', 'ADMIN', '0', NULL, NULL, ''),
+	(6, '::1', 'kabag', '$2y$10$HGBa.hKuR5RQL5yux0YEyuAvycRDch4oXRLmR2ONtp1wFcP7RlT4i', 'kabag@gmai.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1693785028, 1694252107, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+	(7, '::1', 'unit', '$2y$10$pPYaHXROBXAf54B4qun2/.ExwvmXMN8QeWs9GV9WIeoCJ56s80gJq', 'unit@unit.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1693785094, 1694252074, 1, NULL, NULL, NULL, NULL, 1, NULL, 'WhatsApp_Image_2023-09-01_at_19_05_58_(1)1.jpeg'),
+	(10, '::1', 'vendor', '$2y$10$oPGIGCDmr59HSOyWaZHum.KB8S369yYv7IofuWypCXpfkZceT23jy', 'vendor@vendor.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1693962128, 1694252157, 1, NULL, NULL, NULL, NULL, NULL, 1, NULL),
+	(14, '::1', 'direktur', '$2y$10$gkQAk11y99jyBlLzXsy2jerrq09DPRNpeZ/E5WSxcLLUP.TOfYKIi', 'direktur@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1694070426, 1694252138, 1, NULL, NULL, NULL, NULL, NULL, NULL, 'WhatsApp_Image_2023-09-01_at_19_05_58_(1).jpeg');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 
 -- membuang struktur untuk table db_pengadaan.users_groups
@@ -215,7 +216,7 @@ CREATE TABLE IF NOT EXISTS `users_groups` (
   CONSTRAINT `fk_users_groups_users1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8;
 
--- Membuang data untuk tabel db_pengadaan.users_groups: ~4 rows (lebih kurang)
+-- Membuang data untuk tabel db_pengadaan.users_groups: ~5 rows (lebih kurang)
 /*!40000 ALTER TABLE `users_groups` DISABLE KEYS */;
 INSERT INTO `users_groups` (`id`, `user_id`, `group_id`) VALUES
 	(2, 1, 2),

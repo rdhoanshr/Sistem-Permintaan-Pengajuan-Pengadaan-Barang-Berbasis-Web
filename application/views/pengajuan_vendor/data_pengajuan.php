@@ -31,11 +31,11 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-            Data Pengajuan
+            Data Pengadaan
         </h1>
         <ol class="breadcrumb">
             <li><a href="<?= base_url(); ?>"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li class="active">Data Pengajuan</li>
+            <li class="active">Data Pengadaaan</li>
         </ol>
     </section>
 
@@ -46,11 +46,6 @@
                 <div class="col-12">
                     <!-- /.box -->
                     <div class="box">
-                        <?php if ($this->ion_auth->in_group('unit')) : ?>
-                            <div class="box-header">
-                                <a href="<?= base_url('pengajuan/tambah'); ?>" class="btn btn-primary"><i class="fa fa-plus"></i> Tambah</a>
-                            </div>
-                        <?php endif; ?>
                         <!-- /.box-header -->
                         <div class="box-body">
                             <div class="table-responsive">
@@ -58,11 +53,12 @@
                                     <thead>
                                         <tr>
                                             <th>No</th>
-                                            <th>Pengajuan</th>
+                                            <th>No Surat</th>
+                                            <th>Pengadaan</th>
                                             <th>Unit</th>
                                             <th>Jenis</th>
                                             <th>Tanggal</th>
-                                            <th>Biaya</th>
+                                            <th>Pagu Anggaran</th>
                                             <th>Status</th>
                                             <th>Aksi</th>
                                         </tr>
@@ -73,29 +69,17 @@
                                         foreach ($pengajuan as $u) : ?>
                                             <tr>
                                                 <td><?= $i++; ?></td>
+                                                <td><?= $u['no_surat']; ?></td>
                                                 <td><?= $u['pengajuan']; ?></td>
                                                 <td><?= $u['nama_unit']; ?></td>
                                                 <td><?= $u['jenis_pengajuan']; ?></td>
-                                                <td><?= $u['tgl_pengajuan']; ?></td>
+                                                <td><?= $u['tgl_persetujuan']; ?></td>
                                                 <td>Rp. <?= number_format($u['total']); ?></td>
                                                 <td>
-                                                    <?= ($u['status'] == 0) ? '<button type="button" class="btn btn-sm btn-white">Menunggu</button>' : ''; ?>
-                                                    <?= ($u['status'] == 2) ? '<button type="button" class="btn btn-sm btn-primary">Approved Staff</button>' : ''; ?>
-                                                    <?= ($u['status'] == 3) ? '<button type="button" class="btn btn-sm btn-success">Approved Kabag</button>' : ''; ?>
-                                                    <?= ($u['status'] == 4) ? '<button type="button" class="btn btn-sm btn-success">Approved Direktur</button>' : ''; ?>
-                                                    <?= ($u['status'] == 5) ? '<button type="button" class="btn btn-sm btn-info">Dikirim ke vendor</button>' : ''; ?>
+                                                    <?= ($u['status'] == 5) ? '<button type="button" class="btn btn-sm btn-white">Menunggu</button>' : ''; ?>
                                                 </td>
                                                 <td>
-                                                    <a href="<?= base_url('pengajuan/detail/') . $u['id']; ?>" class="btn btn-sm btn-info"><i class="fa fa-eye"></i></a>
-                                                    <?php if ($u['status'] == 0) : ?>
-                                                        <a href="<?= base_url('pengajuan/edit/') . $u['id']; ?>" class="btn btn-sm btn-warning"><i class="fa fa-edit"></i></a>
-                                                        <a href="<?= base_url('pengajuan/hapus/') . $u['id']; ?>" class="btn btn-sm btn-danger" onclick="return confirm('Apakah Anda Yakin Menghapus Pengajuan ini ?')"><i class="fa fa-trash"></i></a>
-                                                    <?php endif; ?>
-                                                    <?php if ($u['status'] == 4 && $this->ion_auth->in_group('staff')) : ?>
-                                                        <button type="button" class="btn btn-sm btn-primary text-white" data-toggle="modal" data-target="#kirim_vendor" onclick="kirim_vendor(<?= $u['id']; ?>)">
-                                                            <i class="fa fa-arrow-right"></i>
-                                                        </button>
-                                                    <?php endif; ?>
+                                                    <a href="<?= base_url('pengajuan_vendor/detail/') . $u['id']; ?>" class="btn btn-sm btn-warning"><i class="fa fa-sign-in   "></i></a>
                                                 </td>
                                             </tr>
                                         <?php endforeach; ?>

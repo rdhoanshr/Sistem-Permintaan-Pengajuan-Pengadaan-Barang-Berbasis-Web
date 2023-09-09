@@ -20,14 +20,22 @@
                         </span>
                     </a>
                 </li>
+                <li>
+                    <a href="#">
+                        <i class="fa fa-th"></i> <span>Riwayat</span>
+                        <span class="pull-right-container">
+                        </span>
+                    </a>
+                </li>
+            <?php else : ?>
+                <li>
+                    <a href="<?= base_url('pengajuan_vendor'); ?>">
+                        <i class="fa fa-th"></i> <span>Pengadaan</span>
+                        <span class="pull-right-container">
+                        </span>
+                    </a>
+                </li>
             <?php endif; ?>
-            <li>
-                <a href="#">
-                    <i class="fa fa-th"></i> <span>Riwayat</span>
-                    <span class="pull-right-container">
-                    </span>
-                </a>
-            </li>
             <?php if ($this->ion_auth->in_group('staff') || $this->ion_auth->in_group('kabag')) : ?>
                 <li class="treeview">
                     <a href="<?= base_url(); ?>assets/AdminLTE/#">

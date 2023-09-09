@@ -50,4 +50,14 @@ class VendorModel extends CI_model
         $this->db->where('id', $id);
         $this->db->delete('vendor');
     }
+
+    public function user_vendor()
+    {
+        $this->db->select('*');
+        $this->db->from('users');
+        $this->db->join('vendor', 'users.id_vendor = vendor.id');
+        $this->db->where('active', 1);
+
+        return $this->db->get()->result_array();
+    }
 }

@@ -19,6 +19,7 @@ class Pengajuan extends CI_Controller
 
         $this->load->model('PengajuanModel');
         $this->load->model('BarangModel');
+        $this->load->model('VendorModel');
     }
 
 
@@ -31,6 +32,7 @@ class Pengajuan extends CI_Controller
             $data['pengajuan'] = $this->PengajuanModel->lihat_kabagdirut();
         } else {
             $data['pengajuan'] = $this->PengajuanModel->lihat();
+            $data['vendor'] = $this->VendorModel->user_vendor();
         }
 
         $this->load->view('pengajuan/data_pengajuan', $data);
@@ -315,6 +317,36 @@ class Pengajuan extends CI_Controller
         } else {
             $this->session->set_flashdata('pesanbaik', 'Pengajuan Berhasil Di Setujui');
             redirect('pengajuan');
+        }
+    }
+
+    public function modal_kirim()
+    {
+        $id = $this->input->post('id');
+
+        $msg = [
+            'sukses' => base_url('pengajuan/vendor/') . $id
+        ];
+
+        echo json_encode($msg);
+    }
+
+    public function vendor($id)
+    {
+        $this->form_validation->set_rules('vendor', 'Vendor', 'required');
+
+        if ($this->form_validation->run() == false) {
+            $this->session->set_flashdata('message', 'Vendor Harus Dipilih');
+            redirect('pengajuan');
+        } else {
+            $this->PengajuanModel->kirim_vendor($id);
+            $err = $this->db->error();
+            if ($err['code'] !== 0) {
+                echo $err['message'];
+            } else {
+                $this->session->set_flashdata('pesanbaik', 'Pengajuan Berhasil Di Kirim Ke Vendor');
+                redirect('pengajuan');
+            }
         }
     }
 }

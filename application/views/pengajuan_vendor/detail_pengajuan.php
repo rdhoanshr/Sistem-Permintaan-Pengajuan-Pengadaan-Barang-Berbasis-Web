@@ -31,11 +31,11 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-            Detail Pengajuan
+            Detail Pengadaan
         </h1>
         <ol class="breadcrumb">
             <li><a href="<?= base_url(); ?>"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li><a href="<?= base_url(); ?>pengajuan">Data Pengajuan</a></li>
+            <li><a href="<?= base_url(); ?>pengajuan_vendor">Data Pengadaan</a></li>
             <li class="active">Detail</li>
         </ol>
     </section>
@@ -50,24 +50,24 @@
                         <!-- /.box-header -->
                         <div class="box-body">
                             <div class="row">
-                                <div class="col-lg-6">
+                                <div class="col-lg-5">
                                     <div class="box">
                                         <div class="box-body">
 
                                             <div class="form-group row">
-                                                <label for="" class="col-sm-4">Kode Pengajuan</label>
+                                                <label for="" class="col-sm-4">No Surat</label>
                                                 <div class="col-sm-8">
-                                                    : <?= $row['kode_pengajuan']; ?>
+                                                    : <?= $row['no_surat']; ?>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-                                                <label for="" class="col-sm-4">Nama Pengajuan</label>
+                                                <label for="" class="col-sm-4">Pengadaan</label>
                                                 <div class="col-sm-8">
                                                     : <?= $row['pengajuan']; ?>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-                                                <label for="" class="col-sm-4">Jenis Pengajuan</label>
+                                                <label for="" class="col-sm-4">Jenis Pengadaan</label>
                                                 <div class="col-sm-8">
                                                     : <?= $row['jenis_pengajuan']; ?>
                                                 </div>
@@ -79,9 +79,9 @@
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-                                                <label for="" class="col-sm-4">Tanggal Pengajuan</label>
+                                                <label for="" class="col-sm-4">Tanggal</label>
                                                 <div class="col-sm-8">
-                                                    : <?= date('d-m-Y', strtotime($row['tgl_pengajuan'])); ?>
+                                                    : <?= date('d-m-Y', strtotime($row['tgl_persetujuan'])); ?>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
@@ -93,17 +93,13 @@
                                             <div class="form-group row">
                                                 <label for="" class="col-sm-4">Status</label>
                                                 <div class="col-sm-8">
-                                                    : <?= ($row['status'] == 0) ? 'Menunggu' : ''; ?>
-                                                    <?= ($row['status'] == 2) ? 'Approved Staff' : ''; ?>
-                                                    <?= ($row['status'] == 3) ? 'Approved Kabag' : ''; ?>
-                                                    <?= ($row['status'] == 4) ? 'Approved Direktur' : ''; ?>
-                                                    <?= ($row['status'] == 5) ? 'Dikirim ke Vendor' : ''; ?>
+                                                    : <?= ($row['status'] == 5) ? 'Menunggu Konfirmasi' : ''; ?>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-6">
+                                <div class="col-lg-7">
                                     <div class="box">
                                         <div class="box-body">
                                             <div class="form-group">
@@ -164,7 +160,9 @@
                                     <a href="<?= base_url('pengajuan/acc_direktur/' . $row['id']); ?>" class="btn btn-success" onclick="return confirm('Apakah Anda Yakin Acc Pengajuan ini ?')"><i class="fa fa-check"></i> Acc</a>
                                 <?php endif; ?>
                             <?php endif; ?>
-                            <a href="<?= base_url('pengajuan'); ?>" class="btn btn-info">Kembali</a>
+                            <a href="<?= base_url('pengajuan/acc_direktur/' . $row['id']); ?>" class="btn btn-success" onclick="return confirm('Apakah Anda Yakin Acc Pengajuan ini ?')"><i class="fa fa-check"></i> Acc</a>
+                            <a href="<?= base_url('pengajuan/acc_direktur/' . $row['id']); ?>" class="btn btn-danger"><i class="fa fa-ban"></i> Tolak</a>
+                            <a href="<?= base_url('pengajuan_vendor'); ?>" class="btn btn-info">Kembali</a>
                         </div>
                     </div>
                     <!-- /.card-body -->
