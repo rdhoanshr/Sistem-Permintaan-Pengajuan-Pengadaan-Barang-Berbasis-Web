@@ -146,26 +146,26 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="form-group">
+                                <?php if ($this->ion_auth->in_group('staff')) : ?>
+                                    <?php if ($row['status'] == 0) : ?>
+                                        <a href="<?= base_url('pengajuan/acc_staff/' . $row['id']); ?>" class="btn btn-success" onclick="return confirm('Apakah Anda Yakin Acc Pengajuan ini ?')"><i class="fa fa-check"></i> Acc</a>
+                                    <?php endif; ?>
+                                <?php endif; ?>
+                                <?php if ($this->ion_auth->in_group('kabag')) : ?>
+                                    <?php if ($row['status'] == 2) : ?>
+                                        <a href="<?= base_url('pengajuan/acc_kabag/' . $row['id']); ?>" class="btn btn-success" onclick="return confirm('Apakah Anda Yakin Acc Pengajuan ini ?')"><i class="fa fa-check"></i> Acc</a>
+                                    <?php endif; ?>
+                                <?php endif; ?>
+                                <?php if ($this->ion_auth->in_group('direktur')) : ?>
+                                    <?php if ($row['status'] == 3) : ?>
+                                        <a href="<?= base_url('pengajuan/acc_direktur/' . $row['id']); ?>" class="btn btn-success" onclick="return confirm('Apakah Anda Yakin Acc Pengajuan ini ?')"><i class="fa fa-check"></i> Acc</a>
+                                    <?php endif; ?>
+                                <?php endif; ?>
+                                <a href="<?= base_url('pengajuan'); ?>" class="btn btn-info">Kembali</a>
+                            </div>
                         </div>
 
-                        <div class="form-group">
-                            <?php if ($this->ion_auth->in_group('staff')) : ?>
-                                <?php if ($row['status'] == 0) : ?>
-                                    <a href="<?= base_url('pengajuan/acc_staff/' . $row['id']); ?>" class="btn btn-success" onclick="return confirm('Apakah Anda Yakin Acc Pengajuan ini ?')"><i class="fa fa-check"></i> Acc</a>
-                                <?php endif; ?>
-                            <?php endif; ?>
-                            <?php if ($this->ion_auth->in_group('kabag')) : ?>
-                                <?php if ($row['status'] == 2) : ?>
-                                    <a href="<?= base_url('pengajuan/acc_kabag/' . $row['id']); ?>" class="btn btn-success" onclick="return confirm('Apakah Anda Yakin Acc Pengajuan ini ?')"><i class="fa fa-check"></i> Acc</a>
-                                <?php endif; ?>
-                            <?php endif; ?>
-                            <?php if ($this->ion_auth->in_group('direktur')) : ?>
-                                <?php if ($row['status'] == 3) : ?>
-                                    <a href="<?= base_url('pengajuan/acc_direktur/' . $row['id']); ?>" class="btn btn-success" onclick="return confirm('Apakah Anda Yakin Acc Pengajuan ini ?')"><i class="fa fa-check"></i> Acc</a>
-                                <?php endif; ?>
-                            <?php endif; ?>
-                            <a href="<?= base_url('pengajuan'); ?>" class="btn btn-info">Kembali</a>
-                        </div>
                     </div>
                     <!-- /.card-body -->
                 </div>
@@ -174,10 +174,9 @@
             <!-- /.col -->
         </div>
         <!-- /.row -->
-</div>
-<!-- /.container-fluid -->
-</section>
-<!-- /.content -->
+        <!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
 
