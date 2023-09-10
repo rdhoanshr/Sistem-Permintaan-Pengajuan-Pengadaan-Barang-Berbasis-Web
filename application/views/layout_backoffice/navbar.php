@@ -1,14 +1,14 @@
-<body class="hold-transition sidebar-mini skin-green layout-top-nav">
+<body class="hold-transition sidebar-mini skin-green">
     <div class="wrapper">
 
         <header class="main-header">
             <!-- Logo -->
-            <a href="<?= base_url(); ?>" class="logo bg-white">
+            <a href="<?= base_url(); ?>" class="logo bg-primary">
                 <!-- mini logo for sidebar mini 50x50 pixels -->
-                <span class="logo-mini"><img src="<?= base_url(); ?>assets/img/favicon-16x16.png" class="img-fluid"></span>
+                <span class="logo-mini"><img src="<?= base_url(); ?>assets/img/rsi.png" class="img-fluid" width="50" height="50"></span>
                 <!-- logo for regular state and mobile devices -->
                 <span class="logo-lg">
-                    <img src="<?= base_url(); ?>assets/img/logo.png" class="img-fluid">
+                    <img src="<?= base_url(); ?>assets/img/logo.png" class="img-fluid"> 
                 </span>
             </a>
             <!-- Header Navbar: style can be found in header.less -->
@@ -18,7 +18,7 @@
                     <span class="sr-only">Toggle navigation</span>
                 </a>
 
-                <div class="navbar-custom-menu">
+                <div class="navbar-custom-menu ">
                     <ul class="nav navbar-nav">
                         <!-- User Account: style can be found in dropdown.less -->
                         <li class="dropdown user user-menu">

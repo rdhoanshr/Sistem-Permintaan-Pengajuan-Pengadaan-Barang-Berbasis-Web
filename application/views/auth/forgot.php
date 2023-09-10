@@ -8,7 +8,7 @@
         <!-- /.login-logo -->
         <div class="login-box-body">
             <p class="login-box-msg">
-                <img src="<?= base_url(); ?>assets/img/logo.png" alt="Logo" class="img-fluid" width="200px" height="auto">
+                <img src="<?= base_url(); ?>assets/img/logorsisa.png" alt="Logo" class="img-fluid" width="200px" height="auto">
             </p>
             <center>
                 <h4>Lupa Password</h4>
@@ -54,7 +54,7 @@
 
                     <!-- /.col -->
                     <div class="col-xs-12">
-                        <button type="submit" class="btn btn-primary btn-block btn-flat">Reset Password</button>
+                        <button type="submit" class="btn btn-success btn-block btn-flat">Reset Password</button>
                     </div>
                     <!-- /.col -->
                 </div>

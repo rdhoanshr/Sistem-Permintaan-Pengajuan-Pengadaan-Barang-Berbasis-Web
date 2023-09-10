@@ -8,7 +8,7 @@
         <!-- /.login-logo -->
         <div class="login-box-body">
             <p class="login-box-msg">
-                <img src="<?= base_url(); ?>assets/img/logo.png" alt="Logo" class="img-fluid" width="200px" height="auto">
+                <img src="<?= base_url(); ?>assets/img/logorsisa.png" alt="Logo" class="img-fluid" width="200px" height="auto">
             </p>
             <?php if ($this->session->flashdata('message')) : ?>
                 <div class="alert alert-danger" role="alert">
@@ -38,13 +38,13 @@
 
                     <!-- /.col -->
                     <div class="col-xs-12">
-                        <button type="submit" class="btn btn-primary btn-block btn-flat">Sign</button>
+                        <button type="submit" class="btn btn-success btn-block btn-flat">Sign</button>
                     </div>
                     <!-- /.col -->
                 </div>
             </form>
             <br>
-            <p class="text-center">
+            <p class="text-center ">
                 Belum Memiliki Akun ? <br>
                 <a href="<?= base_url(); ?>auth/register" class="text-center">Daftar</a>
             </p>

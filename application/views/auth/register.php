@@ -2,13 +2,11 @@
 
 <body class="hold-transition login-page">
     <div class="login-box">
-        <div class="login-logo">
-            <!-- <a href="<?= base_url(); ?>assets/AdminLTE/index2.html"><b>Admin</b>LTE</a> -->
-        </div>
+       
         <!-- /.login-logo -->
         <div class="login-box-body">
             <p class="login-box-msg">
-                <img src="<?= base_url(); ?>assets/img/logo.png" alt="Logo" class="img-fluid" width="200px" height="auto">
+                <img src="<?= base_url(); ?>assets/img/logorsisa.png" alt="Logo" class="img-fluid" width="200px" height="auto">
             </p>
             <?php if ($this->session->flashdata('message')) : ?>
                 <div class="alert alert-danger" role="alert">
@@ -52,14 +50,13 @@
                         <option value="1">Unit</option>
                         <option value="5">Vendor</option>
                     </select>
-                    <!-- <span class="glyphicon glyphicon-lock form-control-feedback"></span> -->
                 </div>
                 <div class="form-text text-danger"><?= form_error('group'); ?></div>
                 <div class="row">
 
                     <!-- /.col -->
                     <div class="col-xs-12">
-                        <button type="submit" class="btn btn-primary btn-block btn-flat">Register</button>
+                        <button type="submit" class="btn btn-success btn-block btn-flat">Register</button>
                     </div>
                     <!-- /.col -->
                 </div>
