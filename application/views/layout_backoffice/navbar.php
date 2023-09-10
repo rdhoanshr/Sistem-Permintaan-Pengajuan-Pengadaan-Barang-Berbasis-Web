@@ -1,4 +1,4 @@
-<body class="hold-transition sidebar-mini">
+<body class="hold-transition sidebar-mini skin-green layout-top-nav">
     <div class="wrapper">
 
         <header class="main-header">
