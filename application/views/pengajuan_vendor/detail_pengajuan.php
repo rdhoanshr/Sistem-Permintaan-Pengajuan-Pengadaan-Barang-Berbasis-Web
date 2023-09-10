@@ -31,12 +31,12 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-            Detail Pengadaan
+            Konfirmasi Pengadaan
         </h1>
         <ol class="breadcrumb">
             <li><a href="<?= base_url(); ?>"><i class="fa fa-dashboard"></i> Home</a></li>
             <li><a href="<?= base_url(); ?>pengajuan_vendor">Data Pengadaan</a></li>
-            <li class="active">Detail</li>
+            <li class="active">Konfirmasi</li>
         </ol>
     </section>
 
@@ -53,7 +53,6 @@
                                 <div class="col-lg-5">
                                     <div class="box">
                                         <div class="box-body">
-
                                             <div class="form-group row">
                                                 <label for="" class="col-sm-4">No Surat</label>
                                                 <div class="col-sm-8">
@@ -142,40 +141,80 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="box">
+                                        <div class="box-body">
+                                            <div class="form-group">
+                                                <label for="">Persediaan Vendor</label>
+                                            </div>
+                                            <div class="table-responsive">
+                                                <table class="table table-bordered table-striped">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>No</th>
+                                                            <th>Nama</th>
+                                                            <th>Jenis</th>
+                                                            <th>Jumlah</th>
+                                                            <th>Harga</th>
+                                                            <th>Aksi</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <?php
+                                                        $i = 1;
+                                                        foreach ($barang as $b) : ?>
+                                                            <tr>
+                                                                <td><?= $i++; ?></td>
+                                                                <td><?= $b['nama_barang']; ?></td>
+                                                                <td><?= $b['jenis_barang']; ?></td>
+                                                                <td><input type="number" class="form-control" name="qty" min="1" max="<?= $b['jumlah']; ?>"></td>
+                                                                <td><input type="number" class="form-control" name="harga" min="1" max="<?= $b['biaya']; ?>"></td>
+                                                                <td><button type="button" class="btn btn-sm btn-primary">OK</button></td>
+                                                            </tr>
+                                                        <?php endforeach; ?>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="">Total Biaya</label>
+                                                <br>
+                                                <label for="">
+                                                    <h4>Rp. <?= number_format($row['total']); ?></h4>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <a href="<?= base_url('pengajuan/acc_direktur/' . $row['id']); ?>" class="btn btn-success" onclick="return confirm('Apakah Anda Yakin Acc Pengajuan ini ?')"><i class="fa fa-check"></i> Acc</a>
+                                        <a href="<?= base_url('pengajuan/acc_direktur/' . $row['id']); ?>" class="btn btn-primary" onclick="return confirm('Apakah Anda Yakin Acc Pengajuan ini ?')"><i class="fa fa-check"></i> Konfirmasi</a>
+                                        <a href="<?= base_url('pengajuan/acc_direktur/' . $row['id']); ?>" class="btn btn-danger"><i class="fa fa-ban"></i> Tolak</a>
+                                        <a href="<?= base_url('pengajuan_vendor'); ?>" class="btn btn-info">Kembali</a>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <small class="text-danger">
+                                        <ul>
+                                            <li>Tekan Tombol Acc Apabila Setuju dan Tidak Ada Perubahan dari Penawaran Pengadaan Barang Di Atas</li>
+                                            <li>Tekan Tombol Konfirmasi Apabila Setuju dan Terdapat Perubahan dari Penawaran Pengadaan Barang Di Atas</li>
+                                            <li>Tekan Tombol Tolak Apabila Persediaan Barang Tidak Ada Atau Harga lebih dari Biaya</li>
+                                        </ul>
+                                    </small>
+                                </div>
+                            </div>
                         </div>
 
-                        <div class="form-group">
-                            <?php if ($this->ion_auth->in_group('staff')) : ?>
-                                <?php if ($row['status'] == 0) : ?>
-                                    <a href="<?= base_url('pengajuan/acc_staff/' . $row['id']); ?>" class="btn btn-success" onclick="return confirm('Apakah Anda Yakin Acc Pengajuan ini ?')"><i class="fa fa-check"></i> Acc</a>
-                                <?php endif; ?>
-                            <?php endif; ?>
-                            <?php if ($this->ion_auth->in_group('kabag')) : ?>
-                                <?php if ($row['status'] == 2) : ?>
-                                    <a href="<?= base_url('pengajuan/acc_kabag/' . $row['id']); ?>" class="btn btn-success" onclick="return confirm('Apakah Anda Yakin Acc Pengajuan ini ?')"><i class="fa fa-check"></i> Acc</a>
-                                <?php endif; ?>
-                            <?php endif; ?>
-                            <?php if ($this->ion_auth->in_group('direktur')) : ?>
-                                <?php if ($row['status'] == 3) : ?>
-                                    <a href="<?= base_url('pengajuan/acc_direktur/' . $row['id']); ?>" class="btn btn-success" onclick="return confirm('Apakah Anda Yakin Acc Pengajuan ini ?')"><i class="fa fa-check"></i> Acc</a>
-                                <?php endif; ?>
-                            <?php endif; ?>
-                            <a href="<?= base_url('pengajuan/acc_direktur/' . $row['id']); ?>" class="btn btn-success" onclick="return confirm('Apakah Anda Yakin Acc Pengajuan ini ?')"><i class="fa fa-check"></i> Acc</a>
-                            <a href="<?= base_url('pengajuan/acc_direktur/' . $row['id']); ?>" class="btn btn-danger"><i class="fa fa-ban"></i> Tolak</a>
-                            <a href="<?= base_url('pengajuan_vendor'); ?>" class="btn btn-info">Kembali</a>
-                        </div>
                     </div>
-                    <!-- /.card-body -->
                 </div>
-                <!-- /.card -->
             </div>
-            <!-- /.col -->
         </div>
-        <!-- /.row -->
-</div>
-<!-- /.container-fluid -->
-</section>
-<!-- /.content -->
+        <!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
 
