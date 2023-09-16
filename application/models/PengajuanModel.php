@@ -214,6 +214,36 @@ class PengajuanModel extends CI_model
         return $this->db->get()->result_array();
     }
 
+    public function getDetail($id)
+    {
+        $this->db->select('*');
+        $this->db->from('detail_pengajuan');
+        $this->db->join('barang', 'detail_pengajuan.id_barang=barang.id_barang');
+        $this->db->where('id', $id);
+
+        return $this->db->get()->row_array();
+    }
+
+    public function inputPersediaanVendor($id, $qty, $harga)
+    {
+        $data = [
+            'qty_vendor' => $qty,
+            'harga_vendor' => $harga
+        ];
+
+        $this->db->where('id', $id);
+        $this->db->update('detail_pengajuan', $data);
+    }
+
+    public function totalHargaVendor($id_pengajuan)
+    {
+        $this->db->select_sum('harga_vendor', 'total');
+        $this->db->from('detail_pengajuan');
+        $this->db->where('id_pengajuan', $id_pengajuan);
+
+        return $this->db->get()->row_array();
+    }
+
     public function proses_edit($id, $total)
     {
         $id = $this->input->post('id');

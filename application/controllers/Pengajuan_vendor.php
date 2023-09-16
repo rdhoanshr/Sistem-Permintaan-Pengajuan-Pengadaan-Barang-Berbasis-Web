@@ -115,23 +115,38 @@ class Pengajuan_vendor extends CI_Controller
     //     echo json_encode($msg);
     // }
 
-    // public function data_barang()
-    // {
-    //     $id = $this->input->post('id');
-    //     $id_user = $this->input->post('id_user');
-    //     $getData = $this->PengajuanModel->temp_barang($id, $id_user);
+    public function persediaan()
+    {
+        $id = $this->input->post('id');
+        $qty = $this->input->post('qty');
+        $harga = $this->input->post('harga');
 
-    //     $data = [
-    //         'barang' => $getData,
-    //     ];
+        $detail = $this->PengajuanModel->getDetail($id);
 
-    //     $view = $this->load->view('pengajuan/temp_barang', $data, TRUE);
-    //     $msg = [
-    //         'data' => $view
-    //     ];
+        if ($qty == null || $harga == null) {
+            $msg = [
+                'gagal' => 'Qty atau Harga Tidak Boleh Kosong'
+            ];
+        } elseif ($qty < 1 || $harga < 1) {
+            $msg = [
+                'gagal' => 'Qty atau Harga Tidak Boleh Kurang Dari 1'
+            ];
+        } elseif ($qty > $detail['jumlah'] || $harga > $detail['biaya']) {
+            $msg = [
+                'gagal' => 'Qty atau Harga Tidak Boleh Lebih Dari Jumlah Penawaran'
+            ];
+        } else {
+            $this->PengajuanModel->inputPersediaanVendor($id, $qty, $harga);
+            $id_pengajuan = $detail['id_pengajuan'];
+            $total = $this->PengajuanModel->totalHargaVendor($id_pengajuan);
+            $msg = [
+                'data' => 'Persediaan Berhasil Diinput',
+                'total' => number_format($total['total'])
+            ];
+        }
 
-    //     echo json_encode($msg);
-    // }
+        echo json_encode($msg);
+    }
 
     // public function hapus_barang($id)
     // {
@@ -150,6 +165,13 @@ class Pengajuan_vendor extends CI_Controller
         $data['title'] = 'Detail Pengajuan';
         $data['row'] = $this->PengajuanModel->getPengajuan_vendor($id);
         $data['barang'] = $this->PengajuanModel->detail($id);
+
+        $total = $this->PengajuanModel->totalHargaVendor($id);
+        if ($total['total'] == null) {
+            $data['total'] = '0';
+        } else {
+            $data['total'] = number_format($total['total']);
+        }
 
         $this->load->view('pengajuan_vendor/detail_pengajuan', $data);
     }

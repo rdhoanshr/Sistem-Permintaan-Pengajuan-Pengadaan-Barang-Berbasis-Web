@@ -413,6 +413,29 @@
             }
         });
     }
+
+    $('.formPersediaan').submit(function(e) {
+        e.preventDefault();
+        $.ajax({
+            type: 'post',
+            url: $(this).attr('action'),
+            data: $(this).serialize(this),
+            dataType: "json",
+            success: function(response) {
+                if (response.gagal) {
+                    alert(response.gagal);
+                }
+                if (response.data) {
+                    alert(response.data);
+                    $('#total').html('Rp. ' + response.total);
+                }
+            },
+            error: function(xhr, ajaxOptions, thrownError) {
+                alert(xhr.status + "\n" + xhr.responseText + "\n" +
+                    thrownError);
+            }
+        });
+    });
 </script>
 </body>
 

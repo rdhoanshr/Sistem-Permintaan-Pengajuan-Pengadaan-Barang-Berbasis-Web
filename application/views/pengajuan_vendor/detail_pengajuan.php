@@ -148,39 +148,55 @@
                                             <div class="form-group">
                                                 <label for="">Persediaan Vendor</label>
                                             </div>
-                                            <div class="table-responsive">
-                                                <table class="table table-bordered table-striped">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>No</th>
-                                                            <th>Nama</th>
-                                                            <th>Jenis</th>
-                                                            <th>Jumlah</th>
-                                                            <th>Harga</th>
-                                                            <th>Aksi</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <?php
-                                                        $i = 1;
-                                                        foreach ($barang as $b) : ?>
+                                            <div class="persediaan_vendor">
+                                                <div class="table-responsive">
+                                                    <table class="table table-bordered table-striped">
+                                                        <thead>
                                                             <tr>
-                                                                <td><?= $i++; ?></td>
-                                                                <td><?= $b['nama_barang']; ?></td>
-                                                                <td><?= $b['jenis_barang']; ?></td>
-                                                                <td><input type="number" class="form-control" name="qty" min="1" max="<?= $b['jumlah']; ?>"></td>
-                                                                <td><input type="number" class="form-control" name="harga" min="1" max="<?= $b['biaya']; ?>"></td>
-                                                                <td><button type="button" class="btn btn-sm btn-primary">OK</button></td>
+                                                                <th>No</th>
+                                                                <th>Nama</th>
+                                                                <th>Jenis</th>
+                                                                <th>Jumlah</th>
+                                                                <th>Harga</th>
+                                                                <th>Aksi</th>
                                                             </tr>
-                                                        <?php endforeach; ?>
-                                                    </tbody>
-                                                </table>
+                                                        </thead>
+                                                        <tbody>
+                                                            <?php
+                                                            $i = 1;
+                                                            foreach ($barang as $b) : ?>
+                                                                <form action="<?= base_url('pengajuan_vendor/persediaan'); ?>" class="formPersediaan" method="post">
+                                                                    <tr>
+                                                                        <td>
+                                                                            <?= $i++; ?>
+                                                                            <input type="hidden" name="id" value="<?= $b['id']; ?>">
+                                                                        </td>
+                                                                        <td>
+                                                                            <?= $b['nama_barang']; ?>
+                                                                            <input type="hidden" name="nama_barang" value="<?= $b['nama_barang']; ?>">
+                                                                        </td>
+                                                                        <td>
+                                                                            <?= $b['jenis_barang']; ?>
+                                                                            <input type="hidden" name="jenis_barang" value="<?= $b['jenis_barang']; ?>">
+                                                                        </td>
+                                                                        <td><input type="number" class="form-control" value="<?= ($b['qty_vendor'] != null) ? $b['qty_vendor'] : '0'; ?>" name="qty" id="qty" min="1" max="<?= $b['jumlah']; ?>"></td>
+                                                                        <td><input type="number" class="form-control" name="harga" value="<?= ($b['harga_vendor'] != null) ? $b['harga_vendor'] : '0'; ?>" id="harga" min="1" max="<?= $b['biaya']; ?>"></td>
+                                                                        <td>
+                                                                            <button type="submit" class="btn btn-sm btn-primary" id="ok">OK</button>
+                                                                        </td>
+                                                                    </tr>
+                                                                </form>
+                                                            <?php endforeach; ?>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
                                             </div>
-                                            <div class="form-group">
-                                                <label for="">Total Biaya</label>
+                                            <div class=" form-group">
+                                                <label for="">Total Harga</label>
                                                 <br>
                                                 <label for="">
-                                                    <h4>Rp. <?= number_format($row['total']); ?></h4>
+                                                    <h4 id="total">Rp. <?= $total; ?>
+                                                    </h4>
                                                 </label>
                                             </div>
                                         </div>
@@ -192,7 +208,7 @@
                                     <div class="form-group">
                                         <a href="<?= base_url('pengajuan/acc_direktur/' . $row['id']); ?>" class="btn btn-success" onclick="return confirm('Apakah Anda Yakin Acc Pengajuan ini ?')"><i class="fa fa-check"></i> Acc</a>
                                         <a href="<?= base_url('pengajuan/acc_direktur/' . $row['id']); ?>" class="btn btn-primary" onclick="return confirm('Apakah Anda Yakin Acc Pengajuan ini ?')"><i class="fa fa-check"></i> Konfirmasi</a>
-                                        <a href="<?= base_url('pengajuan/acc_direktur/' . $row['id']); ?>" class="btn btn-danger"><i class="fa fa-ban"></i> Tolak</a>
+                                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-ban"></i> Tolak</button>
                                         <a href="<?= base_url('pengajuan_vendor'); ?>" class="btn btn-info">Kembali</a>
                                     </div>
                                 </div>
@@ -217,6 +233,32 @@
     <!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
-
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                Rekomendasi
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="<?= base_url(); ?>pengajuan_vendor/tolak/<?= $row['id']; ?>" method="post">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="">Rekomendasi Ketersediaan Barang</label> <br>
+                        <small class="text-danger">*Masukan Nama Barang, Jumlah, dan Total Harga yang tersedia</small>
+                        <textarea name="rekomendasi" cols="30" rows="10" class="form-control" placeholder="Contoh : Kasur, 1, 200000;"></textarea>
+                        <small class="text-danger">*pisahkan item dengan tanda (;)</small>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Simpan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 <!-- Memanggil file footer.php -->
 <?php $this->load->view("layout_backoffice/footer") ?>
