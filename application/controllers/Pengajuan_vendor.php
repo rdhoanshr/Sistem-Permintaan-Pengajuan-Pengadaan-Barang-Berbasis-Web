@@ -359,6 +359,19 @@ class Pengajuan_vendor extends CI_Controller
             $this->session->set_flashdata('message', 'Rekomendasi Harus Di isi');
             redirect('pengajuan_vendor/detail/' . $id);
         } else {
+            $rekom = $this->input->post('rekomendasi');
+            $rekom1 = explode(';', $rekom);
+            foreach ($rekom1 as $r) {
+                $rekom2 = explode(',', $r);
+                if (sizeof($rekom2) < 3) {
+                    $this->session->set_flashdata('message', 'Mohon Isi Rekomendasi Sesuai Format');
+                    redirect('pengajuan_vendor/detail/' . $id);
+                }
+                if (is_numeric($rekom2[2]) == false || is_numeric($rekom2[1]) == false) {
+                    $this->session->set_flashdata('message', 'Mohon Isi Rekomendasi Sesuai Format');
+                    redirect('pengajuan_vendor/detail/' . $id);
+                }
+            }
             $this->PengajuanModel->tolak($id);
             $err = $this->db->error();
             if ($err['code'] !== 0) {
