@@ -43,6 +43,8 @@ CREATE TABLE IF NOT EXISTS `detail_pengajuan` (
   `jumlah` int(11) DEFAULT NULL,
   `biaya` decimal(10,0) DEFAULT NULL,
   `id_user` int(11) DEFAULT NULL,
+  `qty_vendor` int(11) DEFAULT NULL,
+  `harga_vendor` decimal(10,0) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_detail_pengajuan_barang` (`id_barang`),
   KEY `kode_pengajuan` (`id_pengajuan`) USING BTREE,
@@ -52,11 +54,11 @@ CREATE TABLE IF NOT EXISTS `detail_pengajuan` (
 
 -- Membuang data untuk tabel db_pengadaan.detail_pengajuan: ~4 rows (lebih kurang)
 /*!40000 ALTER TABLE `detail_pengajuan` DISABLE KEYS */;
-INSERT INTO `detail_pengajuan` (`id`, `id_pengajuan`, `id_barang`, `jumlah`, `biaya`, `id_user`) VALUES
-	(11, 1, 1, 12, 90123000, 7),
-	(12, 1, 2, 21, 9000000, 7),
-	(15, 1, 4, 1, 200000, 7),
-	(16, 2, 1, 20, 83, 7);
+INSERT INTO `detail_pengajuan` (`id`, `id_pengajuan`, `id_barang`, `jumlah`, `biaya`, `id_user`, `qty_vendor`, `harga_vendor`) VALUES
+	(11, 1, 1, 12, 90123000, 7, NULL, NULL),
+	(12, 1, 2, 21, 9000000, 7, NULL, NULL),
+	(15, 1, 4, 1, 200000, 7, NULL, NULL),
+	(16, 2, 1, 20, 83, 7, NULL, NULL);
 /*!40000 ALTER TABLE `detail_pengajuan` ENABLE KEYS */;
 
 -- membuang struktur untuk table db_pengadaan.groups
@@ -105,14 +107,16 @@ CREATE TABLE IF NOT EXISTS `pengajuan` (
   `status` int(11) DEFAULT NULL,
   `id_user` int(11) DEFAULT NULL,
   `id_vendor` int(11) DEFAULT NULL,
+  `total_vendor` decimal(10,0) DEFAULT NULL,
+  `rekomendasi` text,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 -- Membuang data untuk tabel db_pengadaan.pengajuan: ~2 rows (lebih kurang)
 /*!40000 ALTER TABLE `pengajuan` DISABLE KEYS */;
-INSERT INTO `pengajuan` (`id`, `kode_pengajuan`, `pengajuan`, `jenis_pengajuan`, `tgl_pengajuan`, `keterangan`, `total`, `verifikasi_1`, `verifikasi_2`, `verifikasi_3`, `status`, `id_user`, `id_vendor`) VALUES
-	(1, '004/PB/9/2023', 'Pengadaan Kantin', 'Fisik', '2023-09-07', 'Kantin Baru', 99323000, 1, 6, 14, 5, 7, 1),
-	(2, '005/PB/9/2023', 'Voluptatem ipsam rer', 'Fugiat repellendus', '2023-09-07', 'Est itaque dolor la', 83, NULL, NULL, NULL, 0, 7, NULL);
+INSERT INTO `pengajuan` (`id`, `kode_pengajuan`, `pengajuan`, `jenis_pengajuan`, `tgl_pengajuan`, `keterangan`, `total`, `verifikasi_1`, `verifikasi_2`, `verifikasi_3`, `status`, `id_user`, `id_vendor`, `total_vendor`, `rekomendasi`) VALUES
+	(1, '004/PB/9/2023', 'Pengadaan Kantin', 'Fisik', '2023-09-07', 'Kantin Baru', 99323000, 1, 6, 14, 5, 7, 1, NULL, NULL),
+	(2, '005/PB/9/2023', 'Voluptatem ipsam rer', 'Fugiat repellendus', '2023-09-07', 'Est itaque dolor la', 83, NULL, NULL, NULL, 0, 7, NULL, NULL, NULL);
 /*!40000 ALTER TABLE `pengajuan` ENABLE KEYS */;
 
 -- membuang struktur untuk table db_pengadaan.surat
@@ -142,7 +146,7 @@ CREATE TABLE IF NOT EXISTS `temp_detailpengajuan` (
   `biaya` decimal(10,0) DEFAULT NULL,
   `id_user` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Membuang data untuk tabel db_pengadaan.temp_detailpengajuan: ~0 rows (lebih kurang)
 /*!40000 ALTER TABLE `temp_detailpengajuan` DISABLE KEYS */;
@@ -196,11 +200,11 @@ CREATE TABLE IF NOT EXISTS `users` (
 -- Membuang data untuk tabel db_pengadaan.users: ~5 rows (lebih kurang)
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` (`id`, `ip_address`, `username`, `password`, `email`, `activation_selector`, `activation_code`, `forgotten_password_selector`, `forgotten_password_code`, `forgotten_password_time`, `remember_selector`, `remember_code`, `created_on`, `last_login`, `active`, `first_name`, `last_name`, `company`, `phone`, `id_unit`, `id_vendor`, `ttd`) VALUES
-	(1, '127.0.0.1', 'staff', '$2y$10$aBtR.PqzP0FMJGXFCZKK8uDg9CvaSrrHwGW5/0/soE6jxle84RV7K', 'admin@admin.com', NULL, '', NULL, NULL, NULL, NULL, NULL, 1268889823, 1694251285, 1, 'Admin', 'istrator', 'ADMIN', '0', NULL, NULL, ''),
-	(6, '::1', 'kabag', '$2y$10$HGBa.hKuR5RQL5yux0YEyuAvycRDch4oXRLmR2ONtp1wFcP7RlT4i', 'kabag@gmai.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1693785028, 1694252107, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	(7, '::1', 'unit', '$2y$10$pPYaHXROBXAf54B4qun2/.ExwvmXMN8QeWs9GV9WIeoCJ56s80gJq', 'unit@unit.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1693785094, 1694252074, 1, NULL, NULL, NULL, NULL, 1, NULL, 'WhatsApp_Image_2023-09-01_at_19_05_58_(1)1.jpeg'),
-	(10, '::1', 'vendor', '$2y$10$oPGIGCDmr59HSOyWaZHum.KB8S369yYv7IofuWypCXpfkZceT23jy', 'vendor@vendor.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1693962128, 1694252157, 1, NULL, NULL, NULL, NULL, NULL, 1, NULL),
-	(14, '::1', 'direktur', '$2y$10$gkQAk11y99jyBlLzXsy2jerrq09DPRNpeZ/E5WSxcLLUP.TOfYKIi', 'direktur@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1694070426, 1694252138, 1, NULL, NULL, NULL, NULL, NULL, NULL, 'WhatsApp_Image_2023-09-01_at_19_05_58_(1).jpeg');
+	(1, '127.0.0.1', 'staff', '$2y$10$aBtR.PqzP0FMJGXFCZKK8uDg9CvaSrrHwGW5/0/soE6jxle84RV7K', 'admin@admin.com', NULL, '', NULL, NULL, NULL, NULL, NULL, 1268889823, 1694864805, 1, 'Admin', 'istrator', 'ADMIN', '0', NULL, NULL, ''),
+	(6, '::1', 'kabag', '$2y$10$HGBa.hKuR5RQL5yux0YEyuAvycRDch4oXRLmR2ONtp1wFcP7RlT4i', 'kabag@gmai.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1693785028, 1694863623, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+	(7, '::1', 'unit', '$2y$10$pPYaHXROBXAf54B4qun2/.ExwvmXMN8QeWs9GV9WIeoCJ56s80gJq', 'unit@unit.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1693785094, 1694863606, 1, NULL, NULL, NULL, NULL, 1, NULL, 'WhatsApp_Image_2023-09-01_at_19_05_58_(1)1.jpeg'),
+	(10, '::1', 'vendor', '$2y$10$oPGIGCDmr59HSOyWaZHum.KB8S369yYv7IofuWypCXpfkZceT23jy', 'vendor@vendor.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1693962128, 1694864815, 1, NULL, NULL, NULL, NULL, NULL, 1, NULL),
+	(14, '::1', 'direktur', '$2y$10$gkQAk11y99jyBlLzXsy2jerrq09DPRNpeZ/E5WSxcLLUP.TOfYKIi', 'direktur@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1694070426, 1694863652, 1, NULL, NULL, NULL, NULL, NULL, NULL, 'WhatsApp_Image_2023-09-01_at_19_05_58_(1).jpeg');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 
 -- membuang struktur untuk table db_pengadaan.users_groups
