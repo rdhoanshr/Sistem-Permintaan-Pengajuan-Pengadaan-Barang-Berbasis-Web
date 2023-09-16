@@ -94,6 +94,7 @@
                                                 <div class="col-sm-8">
                                                     : <?= ($row['status'] == 5) ? 'Menunggu Konfirmasi' : ''; ?>
                                                     <?= ($row['status'] == 6) ? 'Ditolak' : ''; ?>
+                                                    <?= ($row['status'] == 7) ? 'Setuju' : ''; ?>
                                                 </div>
                                             </div>
                                         </div>
@@ -246,13 +247,66 @@
                                         </div>
                                     </div>
                                 </div>
+                            <?php elseif ($row['status'] == 7) : ?>
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="box">
+                                            <div class="box-body">
+                                                <div class="form-group">
+                                                    <label for="">Persediaan Vendor</label>
+                                                </div>
+                                                <div class="persediaan_vendor">
+                                                    <div class="table-responsive">
+                                                        <table class="table table-bordered table-striped">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>No</th>
+                                                                    <th>Nama</th>
+                                                                    <th>Jenis</th>
+                                                                    <th>Jumlah</th>
+                                                                    <th>Harga</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <?php
+                                                                $i = 1;
+                                                                foreach ($barang as $b) : ?>
+                                                                    <form action="<?= base_url('pengajuan_vendor/persediaan'); ?>" class="formPersediaan" method="post">
+                                                                        <tr>
+                                                                            <td><?= $i++; ?></td>
+                                                                            <td><?= $b['nama_barang']; ?></td>
+                                                                            <td><?= $b['jenis_barang']; ?></td>
+                                                                            <td><?= $b['qty_vendor']; ?></td>
+                                                                            <td>Rp. <?= number_format($b['harga_vendor']); ?></td>
+                                                                        </tr>
+                                                                    </form>
+                                                                <?php endforeach; ?>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                                <div class=" form-group">
+                                                    <label for="">Total Harga</label>
+                                                    <br>
+                                                    <label for="">
+                                                        <h4 id="total">Rp. <?= $total; ?>
+                                                        </h4>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <a href="<?= base_url('pengajuan_vendor'); ?>" class="btn btn-info">Kembali</a>
+                                        </div>
+                                    </div>
+                                </div>
                             <?php endif; ?>
                             <?php if ($row['status'] == 5) : ?>
                                 <div class="row">
                                     <div class="col-lg-6">
                                         <div class="form-group">
-                                            <a href="<?= base_url('pengajuan/acc_direktur/' . $row['id']); ?>" class="btn btn-success" onclick="return confirm('Apakah Anda Yakin Acc Pengajuan ini ?')"><i class="fa fa-check"></i> Acc</a>
-                                            <a href="<?= base_url('pengajuan/acc_direktur/' . $row['id']); ?>" class="btn btn-primary" onclick="return confirm('Apakah Anda Yakin Acc Pengajuan ini ?')"><i class="fa fa-check"></i> Konfirmasi</a>
+                                            <a href="<?= base_url('pengajuan_vendor/acc/' . $row['id']); ?>" class="btn btn-success" onclick="return confirm('Apakah Anda Yakin Acc Pengajuan ini ?')"><i class="fa fa-check"></i> Acc</a>
+                                            <a href="<?= base_url('pengajuan_vendor/konfirmasi/' . $row['id']); ?>" class="btn btn-primary" onclick="return confirm('Apakah Anda Yakin Konfirmasi Pengadaan ini ?')"><i class="fa fa-check"></i> Konfirmasi</a>
                                             <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-ban"></i> Tolak</button>
                                             <a href="<?= base_url('pengajuan_vendor'); ?>" class="btn btn-info">Kembali</a>
                                         </div>

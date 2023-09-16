@@ -344,4 +344,15 @@ class PengajuanModel extends CI_model
         $this->db->where('id', $id);
         $this->db->update('pengajuan', $data);
     }
+
+    public function konfirmasi($id, $total)
+    {
+        $data = [
+            "status" => 7,
+            "total_vendor" => $total,
+        ];
+
+        $this->db->where('id', $id);
+        $this->db->update('pengajuan', $data);
+    }
 }

@@ -99,6 +99,7 @@
                                                     <?= ($row['status'] == 4) ? 'Approved Direktur' : ''; ?>
                                                     <?= ($row['status'] == 5) ? 'Dikirim ke Vendor' : ''; ?>
                                                     <?= ($row['status'] == 6) ? 'Ditolak Vendor' : ''; ?>
+                                                    <?= ($row['status'] == 7) ? 'Dikonfirmasi Vendor' : ''; ?>
                                                 </div>
                                             </div>
                                         </div>
@@ -181,6 +182,59 @@
                                                         </tr>
                                                     <?php endforeach; ?>
                                                 </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php elseif ($row['status'] == 7) : ?>
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="box">
+                                            <div class="box-body">
+                                                <div class="form-group">
+                                                    <label for="">Persediaan Vendor</label>
+                                                </div>
+                                                <div class="persediaan_vendor">
+                                                    <div class="table-responsive">
+                                                        <table class="table table-bordered table-striped">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>No</th>
+                                                                    <th>Nama</th>
+                                                                    <th>Jenis</th>
+                                                                    <th>Jumlah</th>
+                                                                    <th>Harga</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <?php
+                                                                $i = 1;
+                                                                $total = 0;
+                                                                foreach ($barang as $b) :
+                                                                    $total += $b['harga_vendor'];
+                                                                ?>
+                                                                    <form action="<?= base_url('pengajuan_vendor/persediaan'); ?>" class="formPersediaan" method="post">
+                                                                        <tr>
+                                                                            <td><?= $i++; ?></td>
+                                                                            <td><?= $b['nama_barang']; ?></td>
+                                                                            <td><?= $b['jenis_barang']; ?></td>
+                                                                            <td><?= $b['qty_vendor']; ?></td>
+                                                                            <td>Rp. <?= number_format($b['harga_vendor']); ?></td>
+                                                                        </tr>
+                                                                    </form>
+                                                                <?php endforeach; ?>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                                <div class=" form-group">
+                                                    <label for="">Total Harga</label>
+                                                    <br>
+                                                    <label for="">
+                                                        <h4 id="total">Rp. <?= number_format($total); ?>
+                                                        </h4>
+                                                    </label>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

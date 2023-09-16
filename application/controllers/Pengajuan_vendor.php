@@ -289,20 +289,28 @@ class Pengajuan_vendor extends CI_Controller
         }
     }
 
-    public function acc_staff($id)
+    public function konfirmasi($id)
     {
-        $user = $this->ion_auth->user()->row();
-        if ($user->ttd == null) {
-            $this->session->set_flashdata('message', 'Acc Pengajuan Gagal - Harap Lengkapi Profil Anda Terlebih Dahulu');
-            redirect('pengajuan/detail/' . $id);
+        $cek_detail = $this->PengajuanModel->detail($id);
+
+        foreach ($cek_detail as $c) {
+            if ($c['qty_vendor'] == null || $c['harga_vendor'] == null) {
+                $this->session->set_flashdata('message', 'Konfirmasi Gagal - Harap Input Persediaan Barang Secara Lengkap');
+                redirect('pengajuan_vendor/detail/' . $id);
+            }
         }
-        $this->PengajuanModel->acc_staff($id);
+
+        $gettotal = $this->PengajuanModel->totalHargaVendor($id);
+
+        $total = $gettotal['total'];
+
+        $this->PengajuanModel->konfirmasi($id, $total);
         $err = $this->db->error();
         if ($err['code'] !== 0) {
             echo $err['message'];
         } else {
-            $this->session->set_flashdata('pesanbaik', 'Pengajuan Berhasil Di Setujui');
-            redirect('pengajuan');
+            $this->session->set_flashdata('pesanbaik', 'Pengadaan Berhasil Di Setujui');
+            redirect('pengajuan_vendor');
         }
     }
 
@@ -338,17 +346,6 @@ class Pengajuan_vendor extends CI_Controller
             $this->session->set_flashdata('pesanbaik', 'Pengajuan Berhasil Di Setujui');
             redirect('pengajuan');
         }
-    }
-
-    public function modal_kirim()
-    {
-        $id = $this->input->post('id');
-
-        $msg = [
-            'sukses' => base_url('pengajuan/vendor/') . $id
-        ];
-
-        echo json_encode($msg);
     }
 
     public function tolak($id)
