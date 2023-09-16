@@ -77,9 +77,14 @@
                                                 <td>Rp. <?= number_format($u['total']); ?></td>
                                                 <td>
                                                     <?= ($u['status'] == 5) ? '<button type="button" class="btn btn-sm btn-white">Menunggu</button>' : ''; ?>
+                                                    <?= ($u['status'] == 6) ? '<button type="button" class="btn btn-sm btn-danger">Tolak</button>' : ''; ?>
                                                 </td>
                                                 <td>
-                                                    <a href="<?= base_url('pengajuan_vendor/detail/') . $u['id']; ?>" class="btn btn-sm btn-warning"><i class="fa fa-sign-in   "></i></a>
+                                                    <?php if ($u['status'] == 5) : ?>
+                                                        <a href="<?= base_url('pengajuan_vendor/detail/') . $u['id']; ?>" class="btn btn-sm btn-warning"><i class="fa fa-sign-in"></i></a>
+                                                    <?php else : ?>
+                                                        <a href="<?= base_url('pengajuan_vendor/detail/') . $u['id']; ?>" class="btn btn-sm btn-white"><i class="fa fa-eye"></i></a>
+                                                    <?php endif; ?>
                                                 </td>
                                             </tr>
                                         <?php endforeach; ?>

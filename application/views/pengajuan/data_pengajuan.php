@@ -84,6 +84,7 @@
                                                     <?= ($u['status'] == 3) ? '<button type="button" class="btn btn-sm btn-success">Approved Kabag</button>' : ''; ?>
                                                     <?= ($u['status'] == 4) ? '<button type="button" class="btn btn-sm btn-success">Approved Direktur</button>' : ''; ?>
                                                     <?= ($u['status'] == 5) ? '<button type="button" class="btn btn-sm btn-info">Dikirim ke vendor</button>' : ''; ?>
+                                                    <?= ($u['status'] == 6) ? '<button type="button" class="btn btn-sm btn-danger">Ditolak Vendor</button>' : ''; ?>
                                                 </td>
                                                 <td>
                                                     <a href="<?= base_url('pengajuan/detail/') . $u['id']; ?>" class="btn btn-sm btn-info"><i class="fa fa-eye"></i></a>

@@ -98,6 +98,7 @@
                                                     <?= ($row['status'] == 3) ? 'Approved Kabag' : ''; ?>
                                                     <?= ($row['status'] == 4) ? 'Approved Direktur' : ''; ?>
                                                     <?= ($row['status'] == 5) ? 'Dikirim ke Vendor' : ''; ?>
+                                                    <?= ($row['status'] == 6) ? 'Ditolak Vendor' : ''; ?>
                                                 </div>
                                             </div>
                                         </div>
@@ -146,6 +147,45 @@
                                     </div>
                                 </div>
                             </div>
+                            <?php if ($row['status'] == 6) : ?>
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="box">
+                                            <div class="box-body">
+                                                <label for="">Rekomendasi Vendor</label>
+                                                <table class="table">
+                                                    <tr>
+                                                        <td>No</td>
+                                                        <td>Nama Barang</td>
+                                                        <td>Qty</td>
+                                                        <td>Harga</td>
+                                                    </tr>
+                                                    <?php
+                                                    $i = 1;
+                                                    foreach ($rekom as $r) : ?>
+                                                        <?php
+                                                        $cek = explode(',', $r);
+                                                        if (sizeof($cek) < 3) {
+                                                            $cek[0] = null;
+                                                            $cek[1] = null;
+                                                            $cek[2] = 0;
+                                                        }
+                                                        ?>
+                                                        <tr>
+                                                            <td><?= $i++; ?></td>
+                                                            <td><?= $cek[0]; ?></td>
+                                                            <td><?= $cek[1]; ?></td>
+                                                            <td>
+                                                                <?= number_format($cek[2]); ?>
+                                                            </td>
+                                                        </tr>
+                                                    <?php endforeach; ?>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php endif; ?>
                             <div class="form-group">
                                 <?php if ($this->ion_auth->in_group('staff')) : ?>
                                     <?php if ($row['status'] == 0) : ?>

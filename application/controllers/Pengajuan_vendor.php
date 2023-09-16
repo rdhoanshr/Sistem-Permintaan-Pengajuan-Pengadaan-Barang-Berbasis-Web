@@ -173,6 +173,11 @@ class Pengajuan_vendor extends CI_Controller
             $data['total'] = number_format($total['total']);
         }
 
+        if ($data['row']['rekomendasi'] != null) {
+            $rekom = explode(';', $data['row']['rekomendasi']);
+            $data['rekom'] = $rekom;
+        }
+
         $this->load->view('pengajuan_vendor/detail_pengajuan', $data);
     }
 
@@ -346,21 +351,21 @@ class Pengajuan_vendor extends CI_Controller
         echo json_encode($msg);
     }
 
-    public function vendor($id)
+    public function tolak($id)
     {
-        $this->form_validation->set_rules('vendor', 'Vendor', 'required');
+        $this->form_validation->set_rules('rekomendasi', 'Rekomendasi', 'required');
 
         if ($this->form_validation->run() == false) {
-            $this->session->set_flashdata('message', 'Vendor Harus Dipilih');
-            redirect('pengajuan');
+            $this->session->set_flashdata('message', 'Rekomendasi Harus Di isi');
+            redirect('pengajuan_vendor/detail/' . $id);
         } else {
-            $this->PengajuanModel->kirim_vendor($id);
+            $this->PengajuanModel->tolak($id);
             $err = $this->db->error();
             if ($err['code'] !== 0) {
                 echo $err['message'];
             } else {
-                $this->session->set_flashdata('pesanbaik', 'Pengajuan Berhasil Di Kirim Ke Vendor');
-                redirect('pengajuan');
+                $this->session->set_flashdata('pesanbaik', 'Pengadaan Berhasil Di Tolak');
+                redirect('pengajuan_vendor');
             }
         }
     }

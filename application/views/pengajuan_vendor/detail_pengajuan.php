@@ -31,12 +31,12 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-            Konfirmasi Pengadaan
+            <?= ($row['status'] == 5) ? 'Konfirmasi Pengadaan' : 'Detail Pengadaan'; ?>
         </h1>
         <ol class="breadcrumb">
             <li><a href="<?= base_url(); ?>"><i class="fa fa-dashboard"></i> Home</a></li>
             <li><a href="<?= base_url(); ?>pengajuan_vendor">Data Pengadaan</a></li>
-            <li class="active">Konfirmasi</li>
+            <li class="active"> <?= ($row['status'] == 5) ? 'Konfirmasi' : 'Detail'; ?></li>
         </ol>
     </section>
 
@@ -93,6 +93,7 @@
                                                 <label for="" class="col-sm-4">Status</label>
                                                 <div class="col-sm-8">
                                                     : <?= ($row['status'] == 5) ? 'Menunggu Konfirmasi' : ''; ?>
+                                                    <?= ($row['status'] == 6) ? 'Ditolak' : ''; ?>
                                                 </div>
                                             </div>
                                         </div>
@@ -141,87 +142,132 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <div class="box">
-                                        <div class="box-body">
-                                            <div class="form-group">
-                                                <label for="">Persediaan Vendor</label>
-                                            </div>
-                                            <div class="persediaan_vendor">
-                                                <div class="table-responsive">
-                                                    <table class="table table-bordered table-striped">
-                                                        <thead>
-                                                            <tr>
-                                                                <th>No</th>
-                                                                <th>Nama</th>
-                                                                <th>Jenis</th>
-                                                                <th>Jumlah</th>
-                                                                <th>Harga</th>
-                                                                <th>Aksi</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <?php
-                                                            $i = 1;
-                                                            foreach ($barang as $b) : ?>
-                                                                <form action="<?= base_url('pengajuan_vendor/persediaan'); ?>" class="formPersediaan" method="post">
-                                                                    <tr>
-                                                                        <td>
-                                                                            <?= $i++; ?>
-                                                                            <input type="hidden" name="id" value="<?= $b['id']; ?>">
-                                                                        </td>
-                                                                        <td>
-                                                                            <?= $b['nama_barang']; ?>
-                                                                            <input type="hidden" name="nama_barang" value="<?= $b['nama_barang']; ?>">
-                                                                        </td>
-                                                                        <td>
-                                                                            <?= $b['jenis_barang']; ?>
-                                                                            <input type="hidden" name="jenis_barang" value="<?= $b['jenis_barang']; ?>">
-                                                                        </td>
-                                                                        <td><input type="number" class="form-control" value="<?= ($b['qty_vendor'] != null) ? $b['qty_vendor'] : '0'; ?>" name="qty" id="qty" min="1" max="<?= $b['jumlah']; ?>"></td>
-                                                                        <td><input type="number" class="form-control" name="harga" value="<?= ($b['harga_vendor'] != null) ? $b['harga_vendor'] : '0'; ?>" id="harga" min="1" max="<?= $b['biaya']; ?>"></td>
-                                                                        <td>
-                                                                            <button type="submit" class="btn btn-sm btn-primary" id="ok">OK</button>
-                                                                        </td>
-                                                                    </tr>
-                                                                </form>
-                                                            <?php endforeach; ?>
-                                                        </tbody>
-                                                    </table>
+                            <?php if ($row['status'] == 5) : ?>
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="box">
+                                            <div class="box-body">
+                                                <div class="form-group">
+                                                    <label for="">Persediaan Vendor</label>
                                                 </div>
-                                            </div>
-                                            <div class=" form-group">
-                                                <label for="">Total Harga</label>
-                                                <br>
-                                                <label for="">
-                                                    <h4 id="total">Rp. <?= $total; ?>
-                                                    </h4>
-                                                </label>
+                                                <div class="persediaan_vendor">
+                                                    <div class="table-responsive">
+                                                        <table class="table table-bordered table-striped">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>No</th>
+                                                                    <th>Nama</th>
+                                                                    <th>Jenis</th>
+                                                                    <th>Jumlah</th>
+                                                                    <th>Harga</th>
+                                                                    <th>Aksi</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <?php
+                                                                $i = 1;
+                                                                foreach ($barang as $b) : ?>
+                                                                    <form action="<?= base_url('pengajuan_vendor/persediaan'); ?>" class="formPersediaan" method="post">
+                                                                        <tr>
+                                                                            <td>
+                                                                                <?= $i++; ?>
+                                                                                <input type="hidden" name="id" value="<?= $b['id']; ?>">
+                                                                            </td>
+                                                                            <td>
+                                                                                <?= $b['nama_barang']; ?>
+                                                                                <input type="hidden" name="nama_barang" value="<?= $b['nama_barang']; ?>">
+                                                                            </td>
+                                                                            <td>
+                                                                                <?= $b['jenis_barang']; ?>
+                                                                                <input type="hidden" name="jenis_barang" value="<?= $b['jenis_barang']; ?>">
+                                                                            </td>
+                                                                            <td><input type="number" class="form-control" value="<?= ($b['qty_vendor'] != null) ? $b['qty_vendor'] : '0'; ?>" name="qty" id="qty" min="1" max="<?= $b['jumlah']; ?>"></td>
+                                                                            <td><input type="number" class="form-control" name="harga" value="<?= ($b['harga_vendor'] != null) ? $b['harga_vendor'] : '0'; ?>" id="harga" min="1" max="<?= $b['biaya']; ?>"></td>
+                                                                            <td>
+                                                                                <button type="submit" class="btn btn-sm btn-primary" id="ok">OK</button>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </form>
+                                                                <?php endforeach; ?>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                                <div class=" form-group">
+                                                    <label for="">Total Harga</label>
+                                                    <br>
+                                                    <label for="">
+                                                        <h4 id="total">Rp. <?= $total; ?>
+                                                        </h4>
+                                                    </label>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <a href="<?= base_url('pengajuan/acc_direktur/' . $row['id']); ?>" class="btn btn-success" onclick="return confirm('Apakah Anda Yakin Acc Pengajuan ini ?')"><i class="fa fa-check"></i> Acc</a>
-                                        <a href="<?= base_url('pengajuan/acc_direktur/' . $row['id']); ?>" class="btn btn-primary" onclick="return confirm('Apakah Anda Yakin Acc Pengajuan ini ?')"><i class="fa fa-check"></i> Konfirmasi</a>
-                                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-ban"></i> Tolak</button>
-                                        <a href="<?= base_url('pengajuan_vendor'); ?>" class="btn btn-info">Kembali</a>
+                            <?php elseif ($row['status'] == 6) : ?>
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="box">
+                                            <div class="box-body">
+                                                <label for="">Rekomendasi</label>
+                                                <table class="table">
+                                                    <tr>
+                                                        <td>No</td>
+                                                        <td>Nama Barang</td>
+                                                        <td>Qty</td>
+                                                        <td>Harga</td>
+                                                    </tr>
+                                                    <?php
+                                                    $i = 1;
+                                                    foreach ($rekom as $r) : ?>
+                                                        <?php
+                                                        $cek = explode(',', $r);
+                                                        if (sizeof($cek) < 3) {
+                                                            $cek[0] = null;
+                                                            $cek[1] = null;
+                                                            $cek[2] = 0;
+                                                        }
+                                                        ?>
+                                                        <tr>
+                                                            <td><?= $i++; ?></td>
+                                                            <td><?= $cek[0]; ?></td>
+                                                            <td><?= $cek[1]; ?></td>
+                                                            <td>
+                                                                <?= number_format($cek[2]); ?>
+                                                            </td>
+                                                        </tr>
+                                                    <?php endforeach; ?>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <a href="<?= base_url('pengajuan_vendor'); ?>" class="btn btn-info">Kembali</a>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-6">
-                                    <small class="text-danger">
-                                        <ul>
-                                            <li>Tekan Tombol Acc Apabila Setuju dan Tidak Ada Perubahan dari Penawaran Pengadaan Barang Di Atas</li>
-                                            <li>Tekan Tombol Konfirmasi Apabila Setuju dan Terdapat Perubahan dari Penawaran Pengadaan Barang Di Atas</li>
-                                            <li>Tekan Tombol Tolak Apabila Persediaan Barang Tidak Ada Atau Harga lebih dari Biaya</li>
-                                        </ul>
-                                    </small>
+                            <?php endif; ?>
+                            <?php if ($row['status'] == 5) : ?>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <a href="<?= base_url('pengajuan/acc_direktur/' . $row['id']); ?>" class="btn btn-success" onclick="return confirm('Apakah Anda Yakin Acc Pengajuan ini ?')"><i class="fa fa-check"></i> Acc</a>
+                                            <a href="<?= base_url('pengajuan/acc_direktur/' . $row['id']); ?>" class="btn btn-primary" onclick="return confirm('Apakah Anda Yakin Acc Pengajuan ini ?')"><i class="fa fa-check"></i> Konfirmasi</a>
+                                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-ban"></i> Tolak</button>
+                                            <a href="<?= base_url('pengajuan_vendor'); ?>" class="btn btn-info">Kembali</a>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <small class="text-danger">
+                                            <ul>
+                                                <li>Tekan Tombol Acc Apabila Setuju dan Tidak Ada Perubahan dari Penawaran Pengadaan Barang Di Atas</li>
+                                                <li>Tekan Tombol Konfirmasi Apabila Setuju dan Terdapat Perubahan dari Penawaran Pengadaan Barang Di Atas</li>
+                                                <li>Tekan Tombol Tolak Apabila Persediaan Barang Tidak Ada Atau Harga lebih dari Biaya</li>
+                                            </ul>
+                                        </small>
+                                    </div>
                                 </div>
-                            </div>
+                            <?php endif; ?>
                         </div>
 
                     </div>

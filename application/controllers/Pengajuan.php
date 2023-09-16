@@ -158,6 +158,12 @@ class Pengajuan extends CI_Controller
         $data['row'] = $this->PengajuanModel->getPengajuan($id);
         $data['barang'] = $this->PengajuanModel->detail($id);
 
+        if ($data['row']['rekomendasi'] != null) {
+            $rekom = explode(';', $data['row']['rekomendasi']);
+            $data['rekom'] = $rekom;
+        }
+
+
         $this->load->view('pengajuan/detail_pengajuan', $data);
     }
 
