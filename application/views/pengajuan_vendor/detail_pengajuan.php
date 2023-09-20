@@ -92,7 +92,8 @@
                                             <div class="form-group row">
                                                 <label for="" class="col-sm-4">Status</label>
                                                 <div class="col-sm-8">
-                                                    : <?= ($row['status'] == 5) ? 'Menunggu Konfirmasi' : ''; ?>
+                                                    : <?= ($row['status'] == 1) ? 'Selesai' : ''; ?>
+                                                    <?= ($row['status'] == 5) ? 'Menunggu Konfirmasi' : ''; ?>
                                                     <?= ($row['status'] == 6) ? 'Ditolak' : ''; ?>
                                                     <?= ($row['status'] == 7) ? 'Setuju' : ''; ?>
                                                     <?= ($row['status'] == 8) ? 'Setuju' : ''; ?>
@@ -144,6 +145,11 @@
                                     </div>
                                 </div>
                             </div>
+                            <?php if ($row['status'] == 1) : ?>
+                                <div class="form-group">
+                                    <a href="<?= base_url('pengajuan_vendor'); ?>" class="btn btn-info">Kembali</a>
+                                </div>
+                            <?php endif; ?>
                             <?php if ($row['status'] == 5) : ?>
                                 <div class="row">
                                     <div class="col-lg-12">

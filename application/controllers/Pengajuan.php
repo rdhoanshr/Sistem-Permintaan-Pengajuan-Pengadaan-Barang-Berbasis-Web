@@ -355,4 +355,19 @@ class Pengajuan extends CI_Controller
             }
         }
     }
+
+    public function penyerahan($id)
+    {
+        $row = $this->PengajuanModel->getPengajuan($id);
+        $id_unit = $row['id_unit'];
+
+        $this->PengajuanModel->penyerahan($id, $id_unit);
+        $err = $this->db->error();
+        if ($err['code'] !== 0) {
+            echo $err['message'];
+        } else {
+            $this->session->set_flashdata('pesanbaik', 'Pengajuan Telah Selesai');
+            redirect('pengajuan');
+        }
+    }
 }

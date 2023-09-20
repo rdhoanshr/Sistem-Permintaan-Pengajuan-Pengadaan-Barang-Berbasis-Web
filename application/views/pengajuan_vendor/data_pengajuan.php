@@ -76,6 +76,7 @@
                                                 <td><?= $u['tgl_persetujuan']; ?></td>
                                                 <td>Rp. <?= number_format($u['total']); ?></td>
                                                 <td>
+                                                    <?= ($u['status'] == 1) ? '<button type="button" class="btn btn-sm btn-success">Selesai</button>' : ''; ?>
                                                     <?= ($u['status'] == 5) ? '<button type="button" class="btn btn-sm btn-white">Menunggu</button>' : ''; ?>
                                                     <?= ($u['status'] == 6) ? '<button type="button" class="btn btn-sm btn-danger">Tolak</button>' : ''; ?>
                                                     <?= ($u['status'] == 7) ? '<button type="button" class="btn btn-sm btn-info">Setuju</button>' : ''; ?>

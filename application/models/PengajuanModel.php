@@ -8,6 +8,7 @@ class PengajuanModel extends CI_model
         $this->db->from('pengajuan');
         $this->db->join('users', 'pengajuan.id_user = users.id');
         $this->db->join('unit', 'users.id_unit = unit.id_unit');
+        $this->db->where_not_in('status', 1);
 
         return $this->db->get()->result_array();
     }
@@ -31,6 +32,7 @@ class PengajuanModel extends CI_model
         $this->db->join('users', 'pengajuan.id_user = users.id');
         $this->db->join('unit', 'users.id_unit = unit.id_unit');
         $this->db->where_not_in('status', 0);
+        $this->db->where_not_in('status', 1);
 
         return $this->db->get()->result_array();
     }
@@ -43,6 +45,7 @@ class PengajuanModel extends CI_model
         $this->db->join('users', 'pengajuan.id_user = users.id');
         $this->db->join('unit', 'users.id_unit = unit.id_unit');
         $this->db->where('users.id', $id_user);
+        $this->db->where_not_in('status', 1);
 
         return $this->db->get()->result_array();
     }
@@ -364,5 +367,23 @@ class PengajuanModel extends CI_model
 
         $this->db->where('id', $id);
         $this->db->update('pengajuan', $data);
+    }
+
+    public function penyerahan($id, $id_unit)
+    {
+        $data = [
+            'status' => 1
+        ];
+
+        $data_penyerahan = [
+            'id_pengajuan' => $id,
+            'kode_unit' => $id_unit,
+            'tanggal_penyerahan' => date('Y-m-d')
+        ];
+
+        $this->db->where('id', $id);
+        $this->db->update('pengajuan', $data);
+
+        $this->db->insert('penyerahan_barang', $data_penyerahan);
     }
 }
