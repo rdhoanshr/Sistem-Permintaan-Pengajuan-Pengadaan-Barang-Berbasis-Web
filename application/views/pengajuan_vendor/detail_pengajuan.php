@@ -95,6 +95,7 @@
                                                     : <?= ($row['status'] == 5) ? 'Menunggu Konfirmasi' : ''; ?>
                                                     <?= ($row['status'] == 6) ? 'Ditolak' : ''; ?>
                                                     <?= ($row['status'] == 7) ? 'Setuju' : ''; ?>
+                                                    <?= ($row['status'] == 8) ? 'Setuju' : ''; ?>
                                                 </div>
                                             </div>
                                         </div>

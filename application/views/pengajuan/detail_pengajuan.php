@@ -100,6 +100,7 @@
                                                     <?= ($row['status'] == 5) ? 'Dikirim ke Vendor' : ''; ?>
                                                     <?= ($row['status'] == 6) ? 'Ditolak Vendor' : ''; ?>
                                                     <?= ($row['status'] == 7) ? 'Dikonfirmasi Vendor' : ''; ?>
+                                                    <?= ($row['status'] == 8) ? 'Disetujui Vendor' : ''; ?>
                                                 </div>
                                             </div>
                                         </div>

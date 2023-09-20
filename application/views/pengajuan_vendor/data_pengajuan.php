@@ -79,6 +79,7 @@
                                                     <?= ($u['status'] == 5) ? '<button type="button" class="btn btn-sm btn-white">Menunggu</button>' : ''; ?>
                                                     <?= ($u['status'] == 6) ? '<button type="button" class="btn btn-sm btn-danger">Tolak</button>' : ''; ?>
                                                     <?= ($u['status'] == 7) ? '<button type="button" class="btn btn-sm btn-info">Setuju</button>' : ''; ?>
+                                                    <?= ($u['status'] == 8) ? '<button type="button" class="btn btn-sm btn-info">Setuju</button>' : ''; ?>
                                                 </td>
                                                 <td>
                                                     <?php if ($u['status'] == 5) : ?>

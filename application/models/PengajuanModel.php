@@ -355,4 +355,14 @@ class PengajuanModel extends CI_model
         $this->db->where('id', $id);
         $this->db->update('pengajuan', $data);
     }
+
+    public function acc($id)
+    {
+        $data = [
+            "status" => 8,
+        ];
+
+        $this->db->where('id', $id);
+        $this->db->update('pengajuan', $data);
+    }
 }
