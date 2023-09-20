@@ -50,6 +50,36 @@ class PengajuanModel extends CI_model
         return $this->db->get()->result_array();
     }
 
+    public function riwayat()
+    {
+        $this->db->select('pengajuan.id,no_surat,tgl_persetujuan,kode_pengajuan,pengajuan,jenis_pengajuan,pengajuan.tgl_pengajuan,keterangan,total,status,users.id_unit,nama_unit,tanggal_penyerahan,total_vendor');
+        $this->db->from('pengajuan');
+        $this->db->join('surat', 'pengajuan.kode_pengajuan = surat.no_surat');
+        $this->db->join('users', 'pengajuan.id_user = users.id');
+        $this->db->join('unit', 'users.id_unit = unit.id_unit');
+        $this->db->join('penyerahan_barang', 'pengajuan.id = penyerahan_barang.id_pengajuan');
+
+        $this->db->where_in('status', 1);
+
+        return $this->db->get()->result_array();
+    }
+
+    public function riwayatFilter($awal, $akhir)
+    {
+        $this->db->select('pengajuan.id,no_surat,tgl_persetujuan,kode_pengajuan,pengajuan,jenis_pengajuan,pengajuan.tgl_pengajuan,keterangan,total,status,users.id_unit,nama_unit,tanggal_penyerahan,total_vendor');
+        $this->db->from('pengajuan');
+        $this->db->join('surat', 'pengajuan.kode_pengajuan = surat.no_surat');
+        $this->db->join('users', 'pengajuan.id_user = users.id');
+        $this->db->join('unit', 'users.id_unit = unit.id_unit');
+        $this->db->join('penyerahan_barang', 'pengajuan.id = penyerahan_barang.id_pengajuan');
+
+        $this->db->where_in('status', 1);
+        $this->db->where('tanggal_penyerahan >=', $awal);
+        $this->db->where('tanggal_penyerahan <=', $akhir);
+
+        return $this->db->get()->result_array();
+    }
+
     public function insertTempBarang($data)
     {
         $insert = [

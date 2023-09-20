@@ -237,7 +237,13 @@
 <!-- FastClick -->
 <script src="<?= base_url(); ?>assets/AdminLTE/bower_components/fastclick/lib/fastclick.js"></script>
 <!-- AdminLTE App -->
+<script src="<?= base_url() ?>assets/AdminLTE/plugins/inputmask/jquery.inputmask.min.js"></script>
+<script src="<?= base_url() ?>assets/AdminLTE/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+
 <script src="<?= base_url(); ?>assets/AdminLTE/dist/js/adminlte.min.js"></script>
+
+
+
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="<?= base_url(); ?>assets/AdminLTE/dist/js/pages/dashboard.js"></script>
 <!-- AdminLTE for demo purposes -->
@@ -254,6 +260,8 @@
             'info': true,
             'autoWidth': false
         })
+        //Date range picker
+        $('#reservation').daterangepicker()
     })
 </script>
 <script>

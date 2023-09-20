@@ -21,7 +21,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="<?= base_url('riwayat'); ?>">
                         <i class="fa fa-th"></i> <span>Riwayat</span>
                         <span class="pull-right-container">
                         </span>
