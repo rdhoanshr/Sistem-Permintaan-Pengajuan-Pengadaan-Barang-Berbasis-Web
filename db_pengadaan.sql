@@ -115,9 +115,28 @@ CREATE TABLE IF NOT EXISTS `pengajuan` (
 -- Membuang data untuk tabel db_pengadaan.pengajuan: ~2 rows (lebih kurang)
 /*!40000 ALTER TABLE `pengajuan` DISABLE KEYS */;
 INSERT INTO `pengajuan` (`id`, `kode_pengajuan`, `pengajuan`, `jenis_pengajuan`, `tgl_pengajuan`, `keterangan`, `total`, `verifikasi_1`, `verifikasi_2`, `verifikasi_3`, `status`, `id_user`, `id_vendor`, `total_vendor`, `rekomendasi`) VALUES
-	(1, '004/PB/9/2023', 'Pengadaan Kantin', 'Fisik', '2023-09-07', 'Kantin Baru', 99323000, 1, 6, 14, 5, 7, 1, NULL, NULL),
+	(1, '004/PB/9/2023', 'Pengadaan Kantin', 'Fisik', '2023-09-07', 'Kantin Baru', 99323000, 1, 6, 14, 1, 7, 1, NULL, NULL),
 	(2, '005/PB/9/2023', 'Voluptatem ipsam rer', 'Fugiat repellendus', '2023-09-07', 'Est itaque dolor la', 83, NULL, NULL, NULL, 0, 7, NULL, NULL, NULL);
 /*!40000 ALTER TABLE `pengajuan` ENABLE KEYS */;
+
+-- membuang struktur untuk table db_pengadaan.penyerahan_barang
+CREATE TABLE IF NOT EXISTS `penyerahan_barang` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_pengajuan` int(11) DEFAULT NULL,
+  `kode_unit` int(11) DEFAULT NULL,
+  `tanggal_penyerahan` date DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_penyerahan_barang_pengajuan` (`id_pengajuan`),
+  KEY `FK_penyerahan_barang_unit` (`kode_unit`),
+  CONSTRAINT `FK_penyerahan_barang_pengajuan` FOREIGN KEY (`id_pengajuan`) REFERENCES `pengajuan` (`id`),
+  CONSTRAINT `FK_penyerahan_barang_unit` FOREIGN KEY (`kode_unit`) REFERENCES `unit` (`id_unit`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+-- Membuang data untuk tabel db_pengadaan.penyerahan_barang: ~0 rows (lebih kurang)
+/*!40000 ALTER TABLE `penyerahan_barang` DISABLE KEYS */;
+INSERT INTO `penyerahan_barang` (`id`, `id_pengajuan`, `kode_unit`, `tanggal_penyerahan`) VALUES
+	(1, 1, 1, '2023-09-20');
+/*!40000 ALTER TABLE `penyerahan_barang` ENABLE KEYS */;
 
 -- membuang struktur untuk table db_pengadaan.surat
 CREATE TABLE IF NOT EXISTS `surat` (
@@ -200,11 +219,11 @@ CREATE TABLE IF NOT EXISTS `users` (
 -- Membuang data untuk tabel db_pengadaan.users: ~5 rows (lebih kurang)
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` (`id`, `ip_address`, `username`, `password`, `email`, `activation_selector`, `activation_code`, `forgotten_password_selector`, `forgotten_password_code`, `forgotten_password_time`, `remember_selector`, `remember_code`, `created_on`, `last_login`, `active`, `first_name`, `last_name`, `company`, `phone`, `id_unit`, `id_vendor`, `ttd`) VALUES
-	(1, '127.0.0.1', 'staff', '$2y$10$aBtR.PqzP0FMJGXFCZKK8uDg9CvaSrrHwGW5/0/soE6jxle84RV7K', 'admin@admin.com', NULL, '', NULL, NULL, NULL, NULL, NULL, 1268889823, 1694864805, 1, 'Admin', 'istrator', 'ADMIN', '0', NULL, NULL, ''),
-	(6, '::1', 'kabag', '$2y$10$HGBa.hKuR5RQL5yux0YEyuAvycRDch4oXRLmR2ONtp1wFcP7RlT4i', 'kabag@gmai.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1693785028, 1694863623, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	(7, '::1', 'unit', '$2y$10$pPYaHXROBXAf54B4qun2/.ExwvmXMN8QeWs9GV9WIeoCJ56s80gJq', 'unit@unit.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1693785094, 1694863606, 1, NULL, NULL, NULL, NULL, 1, NULL, 'WhatsApp_Image_2023-09-01_at_19_05_58_(1)1.jpeg'),
-	(10, '::1', 'vendor', '$2y$10$oPGIGCDmr59HSOyWaZHum.KB8S369yYv7IofuWypCXpfkZceT23jy', 'vendor@vendor.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1693962128, 1694864815, 1, NULL, NULL, NULL, NULL, NULL, 1, NULL),
-	(14, '::1', 'direktur', '$2y$10$gkQAk11y99jyBlLzXsy2jerrq09DPRNpeZ/E5WSxcLLUP.TOfYKIi', 'direktur@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1694070426, 1694863652, 1, NULL, NULL, NULL, NULL, NULL, NULL, 'WhatsApp_Image_2023-09-01_at_19_05_58_(1).jpeg');
+	(1, '127.0.0.1', 'staff', '$2y$10$aBtR.PqzP0FMJGXFCZKK8uDg9CvaSrrHwGW5/0/soE6jxle84RV7K', 'admin@admin.com', NULL, '', NULL, NULL, NULL, NULL, NULL, 1268889823, 1695207976, 1, 'Admin', 'istrator', 'ADMIN', '0', NULL, NULL, ''),
+	(6, '::1', 'kabag', '$2y$10$HGBa.hKuR5RQL5yux0YEyuAvycRDch4oXRLmR2ONtp1wFcP7RlT4i', 'kabag@gmai.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1693785028, 1695209379, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+	(7, '::1', 'unit', '$2y$10$pPYaHXROBXAf54B4qun2/.ExwvmXMN8QeWs9GV9WIeoCJ56s80gJq', 'unit@unit.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1693785094, 1695209362, 1, NULL, NULL, NULL, NULL, 1, NULL, 'WhatsApp_Image_2023-09-01_at_19_05_58_(1)1.jpeg'),
+	(10, '::1', 'vendor', '$2y$10$oPGIGCDmr59HSOyWaZHum.KB8S369yYv7IofuWypCXpfkZceT23jy', 'vendor@vendor.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1693962128, 1695207406, 1, NULL, NULL, NULL, NULL, NULL, 1, NULL),
+	(14, '::1', 'direktur', '$2y$10$gkQAk11y99jyBlLzXsy2jerrq09DPRNpeZ/E5WSxcLLUP.TOfYKIi', 'direktur@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1694070426, 1694883971, 1, NULL, NULL, NULL, NULL, NULL, NULL, 'WhatsApp_Image_2023-09-01_at_19_05_58_(1).jpeg');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 
 -- membuang struktur untuk table db_pengadaan.users_groups
