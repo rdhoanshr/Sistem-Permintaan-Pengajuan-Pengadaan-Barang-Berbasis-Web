@@ -40,7 +40,11 @@
 
 <body>
     <?php
+<<<<<<< HEAD
     $path = realpath('\xampp\htdocs\pengadaan\assets\img\header.png');
+=======
+    $path = realpath('\laragon\www\pengadaan\assets\img\header.png');
+>>>>>>> 253ed036136d84dc84994300914b668c6be6debe
 
     $type = pathinfo($path, PATHINFO_EXTENSION);
     $data = file_get_contents($path);
@@ -49,7 +53,11 @@
     ?>
 
     <?php
+<<<<<<< HEAD
     $path = realpath('\xampp\htdocs\pengadaan\assets\img\footer.png');
+=======
+    $path = realpath('\laragon\www\pengadaan\assets\img\footer.png');
+>>>>>>> 253ed036136d84dc84994300914b668c6be6debe
 
     $type = pathinfo($path, PATHINFO_EXTENSION);
     $data = file_get_contents($path);
@@ -62,7 +70,11 @@
     <main>
         <br>
         <h3 align="center">
+<<<<<<< HEAD
             <u>LAPORAN RIWAYAT PENGADAAN BARANG</u> <br>
+=======
+            <u>LAPORAN RiWAYAT PENGADAAN BARANG</u> <br>
+>>>>>>> 253ed036136d84dc84994300914b668c6be6debe
         </h3>
         <table style="width: 100%;  border-collapse: collapse; border: 1px solid #000000;" border="1px">
             <thead>
@@ -129,7 +141,11 @@
             <br>
             <!-- <br> -->
             <br>
+<<<<<<< HEAD
             <strong>dr. Rifqiannor. MARS</strong>
+=======
+            <strong>Nama Direktur</strong>
+
             <br>
             Direktur&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         </p>

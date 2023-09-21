@@ -241,8 +241,12 @@
 <script src="<?= base_url() ?>assets/AdminLTE/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
 
 <script src="<?= base_url(); ?>assets/AdminLTE/dist/js/adminlte.min.js"></script>
+<<<<<<< HEAD
 <!-- Sweet Alert2 -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+=======
+
+>>>>>>> 253ed036136d84dc84994300914b668c6be6debe
 
 
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
@@ -324,6 +328,8 @@
                 });
             });
         })
+        //Date range picker
+        $('#reservation').daterangepicker()
     })
 </script>
 <script>
