@@ -23,26 +23,41 @@
                         <!-- User Account: style can be found in dropdown.less -->
                         <li class="dropdown user user-menu">
                             <a href="<?= base_url(); ?>assets/AdminLTE/#" class="dropdown-toggle" data-toggle="dropdown">
+                            <?php if (
+                                $this->ion_auth->user()->row()->foto == null 
+                                )
+                                : ?> 
                                 <img src="<?= base_url(); ?>assets/AdminLTE/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
+                                <?php else : ?>
+                                    <img src="<?= base_url(); ?>uploads/ttd/<?= $this->ion_auth->user()->row()->id ?>/<?= $this->ion_auth->user()->row()->foto; ?>" class="user-image" alt="User Image"> 
+                                <?php endif ?>
+                                
                                 <span class="hidden-xs"><?= $this->ion_auth->user()->row()->username; ?></span>
                             </a>
                             <ul class="dropdown-menu">
                                 <!-- User image -->
-                                <!-- <li class="user-header">
-                                    <img src="<?= base_url(); ?>assets/AdminLTE/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
-
+                                <li class="user-header">
+                                <?php if (
+                                    $this->ion_auth->user()->row()->foto == null 
+                                )
+                                : ?> 
+                                <img src="<?= base_url(); ?>assets/AdminLTE/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                                <?php else : ?>
+                                    <img src="<?= base_url(); ?>uploads/ttd/<?= $this->ion_auth->user()->row()->id ?>/<?= $this->ion_auth->user()->row()->foto; ?>" class="img-circle" alt="User Image"> 
+                                <?php endif ?>
                                     <p>
                                         <?= $this->ion_auth->user()->row()->username; ?>
                                     </p>
-                                </li> -->
+                                </li>
                                 <!-- Menu Body -->
                                 <li class="user-body">
-                                    <!-- <div class="pull-left">
-                                        </div> -->
+                                    <div class="pull-left">
+                                        <a href="<?= base_url(); ?>profile" class="btn btn-default">Profile</a>
+                                        </div>
                                     <div class="pull-right">
                                         <!-- <div class="row"></div> -->
-                                        <a href="<?= base_url(); ?>profile" class="btn btn-default">Profile</a>
-                                        <a href="<?= base_url(); ?>auth/logout" class="btn btn-default">Logout</a>
+                                        
+                                        <a  href="<?= base_url(); ?>auth/logout" class="btn btn-default logout" >Logout</a>
 
                                     </div>
                                 </li>

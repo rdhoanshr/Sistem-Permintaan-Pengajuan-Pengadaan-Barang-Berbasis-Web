@@ -63,6 +63,16 @@ class Profile extends CI_Controller
             $upload_ttd = $this->upload->data('file_name');
         }
 
+        if (!is_dir('uploads/ttd/' . $dir)) {
+            mkdir('./uploads/ttd/' . $dir, 0777, TRUE);
+        }
+        if (!$this->upload->do_upload('foto')) {
+            $upload_foto = $this->input->post('foto_lama');
+            // $this->form_validation->set_rules('ttd', 'ttd', 'required');
+        } else {
+            $upload_foto= $this->upload->data('file_name');
+        }
+        // die (var_dump($upload_foto));
         if ($this->form_validation->run() == false) {
             $this->load->view('profile', $data);
         } else {
@@ -70,6 +80,7 @@ class Profile extends CI_Controller
                 'username' => $this->input->post('username'),
                 'email' => $this->input->post('email'),
                 'ttd' => $upload_ttd,
+                'foto' => $upload_foto
             ];
 
             // update the password if it was posted

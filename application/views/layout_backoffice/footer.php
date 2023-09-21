@@ -237,7 +237,14 @@
 <!-- FastClick -->
 <script src="<?= base_url(); ?>assets/AdminLTE/bower_components/fastclick/lib/fastclick.js"></script>
 <!-- AdminLTE App -->
+<script src="<?= base_url() ?>assets/AdminLTE/plugins/inputmask/jquery.inputmask.min.js"></script>
+<script src="<?= base_url() ?>assets/AdminLTE/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+
 <script src="<?= base_url(); ?>assets/AdminLTE/dist/js/adminlte.min.js"></script>
+<!-- Sweet Alert2 -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="<?= base_url(); ?>assets/AdminLTE/dist/js/pages/dashboard.js"></script>
 <!-- AdminLTE for demo purposes -->
@@ -252,7 +259,70 @@
             'searching': false,
             'ordering': true,
             'info': true,
-            'autoWidth': false
+            'autoWidth': false,
+
+        })
+        //Date range picker
+        $('#reservation').daterangepicker()
+        //Flashdata Notif 
+        const flashdata = $('.flash-data').data('flashdata');
+        const flashdata2 = $('.flash-data2').data('flashdata2');
+
+        if (flashdata) {
+            Swal.fire({
+                icon: 'success',
+                title: 'Berhasil',
+                text: flashdata
+            })
+        } else if (flashdata2) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Gagal',
+                text: flashdata2
+            })
+        }
+        $('body').on('click', '.logout', function(e) {
+            e.preventDefault();
+            var url = $(this).attr('href');
+            Swal.fire({
+                title: 'Apakah Anda Yakin?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Ya'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.replace(url);
+                }
+            });
+            $('body').on('click', '.hapus', function(e) {
+                e.preventDefault();
+                var url = $(this).attr('href');
+                Swal.fire({
+                    title: 'Apakah Anda Yakin?',
+                    text: 'Mengapus Data Berikut',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Ya'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.replace(url);
+                    }
+                })
+            });
+            $('body').on('click', '.konfirm', function(e) {
+                e.preventDefault();
+                var url = $(this).attr('href');
+                Swal.fire({
+                    title: 'Apakah Anda Yakin?',
+                    icon: 'info',
+                    showCancelButton: true,
+                    confirmButtonText: 'Ya'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.replace(url);
+                    }
+                });
+            });
         })
     })
 </script>
@@ -288,6 +358,7 @@
     $(document).ready(function() {
         <?php if ($this->ion_auth->in_group('unit')) : ?>
             databarang();
+            detail_pengajuan();
         <?php elseif ($this->ion_auth->in_group('staff')) : ?>
             detail_pengajuan();
         <?php endif; ?>
@@ -307,11 +378,17 @@
             dataType: "json",
             success: function(response) {
                 if (response.sukses) {
-                    alert('Barang Berhasil Ditambah');
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Berhasil Ditambahkan!'
+                    });
                     databarang();
                 }
                 if (response.gagal) {
-                    alert(response.gagal);
+                    Swal.fire({
+                        icon: 'error',
+                        title: response.gagal
+                    });
                 }
             },
             error: function(xhr, ajaxOptions, thrownError) {
@@ -320,6 +397,7 @@
             }
         });
     }
+
 
     function databarang() {
         $.ajax({
@@ -359,11 +437,17 @@
             dataType: "json",
             success: function(response) {
                 if (response.sukses) {
-                    alert('Barang Berhasil Ditambah');
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Berhasil Ditambahkan!'
+                    });
                     detail_pengajuan();
                 }
                 if (response.gagal) {
-                    alert(response.gagal);
+                    Swal.fire({
+                        icon: 'error',
+                        title: response.gagal
+                    });
                 }
             },
             error: function(xhr, ajaxOptions, thrownError) {

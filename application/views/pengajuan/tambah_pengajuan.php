@@ -76,8 +76,7 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
-                                        <div class="box">
-                                            <div class="box-body">
+                                           
                                                 <div class="form-group">
                                                     <label for=""> Barang </label>
                                                     <select name="id_barang" id="id_barang" class="form-control">
@@ -99,6 +98,7 @@
                                                     <div class="form-text text-danger"><?= form_error('biaya'); ?></div>
                                                 </div>
                                                 <button type="button" class="btn btn-primary" onclick="temp_barang()">Tambah</button>
+                                                <br><br>
                                                 <div class="databarang">
                                                     <div class="table-responsive">
                                                         <table id="example1" class="table table-bordered table-striped">
@@ -119,8 +119,6 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </div>
                                 </div>
 
 

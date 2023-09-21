@@ -13,20 +13,10 @@
 <div class="content-wrapper">
     <!-- Menampilkan notif flashdata -->
     <?php if ($this->session->flashdata('message')) : ?>
-        <div class="alert alert-danger" role="alert">
-            <?php echo $this->session->flashdata('message'); ?>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
+        <div class="flash-data2" data-flashdata="<?= $this->session->flashdata('message') ?>"></div>
     <?php endif; ?>
     <?php if ($this->session->flashdata('pesanbaik')) : ?>
-        <div class="alert alert-success" role="alert">
-            <?php echo $this->session->flashdata('pesanbaik'); ?>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
+        <div class="flash-data" data-flashdata="<?= $this->session->flashdata('pesanbaik') ?>"></div>
     <?php endif; ?>
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -92,7 +82,7 @@
                                                     <a href="<?= base_url('pengajuan/detail/') . $u['id']; ?>" class="btn btn-sm btn-info"><i class="fa fa-eye"></i></a>
                                                     <?php if ($u['status'] == 0) : ?>
                                                         <a href="<?= base_url('pengajuan/edit/') . $u['id']; ?>" class="btn btn-sm btn-warning"><i class="fa fa-edit"></i></a>
-                                                        <a href="<?= base_url('pengajuan/hapus/') . $u['id']; ?>" class="btn btn-sm btn-danger" onclick="return confirm('Apakah Anda Yakin Menghapus Pengajuan ini ?')"><i class="fa fa-trash"></i></a>
+                                                        <a href="<?= base_url('pengajuan/hapus/') . $u['id']; ?>" class="btn btn-sm btn-danger hapus" ><i class="fa fa-trash"></i></a>
                                                     <?php endif; ?>
                                                     <?php if ($u['status'] == 4 && $this->ion_auth->in_group('staff')) : ?>
                                                         <button type="button" class="btn btn-sm btn-primary text-white" data-toggle="modal" data-target="#kirim_vendor" onclick="kirim_vendor(<?= $u['id']; ?>)">

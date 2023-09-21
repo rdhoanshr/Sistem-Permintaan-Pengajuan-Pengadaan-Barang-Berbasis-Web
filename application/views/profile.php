@@ -13,12 +13,7 @@
 <div class="content-wrapper">
     <!-- Menampilkan notif flashdata -->
     <?php if ($this->session->flashdata('pesanbaik')) : ?>
-        <div class="alert alert-success" role="alert">
-            <?php echo $this->session->flashdata('pesanbaik'); ?>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
+        <div class="flash-data" data-flashdata="<?= $this->session->flashdata('pesanbaik') ?>"></div>
     <?php endif; ?>
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -98,9 +93,19 @@
                                 <div class="form-text text-danger"><?= form_error('ttd'); ?></div>
 
                             </div>
+                             <div class="form-group">
+                                <label for=""> Upload Foto Profile </label> <br>
+                                <?php if ($user->foto != null) : ?>
+                                    <img src="<?= base_url('uploads/ttd/') . $user->id . "/" . $user->foto; ?>" width="100px" height="auto" alt="Foto Profile">
+                                <?php endif; ?>
+                                <input type="file" name="foto" class="form-control" value="<?= $user->foto; ?>">
+                                <div class="form-text text-danger"><?= form_error('foto'); ?></div>
+
+                            </div>
 
                             <?php echo form_hidden('id', $user->id); ?>
                             <?php echo form_hidden('ttd_lama', $user->ttd); ?>
+                            <?php echo form_hidden('foto_lama', $user->foto); ?>
                             <?php echo form_hidden($csrf); ?>
 
                             <button type="submit" class="btn btn-primary">Update</button>

@@ -21,7 +21,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="<?= base_url('riwayat'); ?>">
                         <i class="fa fa-th"></i> <span>Riwayat</span>
                         <span class="pull-right-container">
                         </span>
@@ -49,7 +49,7 @@
                         <li><a href="<?= base_url(); ?>auth/pengguna"><i class="fa fa-circle-o"></i> Pengguna</a></li>
                         <li><a href="<?= base_url(); ?>barang"><i class="fa fa-circle-o"></i> Barang</a></li>
                         <li><a href="<?= base_url(); ?>unit"><i class="fa fa-circle-o"></i> Unit</a></li>
-                        <li><a href="<?= base_url(); ?>vendor"><i class="fa fa-circle-o"></i> Vendor</a></li>
+                        <li><a href="<?= base_url(); ?>vvendor"><i class="fa fa-circle-o"></i> Vendor</a></li>
                     </ul>
                 </li>
             <?php endif; ?>
@@ -61,7 +61,7 @@
                     </span>
                 </a>
             </li>
-            <li><a href="<?= base_url(); ?>auth/logout"><i class="fa fa-book"></i> <span>Logout</span></a></li>
+            <li><a class="logout" href="<?= base_url(); ?>auth/logout"><i class="fa fa-book"></i> <span>Logout</span></a></li>
         </ul>
     </section>
     <!-- /.sidebar -->

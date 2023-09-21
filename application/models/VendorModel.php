@@ -29,6 +29,10 @@ class VendorModel extends CI_model
         return $this->db->get_where('vendor', ['id' => $id])->row_array();
     }
 
+    public function getVendorNama($nama)
+    {
+        return $this->db->get_where('vendor', ['nama' => $nama])->row_array();
+    }
     public function proses_edit($id)
     {
         $data = [

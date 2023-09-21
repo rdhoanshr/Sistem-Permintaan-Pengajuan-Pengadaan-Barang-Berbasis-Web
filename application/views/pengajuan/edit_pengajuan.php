@@ -13,20 +13,10 @@
 <div class="content-wrapper">
     <!-- Menampilkan notif flashdata -->
     <?php if ($this->session->flashdata('message')) : ?>
-        <div class="alert alert-danger" role="alert">
-            <?php echo $this->session->flashdata('message'); ?>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
+        <div class="flash-data2" data-flashdata="<?= $this->session->flashdata('message') ?>"></div>
     <?php endif; ?>
     <?php if ($this->session->flashdata('pesanbaik')) : ?>
-        <div class="alert alert-success" role="alert">
-            <?php echo $this->session->flashdata('pesanbaik'); ?>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
+        <div class="flash-data" data-flashdata="<?= $this->session->flashdata('pesanbaik') ?>"></div>
     <?php endif; ?>
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -76,8 +66,6 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
-                                        <div class="box">
-                                            <div class="box-body">
                                                 <div class="form-group">
                                                     <label for=""> Barang </label>
                                                     <select name="id_barang" id="id_barang" class="form-control">
@@ -99,6 +87,7 @@
                                                     <div class="form-text text-danger"><?= form_error('biaya'); ?></div>
                                                 </div>
                                                 <button type="button" class="btn btn-primary" onclick="insert_detail()">Tambah</button>
+                                                <br><br>
                                                 <div class="databarang">
                                                     <div class="table-responsive">
                                                         <table id="example1" class="table table-bordered table-striped">
@@ -119,8 +108,6 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </div>
                                 </div>
 
                                 <button type="submit" class="btn btn-primary">Update</button>

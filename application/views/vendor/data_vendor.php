@@ -12,13 +12,11 @@
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Menampilkan notif flashdata -->
+    <?php if ($this->session->flashdata('message')) : ?>
+        <div class="flash-data2" data-flashdata="<?= $this->session->flashdata('message') ?>"></div>
+    <?php endif; ?>
     <?php if ($this->session->flashdata('pesanbaik')) : ?>
-        <div class="alert alert-success" role="alert">
-            <?php echo $this->session->flashdata('pesanbaik'); ?>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
+        <div class="flash-data" data-flashdata="<?= $this->session->flashdata('pesanbaik') ?>"></div>
     <?php endif; ?>
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -39,7 +37,7 @@
                     <!-- /.box -->
                     <div class="box">
                         <div class="box-header">
-                            <a href="<?= base_url('vendor/tambah'); ?>" class="btn btn-primary"><i class="fa fa-plus"></i> Tambah</a>
+                            <a href="<?= base_url('vvendor/tambah'); ?>" class="btn btn-primary"><i class="fa fa-plus"></i> Tambah</a>
                         </div>
                         <!-- /.box-header -->
                         <div class="box-body">
@@ -70,8 +68,8 @@
                                                 <td><?= $v['situs_web']; ?></td>
                                                 <td><?= $v['catatan']; ?></td>
                                                 <td>
-                                                    <a href="<?= base_url('vendor/edit/') . $v['id']; ?>" class="btn btn-sm btn-warning"><i class="fa fa-edit"></i></a>
-                                                    <a href="<?= base_url('vendor/hapus/') . $v['id']; ?>" class="btn btn-sm btn-danger" onclick="return confirm('Apakah Anda Yakin Menghapus Vendor ini ?')"><i class="fa fa-trash"></i></a>
+                                                    <a href="<?= base_url('vvendor/edit/') . $v['id']; ?>" class="btn btn-sm btn-warning"><i class="fa fa-edit"></i></a>
+                                                    <a href="<?= base_url('vvendor/hapus/') . $v['id']; ?>" class="btn btn-sm btn-danger" onclick="return confirm('Apakah Anda Yakin Menghapus Vendor ini ?')"><i class="fa fa-trash"></i></a>
                                                 </td>
                                             </tr>
                                         <?php endforeach; ?>
