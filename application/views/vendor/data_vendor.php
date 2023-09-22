@@ -69,7 +69,7 @@
                                                 <td><?= $v['catatan']; ?></td>
                                                 <td>
                                                     <a href="<?= base_url('vvendor/edit/') . $v['id']; ?>" class="btn btn-sm btn-warning"><i class="fa fa-edit"></i></a>
-                                                    <a href="<?= base_url('vvendor/hapus/') . $v['id']; ?>" class="btn btn-sm btn-danger" onclick="return confirm('Apakah Anda Yakin Menghapus Vendor ini ?')"><i class="fa fa-trash"></i></a>
+                                                    <a href="<?= base_url('vvendor/hapus/') . $v['id']; ?>" class="btn btn-sm btn-danger hapus"><i class="fa fa-trash"></i></a>
                                                 </td>
                                             </tr>
                                         <?php endforeach; ?>
