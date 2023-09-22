@@ -100,12 +100,8 @@
                                                     <?= ($u['status'] == 8) ? '<button type="button" class="btn btn-sm btn-info">Setuju</button>' : ''; ?>
                                                 </td>
                                                 <td>
-<<<<<<< HEAD
                                                     <a href="<?= base_url('riwayat/detail/') . $u['id']; ?>" class="btn btn-sm btn-white">Faktor <i class="fa fa-eye"></i></a>
                                                     <a href="<?= base_url('riwayat/detail/') . $u['id']; ?>" class="btn btn-sm btn-white">Surat <i class="fa fa-eye"></i></a>
-=======
-                                                    <a href="<?= base_url('riwayat/detail/') . $u['id']; ?>" class="btn btn-sm btn-white"><i class="fa fa-eye"></i></a>
->>>>>>> 253ed036136d84dc84994300914b668c6be6debe
                                                 </td>
                                             </tr>
                                         <?php endforeach; ?>
