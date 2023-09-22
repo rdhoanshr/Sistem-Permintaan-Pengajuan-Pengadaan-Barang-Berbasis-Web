@@ -241,12 +241,9 @@
 <script src="<?= base_url() ?>assets/AdminLTE/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
 
 <script src="<?= base_url(); ?>assets/AdminLTE/dist/js/adminlte.min.js"></script>
-<<<<<<< HEAD
 <!-- Sweet Alert2 -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-=======
 
->>>>>>> 253ed036136d84dc84994300914b668c6be6debe
 
 
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
@@ -289,7 +286,7 @@
             e.preventDefault();
             var url = $(this).attr('href');
             Swal.fire({
-                title: 'Apakah Anda Yakin?',
+                title: 'Apakah Anda Yakin Logout?',
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonText: 'Ya'
@@ -298,39 +295,38 @@
                     window.location.replace(url);
                 }
             });
-            $('body').on('click', '.hapus', function(e) {
-                e.preventDefault();
-                var url = $(this).attr('href');
-                Swal.fire({
-                    title: 'Apakah Anda Yakin?',
-                    text: 'Mengapus Data Berikut',
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonText: 'Ya'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        window.location.replace(url);
-                    }
-                })
+        });
+        $('body').on('click', '.konfirm', function(e) {
+            e.preventDefault();
+            var url = $(this).attr('href');
+            Swal.fire({
+                title: 'Apakah Anda Yakin Accept?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Ya'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.replace(url);
+                }
             });
-            $('body').on('click', '.konfirm', function(e) {
-                e.preventDefault();
-                var url = $(this).attr('href');
-                Swal.fire({
-                    title: 'Apakah Anda Yakin?',
-                    icon: 'info',
-                    showCancelButton: true,
-                    confirmButtonText: 'Ya'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        window.location.replace(url);
-                    }
-                });
+        });
+        $('body').on('click', '.hapus', function(e) {
+            e.preventDefault();
+            var url = $(this).attr('href');
+            Swal.fire({
+                title: 'Apakah Anda Yakin Menghapus?',
+                icon: 'info',
+                showCancelButton: true,
+                confirmButtonText: 'Ya'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.replace(url);
+                }
             });
-        })
+        });
         //Date range picker
         $('#reservation').daterangepicker()
-    })
+    });
 </script>
 <script>
     // Input value unit
