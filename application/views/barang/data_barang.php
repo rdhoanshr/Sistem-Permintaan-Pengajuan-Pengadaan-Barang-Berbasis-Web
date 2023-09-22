@@ -12,13 +12,11 @@
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Menampilkan notif flashdata -->
+    <?php if ($this->session->flashdata('message')) : ?>
+        <div class="flash-data2" data-flashdata="<?= $this->session->flashdata('message') ?>"></div>
+    <?php endif; ?>
     <?php if ($this->session->flashdata('pesanbaik')) : ?>
-        <div class="alert alert-success" role="alert">
-            <?php echo $this->session->flashdata('pesanbaik'); ?>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
+        <div class="flash-data" data-flashdata="<?= $this->session->flashdata('pesanbaik') ?>"></div>
     <?php endif; ?>
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -67,7 +65,7 @@
                                                 <td><?= $b['keterangan']; ?> </td>
                                                 <td>
                                                     <a href="<?= base_url('barang/edit/') . $b['id_barang']; ?>" class="btn btn-sm btn-warning"><i class="fa fa-edit"></i></a>
-                                                    <a href="<?= base_url('barang/hapus/') . $b['id_barang']; ?>" class="btn btn-sm btn-danger" onclick="return confirm('Apakah Anda Yakin Menghapus Barang ini ?')"><i class="fa fa-trash"></i></a>
+                                                    <a href="<?= base_url('barang/hapus/') . $b['id_barang']; ?>" class="btn btn-sm btn-danger hapus"><i class="fa fa-trash"></i></a>
                                                 </td>
                                             </tr>
                                         <?php endforeach; ?>
