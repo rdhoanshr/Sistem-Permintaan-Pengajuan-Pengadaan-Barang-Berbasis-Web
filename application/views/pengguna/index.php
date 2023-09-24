@@ -13,14 +13,10 @@
 <div class="content-wrapper">
     <!-- Menampilkan notif flashdata -->
     <?php if ($this->session->flashdata('message')) : ?>
-        <div class="alert alert-danger" role="alert">
-            <?php echo $message; ?>
-        </div>
+        <div class="flash-data2" data-flashdata="<?= $this->session->flashdata('message') ?>"></div>
     <?php endif; ?>
     <?php if ($this->session->flashdata('pesanbaik')) : ?>
-        <div class="alert alert-success" role="alert">
-            <?php echo $this->session->flashdata('pesanbaik'); ?>
-        </div>
+        <div class="flash-data" data-flashdata="<?= $this->session->flashdata('pesanbaik') ?>"></div>
     <?php endif; ?>
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -84,7 +80,7 @@
                                                 </td>
                                                 <td>
                                                     <a href="<?= base_url('auth/edit_user/') . $user->id; ?>" class="btn btn-sm btn-warning"><i class="fa fa-edit"></i></a>
-                                                    <a href="<?= base_url('auth/delete_user/') . $user->id; ?>" class="btn btn-sm btn-danger" onclick="return confirm('Apakah Anda Yakin Menghapus Pengguna ini ?')"><i class="fa fa-trash"></i></a>
+                                                    <a href="<?= base_url('auth/delete_user/') . $user->id; ?>" class="btn btn-sm btn-danger hapus"><i class="fa fa-trash"></i></a>
                                                 </td>
                                             </tr>
                                         <?php endforeach; ?>
