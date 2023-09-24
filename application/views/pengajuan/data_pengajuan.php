@@ -13,7 +13,7 @@
 <div class="content-wrapper">
     <!-- Menampilkan notif flashdata -->
     <?php if ($this->session->flashdata('message')) : ?>
-        <div class="flash-data2" data-flashdata="<?= $this->session->flashdata('message') ?>"></div>
+        <div class="flash-data2" data-flashdata2="<?= $this->session->flashdata('message') ?>"></div>
     <?php endif; ?>
     <?php if ($this->session->flashdata('pesanbaik')) : ?>
         <div class="flash-data" data-flashdata="<?= $this->session->flashdata('pesanbaik') ?>"></div>
@@ -82,7 +82,7 @@
                                                     <a href="<?= base_url('pengajuan/detail/') . $u['id']; ?>" class="btn btn-sm btn-info"><i class="fa fa-eye"></i></a>
                                                     <?php if ($u['status'] == 0) : ?>
                                                         <a href="<?= base_url('pengajuan/edit/') . $u['id']; ?>" class="btn btn-sm btn-warning"><i class="fa fa-edit"></i></a>
-                                                        <a href="<?= base_url('pengajuan/hapus/') . $u['id']; ?>" class="btn btn-sm btn-danger hapus" ><i class="fa fa-trash"></i></a>
+                                                        <a href="<?= base_url('pengajuan/hapus/') . $u['id']; ?>" class="btn btn-sm btn-danger hapus"><i class="fa fa-trash "></i></a>
                                                     <?php endif; ?>
                                                     <?php if ($u['status'] == 4 && $this->ion_auth->in_group('staff')) : ?>
                                                         <button type="button" class="btn btn-sm btn-primary text-white" data-toggle="modal" data-target="#kirim_vendor" onclick="kirim_vendor(<?= $u['id']; ?>)">
@@ -126,7 +126,7 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="">Pilih Vendor</label>
-                        <select name="vendor" class="form-control">
+                        <select name="vendor" class=" form-control js-example-basic-single">
                             <option selected disabled>-- Pilih Vendor --</option>
                             <?php foreach ($vendor as $v) : ?>
                                 <option value="<?= $v['id_vendor']; ?>"><?= $v['nama']; ?></option>
