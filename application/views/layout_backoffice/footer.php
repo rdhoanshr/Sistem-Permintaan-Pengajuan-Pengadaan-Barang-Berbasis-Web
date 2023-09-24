@@ -241,9 +241,10 @@
 <script src="<?= base_url() ?>assets/AdminLTE/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
 
 <script src="<?= base_url(); ?>assets/AdminLTE/dist/js/adminlte.min.js"></script>
-<!-- Sweet Alert2 -->
+<!-- Sweet Alert2 CDN -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
+<!-- Select 2 CDN -->
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
 
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
@@ -253,6 +254,7 @@
 <!-- page script -->
 <script>
     $(function() {
+        $('.js-example-basic-single').select2();
         $('#example1').DataTable()
         $('#example2').DataTable({
             'paging': true,
