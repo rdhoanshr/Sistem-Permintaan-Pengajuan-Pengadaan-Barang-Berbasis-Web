@@ -13,7 +13,7 @@
 <div class="content-wrapper">
     <!-- Menampilkan notif flashdata -->
     <?php if ($this->session->flashdata('message')) : ?>
-        <div class="flash-data2" data-flashdata="<?= $this->session->flashdata('message') ?>"></div>
+        <div class="flash-data2" data-flashdata2="<?= $this->session->flashdata('message') ?>"></div>
     <?php endif; ?>
     <?php if ($this->session->flashdata('pesanbaik')) : ?>
         <div class="flash-data" data-flashdata="<?= $this->session->flashdata('pesanbaik') ?>"></div>
