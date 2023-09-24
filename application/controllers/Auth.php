@@ -571,7 +571,7 @@ class Auth extends CI_Controller
 		if ($this->form_validation->run() === TRUE && $this->ion_auth->register($identity, $password, $email, $additional_data, $groups)) {
 			// check to see if we are creating the user
 			// redirect them back to the admin page
-			$this->session->set_flashdata('pesanbaik', $this->ion_auth->messages());
+			$this->session->set_flashdata('pesanbaik', 'Pengguna Berhasil Di Tambahkan', $this->ion_auth->messages());
 			redirect("auth/pengguna", 'refresh');
 		} else {
 			// display the create user form
@@ -739,11 +739,11 @@ class Auth extends CI_Controller
 				// check to see if we are updating the user
 				if ($this->ion_auth->update($user->id, $data)) {
 					// redirect them back to the admin page if admin, or to the base url if non admin
-					$this->session->set_flashdata('pesanbaik', $this->ion_auth->messages());
+					$this->session->set_flashdata('pesanbaik', 'Data Berhasil Di Ubah', $this->ion_auth->messages());
 					redirect('auth/pengguna', 'refresh');
 				} else {
 					// redirect them back to the admin page if admin, or to the base url if non admin
-					$this->session->set_flashdata('pesanbaik', $this->ion_auth->errors());
+					$this->session->set_flashdata('pesanbaik', 'Data Berhasil Di Ubah', $this->ion_auth->errors());
 					redirect('auth/pengguna', 'refresh');
 				}
 			}
