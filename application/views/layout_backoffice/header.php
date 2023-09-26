@@ -35,8 +35,10 @@
   <!-- DataTables -->
   <link rel="stylesheet" href="<?= base_url(); ?>assets/AdminLTE/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
 
-  <!-- Google Font -->
-  <link rel="stylesheet" href="<?= base_url(); ?>assets/AdminLTE/https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
-  <!-- Select2 CDN -->
-  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+  <!-- Select2 BS4 -->
+  <link rel="stylesheet" href="<?= base_url(); ?>assets/AdminLTE/bower_components/select2/dist/css/select2.css">
+
+  <!-- <link rel="stylesheet" href="<?= base_url(); ?>assets/AdminLTE/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css"> -->
+
+  <link rel="stylesheet" href="<?= base_url(); ?>assets/AdminLTE/plugins/sweetalert2/dist/sweetalert2.min.css">
 </head>

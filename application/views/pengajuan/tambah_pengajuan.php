@@ -36,7 +36,7 @@
         <ol class="breadcrumb">
             <li><a href="<?= base_url(); ?>"><i class="fa fa-dashboard"></i> Home</a></li>
             <li><a href="<?= base_url(); ?>pengajuan">Data Pengajuan</a></li>
-            <li class="active">Tambahs</li>
+            <li class="active">Tambah</li>
         </ol>
     </section>
 
@@ -79,7 +79,7 @@
 
                                         <div class="form-group">
                                             <label for=""> Barang </label>
-                                            <select name="id_barang" id="id_barang" class="form-control">
+                                            <select name="id_barang" id="id_barang" class="form-control js-example-basic-single">
                                                 <option selected disabled>-- Pilih Barang --</option>
                                                 <?php foreach ($barang as $b) : ?>
                                                     <option value="<?= $b['id_barang']; ?>"><?= $b['nama_barang']; ?></option>
