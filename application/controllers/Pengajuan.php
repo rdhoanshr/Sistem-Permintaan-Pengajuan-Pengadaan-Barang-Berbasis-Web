@@ -335,7 +335,7 @@ class Pengajuan extends CI_Controller
                 $this->PengajuanModel->acc_kabag($id, $get);
 
                 $msg = [
-                    'sukses' => 'Berhasil'
+                    'sukses' => 'Pengajuan Berhasil Di Setujui'
                 ];
             }
         }
@@ -363,18 +363,44 @@ class Pengajuan extends CI_Controller
 
     public function acc_direktur($id)
     {
-        $user = $this->ion_auth->user()->row();
-        if ($user->ttd == null) {
-            $this->session->set_flashdata('message', 'Acc Pengajuan Gagal - Harap Lengkapi Profil Anda Terlebih Dahulu');
-            redirect('pengajuan/detail/' . $id);
-        }
-        $this->PengajuanModel->acc_direktur($id);
-        $err = $this->db->error();
-        if ($err['code'] !== 0) {
-            echo $err['message'];
+        $get = $this->input->post('catatan');
+        if ($get == null) {
+            $msg = [
+                'gagal' => 'Gagal - Instruksi Harus Diisi'
+            ];
         } else {
-            $this->session->set_flashdata('pesanbaik', 'Pengajuan Berhasil Di Setujui');
-            redirect('pengajuan');
+            $user = $this->ion_auth->user()->row();
+            if ($user->ttd == null) {
+                $msg = [
+                    'gagal' => 'Acc Pengajuan Gagal - Harap Lengkapi Profil Anda Terlebih Dahulu'
+                ];
+            } else {
+                $this->PengajuanModel->acc_direktur($id, $get);
+
+                $msg = [
+                    'sukses' => 'Pengajuan Berhasil Di Setujui'
+                ];
+            }
+        }
+        echo json_encode($msg);
+    }
+
+    public function memo_direktur($id)
+    {
+        $data['title'] = 'Memo Direktur';
+        $data['row'] = $this->PengajuanModel->getPengajuan($id);
+        $id_direktur = $data['row']['verifikasi_3'];
+
+        $data['direktur'] = $this->PengajuanModel->getDirektur($id_direktur);
+
+        if ($data['row'] != null) {
+            $this->load->library('pdf');
+
+            $this->pdf->setPaper('A4', 'potrait');
+            $this->pdf->load_view('pengajuan/memo_direktur', $data);
+        } else {
+            $this->session->set_flashdata('message', 'Halaman Tidak Tersedia');
+            return redirect('pengajuan');
         }
     }
 

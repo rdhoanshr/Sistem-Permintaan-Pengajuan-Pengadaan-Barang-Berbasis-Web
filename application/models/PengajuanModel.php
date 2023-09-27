@@ -223,7 +223,7 @@ class PengajuanModel extends CI_model
 
     public function getPengajuan($id)
     {
-        $this->db->select('pengajuan.id,kode_pengajuan,pengajuan,jenis_pengajuan,tgl_pengajuan,keterangan,total,status,users.id_unit,nama_unit,id_user,total_vendor,rekomendasi,kode_unit,nama_lengkap,ttd,memo_2,catatan_2,verifikasi_2');
+        $this->db->select('pengajuan.id,kode_pengajuan,pengajuan,jenis_pengajuan,tgl_pengajuan,keterangan,total,status,users.id_unit,nama_unit,id_user,total_vendor,rekomendasi,kode_unit,nama_lengkap,ttd,memo_2,catatan_2,verifikasi_2,memo_3,catatan_3,verifikasi_3');
         $this->db->from('pengajuan');
         $this->db->join('users', 'pengajuan.id_user = users.id');
         $this->db->join('unit', 'users.id_unit = unit.id_unit');
@@ -237,6 +237,15 @@ class PengajuanModel extends CI_model
         $this->db->select('*');
         $this->db->from('users');
         $this->db->where('id', $id_kabag);
+
+        return $this->db->get()->row_array();
+    }
+
+    public function getDirektur($id_direktur)
+    {
+        $this->db->select('*');
+        $this->db->from('users');
+        $this->db->where('id', $id_direktur);
 
         return $this->db->get()->row_array();
     }
@@ -386,8 +395,34 @@ class PengajuanModel extends CI_model
         $this->db->update('pengajuan', $data);
     }
 
-    public function acc_direktur($id)
+    public function acc_direktur($id, $get)
     {
+        $user = $this->db->select('*')->from('pengajuan')->where('id', $id)->get()->row_array();
+
+        $id_unit = $this->db->select('*')->from('users')->where('id', $user['id_user'])->get()->row_array();
+        $unit = $this->db->select('*')->from('unit')->where('id_unit', $id_unit['id_unit'])->get()->row_array();
+
+        $urut_unit = sprintf("%02s", $unit['id_unit']);
+
+        include "fungsi-romawi.php";
+        $bulan = date('n');
+        $romawi = getRomawi($bulan);
+        $tahun = date('Y');
+        $nomor = "/RSI-SA/" . $urut_unit . "/" . $romawi . "/" . $tahun;
+
+        $query = $this->db->query("SELECT MAX(MID(kode_pengajuan,1,3)) as maxKode FROM pengajuan WHERE YEAR(tgl_pengajuan)=$tahun and memo_3 like '%$urut_unit%'");
+        if ($query->row_array() != null) {
+            $row = $query->row_array();
+            $i = $row['maxKode'];
+            $i++;
+            $no = $i;
+        } else {
+            $no = "1";
+        };
+
+        $kode =  sprintf("%03s", $no);
+        $nomorbaru = $kode . $nomor;
+
         $user = $this->ion_auth->user()->row();
         $kode = $this->db->query("SELECT kode_pengajuan FROM pengajuan WHERE id=$id")->row_array();
         if ($kode != null) {
@@ -399,6 +434,8 @@ class PengajuanModel extends CI_model
         $data = [
             "status" => 4,
             "verifikasi_3" => $user->id,
+            "memo_3" => $nomorbaru,
+            "catatan_3" => $get,
         ];
 
         $data_surat = [

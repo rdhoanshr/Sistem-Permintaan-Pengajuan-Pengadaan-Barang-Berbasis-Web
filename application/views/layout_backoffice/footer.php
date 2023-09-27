@@ -377,15 +377,70 @@
                                 title: response.gagal
                             });
                         }
-
                     },
                     error: function(xhr, ajaxOptions, thrownError) {
                         alert(xhr.status + "\n" + xhr.responseText + "\n" +
                             thrownError);
                     }
                 });
-                // document.getElementById("computerName").value = hardwareComputerName;
-                // document.getElementById("computerRenameForm").submit();
+            }
+        })()
+    }
+
+    function acc() {
+        (async () => {
+            const {
+                value: text
+            } = await Swal.fire({
+                title: 'Apakah Anda Yakin Accept?',
+                icon: 'warning',
+                text: 'Input Instruksi',
+                input: 'textarea',
+                inputAttributes: {
+                    maxlength: 500
+                },
+                showCancelButton: true,
+                confirmButtonText: 'Ya',
+                reverseButtons: false,
+                inputValidator: (value) => {
+                    if (!value) {
+                        return 'Instruksi tidak boleh kosong!'
+                    } else {
+                        $('#acc_direktur').val(value)
+                    }
+                }
+            })
+
+            if (text) {
+                var cttn = $('#acc_direktur').val();
+                var url = $('#formAccDir').attr('action');
+                $.ajax({
+                    type: "post",
+                    url: url,
+                    data: {
+                        catatan: cttn
+                    },
+                    dataType: "json",
+                    success: function(response) {
+                        if (response.sukses) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Berhasil Di Acc!'
+                            });
+                            window.location.reload();
+                        }
+                        if (response.gagal) {
+                            Swal.fire({
+                                icon: 'error',
+                                title: response.gagal
+                            });
+                        }
+                    },
+                    error: function(xhr, ajaxOptions, thrownError) {
+                        alert(xhr.status + "\n" + xhr.responseText + "\n" +
+                            thrownError);
+                    }
+                });
             }
         })()
     }

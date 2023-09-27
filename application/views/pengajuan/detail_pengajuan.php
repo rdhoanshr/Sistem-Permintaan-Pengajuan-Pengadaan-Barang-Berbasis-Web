@@ -233,13 +233,19 @@
                                 <?php endif; ?>
                                 <?php if ($this->ion_auth->in_group('direktur')) : ?>
                                     <?php if ($row['status'] == 3) : ?>
-                                        <a href="<?= base_url('pengajuan/acc_direktur/' . $row['id']); ?>" class="btn btn-success konfirm"><i class="fa fa-check"></i> Acc</a>
+                                        <form action="<?= base_url('pengajuan/acc_direktur/' . $row['id']); ?>" method="post" id="formAccDir">
+                                            <input type="hidden" name="acc_direktur" id="acc_direktur">
+                                            <button type="button" class="btn btn-success" onclick="acc()"><i class="fa fa-check"></i> Acc</button>
+                                        </form>
                                     <?php endif; ?>
                                 <?php endif; ?>
                                 <br>
                                 <a href="<?= base_url(); ?>pengajuan/surat_unit/<?= $row['id']; ?>" class="btn btn-warning" target="_blank"><i class="fa fa-print"></i> Surat</a>
                                 <?php if ($row['status'] != 0 && $row['status'] != 2) : ?>
                                     <a href="<?= base_url(); ?>pengajuan/memo_kabag/<?= $row['id']; ?>" class="btn btn-warning" target="_blank"><i class="fa fa-print"></i> Memo Kabag</a>
+                                <?php endif; ?>
+                                <?php if ($row['status'] != 0 && $row['status'] != 2 && $row['status'] != 3) : ?>
+                                    <a href="<?= base_url(); ?>pengajuan/memo_direktur/<?= $row['id']; ?>" class="btn btn-warning" target="_blank"><i class="fa fa-print"></i> Memo Direktur</a>
                                 <?php endif; ?>
                                 <a href="<?= base_url('pengajuan'); ?>" class="btn btn-info">Kembali</a>
                             </div>
