@@ -155,12 +155,18 @@ class PengajuanModel extends CI_model
         $id = $this->input->post('id');
         $id_user = $this->input->post('id_user');
         $getBarang = $this->db->select('*')->from('temp_detailpengajuan')->where('id_pengajuan', $id)->where('id_user', $id_user)->get()->result_array();
+        $id_unit = $this->ion_auth->user($id_user)->row_array();
+        $unit = $this->db->select('*')->from('unit')->where('id_unit', $id_unit['id_unit'])->get()->row_array();
 
+        $urut_unit = sprintf("%02s", $unit['id_unit']);
         // Proses Pembuatan Kode
+        include "fungsi-romawi.php";
         $bulan = date('n');
+        $romawi = getRomawi($bulan);
         $tahun = date('Y');
-        $nomor = "/PB/" . $bulan . "/" . $tahun;
-        $query = $this->db->query("SELECT MAX(MID(no_surat,1,3)) as maxKode FROM surat WHERE YEAR(tgl_pengajuan)=$tahun");
+        $nomor = "/" . $unit['kode_unit'] . "/RSI-SA/" . $urut_unit . "/" . $romawi . "/" . $tahun;
+
+        $query = $this->db->query("SELECT MAX(MID(no_surat,1,3)) as maxKode FROM surat WHERE YEAR(tgl_pengajuan)=$tahun and no_surat like '$unit[kode_unit]'");
         if ($query->row_array() != null) {
             $row = $query->row_array();
             $i = $row['maxKode'];
@@ -172,6 +178,7 @@ class PengajuanModel extends CI_model
 
         $kode =  sprintf("%03s", $no);
         $nomorbaru = $kode . $nomor;
+        // die(var_dump($nomorbaru));
         // End Proses Pembuatan Kode
 
         $data = [

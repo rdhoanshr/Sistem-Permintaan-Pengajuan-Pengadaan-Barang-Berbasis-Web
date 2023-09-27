@@ -114,8 +114,8 @@
         <br>
         <p style="text-align: justify;">
             <i>Assalamu'alaikum Wr. Wb.</i> <br><br>
-            &nbsp;&nbsp;&nbsp;&nbsp;Puji Syukur kita panjatkan kehadirat Allah SWT, semoga kita selalu dalam lindungan dan mendapatkan petunjuk serta Ridho-Nya. Aamiin. <br><br>
-            &nbsp;&nbsp;&nbsp;&nbsp;Sehubungan dengan pentingnya ketersediaan alat untuk kelancaran pelayanan yang akan berlangsung maka kami mengajukan alat medis untuk pelayanan di poliklinik dengan perincian sebagai berikut :
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Puji Syukur kita panjatkan kehadirat Allah SWT, semoga kita selalu dalam lindungan dan mendapatkan petunjuk serta Ridho-Nya. Aamiin. <br><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sehubungan dengan pentingnya ketersediaan alat untuk kelancaran pelayanan yang akan berlangsung maka kami mengajukan alat medis untuk pelayanan di poliklinik dengan perincian sebagai berikut :
         </p>
         <table style="width: 100%;  border-collapse: collapse; border: 1px solid #000000;" border="1px">
             <thead>
@@ -152,7 +152,7 @@
         </table>
         <br>
         <p style="text-align: justify;">
-            &nbsp;&nbsp;&nbsp;&nbsp;Demikian permohonan pengajuan ini kami sampaikan, atas perhatiannya kami haturkan terima kasih. <br><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Demikian permohonan pengajuan ini kami sampaikan, atas perhatiannya kami haturkan terima kasih. <br><br>
             <i>Billahittaufiq wal hidayah <br>
                 Wassalamu'alaikum Wr. Wb.</i>
         </p>
