@@ -62,11 +62,11 @@
 
     <?php
     $pathttd = '/' . $row['id_user'] . '/' . $row['ttd'];
-    if ($pathttd != null) {
-        $path = realpath('/laragon/www/pengadaan/uploads/ttd/') . $pathttd;
+    $path = realpath('/laragon/www/pengadaan/uploads/ttd/') . $pathttd;
 
+    $type = pathinfo($path, PATHINFO_EXTENSION);
 
-        $type = pathinfo($path, PATHINFO_EXTENSION);
+    if (file_exists($path)) {
         $data = file_get_contents($path);
         $ttd = 'data:image/' . $type . ';base64,' . base64_encode($data);
     } else {
