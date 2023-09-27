@@ -233,6 +233,7 @@
                                         <a href="<?= base_url('pengajuan/acc_direktur/' . $row['id']); ?>" class="btn btn-success konfirm"><i class="fa fa-check"></i> Acc</a>
                                     <?php endif; ?>
                                 <?php endif; ?>
+                                <a href="<?= base_url(); ?>pengajuan/surat_unit/<?= $row['id']; ?>" class="btn btn-warning" target="_blank"><i class="fa fa-print"></i> Surat</a>
                                 <a href="<?= base_url('pengajuan'); ?>" class="btn btn-info">Kembali</a>
                             </div>
                         </div>

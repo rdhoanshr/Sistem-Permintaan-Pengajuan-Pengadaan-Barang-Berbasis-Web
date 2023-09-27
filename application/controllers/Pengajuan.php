@@ -163,8 +163,29 @@ class Pengajuan extends CI_Controller
             $data['rekom'] = $rekom;
         }
 
+        if ($data['row'] != null) {
+            $this->load->view('pengajuan/detail_pengajuan', $data);
+        } else {
+            $this->session->set_flashdata('message', 'Halaman Tidak Tersedia');
+            return redirect('pengajuan');
+        }
+    }
 
-        $this->load->view('pengajuan/detail_pengajuan', $data);
+    public function surat_unit($id)
+    {
+        $data['title'] = 'Detail Pengajuan';
+        $data['row'] = $this->PengajuanModel->getPengajuan($id);
+        $data['barang'] = $this->PengajuanModel->detail($id);
+
+        if ($data['row'] != null) {
+            $this->load->library('pdf');
+
+            $this->pdf->setPaper('A4', 'potrait');
+            $this->pdf->load_view('pengajuan/surat_unit', $data);
+        } else {
+            $this->session->set_flashdata('message', 'Halaman Tidak Tersedia');
+            return redirect('pengajuan');
+        }
     }
 
     public function edit($id)
@@ -179,7 +200,12 @@ class Pengajuan extends CI_Controller
         $this->form_validation->set_rules('keterangan', 'Keterangan', 'required');
 
         if ($this->form_validation->run() == false) {
-            $this->load->view('pengajuan/edit_pengajuan', $data);
+            if ($data['row'] != null) {
+                $this->load->view('pengajuan/edit_pengajuan', $data);
+            } else {
+                $this->session->set_flashdata('message', 'Halaman Tidak Tersedia');
+                return redirect('pengajuan');
+            }
         } else {
             if (!$this->PengajuanModel->detail($id)) {
                 $this->session->set_flashdata('message', 'Tidak Ada Barang Yang Di Ajukan');

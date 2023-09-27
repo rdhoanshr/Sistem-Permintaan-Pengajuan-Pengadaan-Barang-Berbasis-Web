@@ -216,7 +216,7 @@ class PengajuanModel extends CI_model
 
     public function getPengajuan($id)
     {
-        $this->db->select('pengajuan.id,kode_pengajuan,pengajuan,jenis_pengajuan,tgl_pengajuan,keterangan,total,status,users.id_unit,nama_unit,id_user,total_vendor,rekomendasi');
+        $this->db->select('pengajuan.id,kode_pengajuan,pengajuan,jenis_pengajuan,tgl_pengajuan,keterangan,total,status,users.id_unit,nama_unit,id_user,total_vendor,rekomendasi,kode_unit,nama_lengkap,ttd');
         $this->db->from('pengajuan');
         $this->db->join('users', 'pengajuan.id_user = users.id');
         $this->db->join('unit', 'users.id_unit = unit.id_unit');
