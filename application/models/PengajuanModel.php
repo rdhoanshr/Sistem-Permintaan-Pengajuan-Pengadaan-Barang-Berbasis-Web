@@ -166,7 +166,7 @@ class PengajuanModel extends CI_model
         $tahun = date('Y');
         $nomor = "/" . $unit['kode_unit'] . "/RSI-SA/" . $urut_unit . "/" . $romawi . "/" . $tahun;
 
-        $query = $this->db->query("SELECT MAX(MID(no_surat,1,3)) as maxKode FROM surat WHERE YEAR(tgl_pengajuan)=$tahun and no_surat like '$unit[kode_unit]'");
+        $query = $this->db->query("SELECT MAX(MID(no_surat,1,3)) as maxKode FROM surat WHERE YEAR(tgl_pengajuan)=$tahun and no_surat like '%$unit[kode_unit]%'");
         if ($query->row_array() != null) {
             $row = $query->row_array();
             $i = $row['maxKode'];

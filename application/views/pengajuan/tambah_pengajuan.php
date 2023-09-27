@@ -13,20 +13,10 @@
 <div class="content-wrapper">
     <!-- Menampilkan notif flashdata -->
     <?php if ($this->session->flashdata('message')) : ?>
-        <div class="alert alert-danger" role="alert">
-            <?php echo $this->session->flashdata('message'); ?>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
+        <div class="flash-data2" data-flashdata2="<?= $this->session->flashdata('message') ?>"></div>
     <?php endif; ?>
     <?php if ($this->session->flashdata('pesanbaik')) : ?>
-        <div class="alert alert-success" role="alert">
-            <?php echo $this->session->flashdata('pesanbaik'); ?>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
+        <div class="flash-data" data-flashdata="<?= $this->session->flashdata('pesanbaik') ?>"></div>
     <?php endif; ?>
     <!-- Content Header (Page header) -->
     <section class="content-header">
