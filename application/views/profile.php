@@ -51,7 +51,13 @@
 
                             </div>
                             <div class="form-group">
-                                <label for=""> Passord</label>
+                                <label for=""> Nama Lengkap </label>
+                                <input type="text" name="nama_lengkap" class="form-control" value="<?= $user->nama_lengkap; ?>">
+                                <div class="form-text text-danger"><?= form_error('nama_lengkap'); ?></div>
+
+                            </div>
+                            <div class="form-group">
+                                <label for=""> Password</label>
                                 <input type="password" name="password" class="form-control" placeholder="Isi Jika Password diganti">
                                 <div class="form-text text-danger"><?= form_error('password'); ?></div>
 
@@ -93,7 +99,7 @@
                                 <div class="form-text text-danger"><?= form_error('ttd'); ?></div>
 
                             </div>
-                             <div class="form-group">
+                            <div class="form-group">
                                 <label for=""> Upload Foto Profile </label> <br>
                                 <?php if ($user->foto != null) : ?>
                                     <img src="<?= base_url('uploads/ttd/') . $user->id . "/" . $user->foto; ?>" width="100px" height="auto" alt="Foto Profile">

@@ -40,6 +40,7 @@ class Profile extends CI_Controller
         $this->load->library('form_validation');
         $this->load->helper(array('security'));
         $this->form_validation->set_rules('username', 'Username', 'trim|required|xss_clean' . $is_unique);
+        $this->form_validation->set_rules('nama_lengkap', 'Nama Lengkap', 'trim|required|xss_clean');
         $this->form_validation->set_rules('email', $this->lang->line('create_user_validation_email_label'), 'trim|required|valid_email' . $is_unique_email);
         // update the password if it was posted
         if ($this->input->post('password')) {
@@ -70,7 +71,7 @@ class Profile extends CI_Controller
             $upload_foto = $this->input->post('foto_lama');
             // $this->form_validation->set_rules('ttd', 'ttd', 'required');
         } else {
-            $upload_foto= $this->upload->data('file_name');
+            $upload_foto = $this->upload->data('file_name');
         }
         // die (var_dump($upload_foto));
         if ($this->form_validation->run() == false) {
@@ -78,6 +79,7 @@ class Profile extends CI_Controller
         } else {
             $data = [
                 'username' => $this->input->post('username'),
+                'nama_lengkap' => $this->input->post('nama_lengkap'),
                 'email' => $this->input->post('email'),
                 'ttd' => $upload_ttd,
                 'foto' => $upload_foto

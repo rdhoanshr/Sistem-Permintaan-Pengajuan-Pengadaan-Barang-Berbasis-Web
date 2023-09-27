@@ -54,6 +54,12 @@
 
                             </div>
                             <div class="form-group">
+                                <label for=""> Nama Lengkap </label>
+                                <input type="text" name="nama_lengkap" class="form-control">
+                                <div class="form-text text-danger"><?= form_error('nama_lengkap'); ?></div>
+
+                            </div>
+                            <div class="form-group">
                                 <label for=""> <?php echo lang('create_user_password_label', 'password'); ?></label>
                                 <input type="password" name="password" class="form-control">
                                 <div class="form-text text-danger"><?= form_error('password'); ?></div>

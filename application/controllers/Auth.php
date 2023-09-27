@@ -554,6 +554,7 @@ class Auth extends CI_Controller
 		$this->load->helper(array('security'));
 		$this->form_validation->set_rules('username', 'Username', 'trim|required|xss_clean|is_unique[' . $tables['users'] . '.username]');
 		$this->form_validation->set_rules('email', $this->lang->line('create_user_validation_email_label'), 'trim|required|valid_email|is_unique[' . $tables['users'] . '.email]');
+		$this->form_validation->set_rules('nama_lengkap', 'Nama Lengkap', 'required');
 		$this->form_validation->set_rules('password', $this->lang->line('create_user_validation_password_label'), 'required|min_length[' . $this->config->item('min_password_length', 'ion_auth') . ']|matches[password_confirm]');
 		$this->form_validation->set_rules('password_confirm', $this->lang->line('create_user_validation_password_confirm_label'), 'required');
 
@@ -563,6 +564,7 @@ class Auth extends CI_Controller
 			$password = $this->input->post('password');
 
 			$additional_data = [
+				'nama_lengkap' => $this->input->post('nama_lengkap'),
 				'id_unit' => $this->input->post('unit'),
 				'id_vendor' => $this->input->post('vendor')
 			];
@@ -689,6 +691,7 @@ class Auth extends CI_Controller
 		$this->load->library('form_validation');
 		$this->load->helper(array('security'));
 		$this->form_validation->set_rules('username', 'Username', 'trim|required|xss_clean' . $is_unique);
+		$this->form_validation->set_rules('nama_lengkap', 'Nama Lengkap', 'trim|required|xss_clean');
 		$this->form_validation->set_rules('email', $this->lang->line('create_user_validation_email_label'), 'trim|required|valid_email' . $is_unique_email);
 
 		// $this->form_validation->set_rules('first_name', $this->lang->line('edit_user_validation_fname_label'), 'trim|required');
@@ -712,6 +715,7 @@ class Auth extends CI_Controller
 				$data = [
 					'username' => $this->input->post('username'),
 					'email' => $this->input->post('email'),
+					'nama_lengkap' => $this->input->post('nama_lengkap'),
 					'active' => $this->input->post('status'),
 					'id_unit' => $this->input->post('unit'),
 					'id_vendor' => $this->input->post('vendor'),
