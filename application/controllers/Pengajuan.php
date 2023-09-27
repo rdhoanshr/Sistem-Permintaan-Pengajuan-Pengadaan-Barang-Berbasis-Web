@@ -173,7 +173,7 @@ class Pengajuan extends CI_Controller
 
     public function surat_unit($id)
     {
-        $data['title'] = 'Detail Pengajuan';
+        $data['title'] = 'Surat Pengajuan';
         $data['row'] = $this->PengajuanModel->getPengajuan($id);
         $data['barang'] = $this->PengajuanModel->detail($id);
 
@@ -320,18 +320,44 @@ class Pengajuan extends CI_Controller
 
     public function acc_kabag($id)
     {
-        $user = $this->ion_auth->user()->row();
-        if ($user->ttd == null) {
-            $this->session->set_flashdata('message', 'Acc Pengajuan Gagal - Harap Lengkapi Profil Anda Terlebih Dahulu');
-            redirect('pengajuan/detail/' . $id);
-        }
-        $this->PengajuanModel->acc_kabag($id);
-        $err = $this->db->error();
-        if ($err['code'] !== 0) {
-            echo $err['message'];
+        $get = $this->input->post('catatan');
+        if ($get == null) {
+            $msg = [
+                'gagal' => 'Gagal - Instruksi Harus Diisi'
+            ];
         } else {
-            $this->session->set_flashdata('pesanbaik', 'Pengajuan Berhasil Di Setujui');
-            redirect('pengajuan');
+            $user = $this->ion_auth->user()->row();
+            if ($user->ttd == null) {
+                $msg = [
+                    'gagal' => 'Acc Pengajuan Gagal - Harap Lengkapi Profil Anda Terlebih Dahulu'
+                ];
+            } else {
+                $this->PengajuanModel->acc_kabag($id, $get);
+
+                $msg = [
+                    'sukses' => 'Berhasil'
+                ];
+            }
+        }
+        echo json_encode($msg);
+    }
+
+    public function memo_kabag($id)
+    {
+        $data['title'] = 'Memo Kabag';
+        $data['row'] = $this->PengajuanModel->getPengajuan($id);
+        $id_kabag = $data['row']['verifikasi_2'];
+
+        $data['kabag'] = $this->PengajuanModel->getKabag($id_kabag);
+
+        if ($data['row'] != null) {
+            $this->load->library('pdf');
+
+            $this->pdf->setPaper('A4', 'potrait');
+            $this->pdf->load_view('pengajuan/memo_kabag', $data);
+        } else {
+            $this->session->set_flashdata('message', 'Halaman Tidak Tersedia');
+            return redirect('pengajuan');
         }
     }
 

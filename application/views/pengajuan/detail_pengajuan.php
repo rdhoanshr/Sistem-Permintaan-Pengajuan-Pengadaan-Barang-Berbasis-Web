@@ -220,12 +220,15 @@
                             <div class="form-group">
                                 <?php if ($this->ion_auth->in_group('staff')) : ?>
                                     <?php if ($row['status'] == 0) : ?>
-                                        <a href="<?= base_url('pengajuan/acc_staff/' . $row['id']); ?>" class="btn btn-success konfirm"><i class="fa fa-check"></i> Acc</a>
+                                        <a href="<?= base_url('pengajuan/acc_staff/' . $row['id']); ?>" class="btn btn-success acc"><i class="fa fa-check"></i> Acc</a>
                                     <?php endif; ?>
                                 <?php endif; ?>
                                 <?php if ($this->ion_auth->in_group('kabag')) : ?>
                                     <?php if ($row['status'] == 2) : ?>
-                                        <a href="<?= base_url('pengajuan/acc_kabag/' . $row['id']); ?>" class="btn btn-success konfirm"><i class="fa fa-check"></i> Acc</a>
+                                        <form action="<?= base_url('pengajuan/acc_kabag/' . $row['id']); ?>" method="post" id="formAccKabag">
+                                            <input type="hidden" name="acc_kabag" id="acc_kabag">
+                                            <button type="button" class="btn btn-success" onclick="konfirm()"><i class="fa fa-check"></i> Acc</button>
+                                        </form>
                                     <?php endif; ?>
                                 <?php endif; ?>
                                 <?php if ($this->ion_auth->in_group('direktur')) : ?>
@@ -233,7 +236,11 @@
                                         <a href="<?= base_url('pengajuan/acc_direktur/' . $row['id']); ?>" class="btn btn-success konfirm"><i class="fa fa-check"></i> Acc</a>
                                     <?php endif; ?>
                                 <?php endif; ?>
+                                <br>
                                 <a href="<?= base_url(); ?>pengajuan/surat_unit/<?= $row['id']; ?>" class="btn btn-warning" target="_blank"><i class="fa fa-print"></i> Surat</a>
+                                <?php if ($row['status'] != 0 && $row['status'] != 2) : ?>
+                                    <a href="<?= base_url(); ?>pengajuan/memo_kabag/<?= $row['id']; ?>" class="btn btn-warning" target="_blank"><i class="fa fa-print"></i> Memo Kabag</a>
+                                <?php endif; ?>
                                 <a href="<?= base_url('pengajuan'); ?>" class="btn btn-info">Kembali</a>
                             </div>
                         </div>
