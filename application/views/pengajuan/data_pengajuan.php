@@ -125,8 +125,8 @@
             <form action="" id="modal_kirim" method="post">
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="">Pilih Vendor</label>
-                        <select name="vendor" class=" form-control js-example-basic-single">
+                        <label for="">Pilih Vendor</label><br>
+                        <select name="vendor" class="form-control js-example-basic-single" style="width: 100%;">
                             <option selected disabled>-- Pilih Vendor --</option>
                             <?php foreach ($vendor as $v) : ?>
                                 <option value="<?= $v['id_vendor']; ?>"><?= $v['nama']; ?></option>

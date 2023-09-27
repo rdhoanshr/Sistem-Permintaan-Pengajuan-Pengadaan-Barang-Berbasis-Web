@@ -69,7 +69,7 @@
 
                                         <div class="form-group">
                                             <label for=""> Barang </label>
-                                            <select name="id_barang" id="id_barang" class="form-control js-example-basic-single">
+                                            <select name="id_barang" id="id_barang" class="form-control js-example-basic-single" style="width: 100%;">
                                                 <option selected disabled>-- Pilih Barang --</option>
                                                 <?php foreach ($barang as $b) : ?>
                                                     <option value="<?= $b['id_barang']; ?>"><?= $b['nama_barang']; ?></option>

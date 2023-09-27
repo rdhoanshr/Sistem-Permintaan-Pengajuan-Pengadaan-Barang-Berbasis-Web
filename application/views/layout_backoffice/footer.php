@@ -253,7 +253,9 @@
 <!-- page script -->
 <script>
     $(function() {
-        $('.js-example-basic-single').select2();
+        $('.js-example-basic-single').select2({
+            width: 'style'
+        });
         $('#example1').DataTable()
         $('#example2').DataTable({
             'paging': true,
