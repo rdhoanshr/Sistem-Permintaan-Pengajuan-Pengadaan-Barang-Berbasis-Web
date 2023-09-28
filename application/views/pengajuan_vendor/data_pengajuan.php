@@ -84,6 +84,7 @@
                                                 </td>
                                                 <td>
                                                     <?php if ($u['status'] == 5) : ?>
+                                                        <a href="<?= base_url('pengajuan_vendor/order_pembelian/') . $u['id']; ?>" class="btn btn-sm btn-success" target="_blank"><i class="fa fa-print"></i></a>
                                                         <a href="<?= base_url('pengajuan_vendor/detail/') . $u['id']; ?>" class="btn btn-sm btn-warning"><i class="fa fa-sign-in"></i></a>
                                                     <?php else : ?>
                                                         <a href="<?= base_url('pengajuan_vendor/detail/') . $u['id']; ?>" class="btn btn-sm btn-white"><i class="fa fa-eye"></i></a>

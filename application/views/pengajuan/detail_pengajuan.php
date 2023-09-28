@@ -247,6 +247,9 @@
                                 <?php if ($row['status'] != 0 && $row['status'] != 2 && $row['status'] != 3) : ?>
                                     <a href="<?= base_url(); ?>pengajuan/memo_direktur/<?= $row['id']; ?>" class="btn btn-warning" target="_blank"><i class="fa fa-print"></i> Memo Direktur</a>
                                 <?php endif; ?>
+                                <?php if ($row['status'] != 0 && $row['status'] != 2 && $row['status'] != 3 && $row['status'] != 4) : ?>
+                                    <a href="<?= base_url(); ?>pengajuan/order_pembelian/<?= $row['id']; ?>" class="btn btn-warning" target="_blank"><i class="fa fa-print"></i> Order Pembelian</a>
+                                <?php endif; ?>
                                 <a href="<?= base_url('pengajuan'); ?>" class="btn btn-info">Kembali</a>
                             </div>
                         </div>

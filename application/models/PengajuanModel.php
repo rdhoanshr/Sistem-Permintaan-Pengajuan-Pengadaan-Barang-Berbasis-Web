@@ -223,10 +223,29 @@ class PengajuanModel extends CI_model
 
     public function getPengajuan($id)
     {
-        $this->db->select('pengajuan.id,kode_pengajuan,pengajuan,jenis_pengajuan,tgl_pengajuan,keterangan,total,status,users.id_unit,nama_unit,id_user,total_vendor,rekomendasi,kode_unit,nama_lengkap,ttd,memo_2,catatan_2,verifikasi_2,memo_3,catatan_3,verifikasi_3');
+        $this->db->select('pengajuan.id,kode_pengajuan,pengajuan,jenis_pengajuan,tgl_pengajuan,keterangan,total,status,users.id_unit,nama_unit,id_user,total_vendor,rekomendasi,kode_unit,nama_lengkap,ttd,memo_2,catatan_2,verifikasi_2,memo_3,catatan_3,verifikasi_3,pengajuan.id_vendor,verifikasi_1');
         $this->db->from('pengajuan');
         $this->db->join('users', 'pengajuan.id_user = users.id');
         $this->db->join('unit', 'users.id_unit = unit.id_unit');
+        $this->db->where('pengajuan.id', $id);
+
+        return $this->db->get()->row_array();
+    }
+
+    public function vendor($id)
+    {
+        $this->db->select('*');
+        $this->db->from('vendor');
+        $this->db->where('id', $id);
+
+        return $this->db->get()->row_array();
+    }
+
+    public function surat($id)
+    {
+        $this->db->select('*');
+        $this->db->from('pengajuan');
+        $this->db->join('surat', 'pengajuan.kode_pengajuan = surat.no_surat');
         $this->db->where('pengajuan.id', $id);
 
         return $this->db->get()->row_array();
@@ -237,6 +256,15 @@ class PengajuanModel extends CI_model
         $this->db->select('*');
         $this->db->from('users');
         $this->db->where('id', $id_kabag);
+
+        return $this->db->get()->row_array();
+    }
+
+    public function getStaff($id_staff)
+    {
+        $this->db->select('*');
+        $this->db->from('users');
+        $this->db->where('id', $id_staff);
 
         return $this->db->get()->row_array();
     }

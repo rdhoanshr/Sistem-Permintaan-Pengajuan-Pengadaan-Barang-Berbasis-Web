@@ -415,6 +415,36 @@ class Pengajuan extends CI_Controller
         echo json_encode($msg);
     }
 
+    public function order_pembelian($id)
+    {
+        $data['title'] = 'Memo Direktur';
+        $data['row'] = $this->PengajuanModel->getPengajuan($id);
+        $data['detail'] = $this->PengajuanModel->detail($id);
+        $data['surat'] = $this->PengajuanModel->surat($id);
+
+        $id_vendor = $data['row']['id_vendor'];
+        $data['vendor'] = $this->PengajuanModel->vendor($id_vendor);
+
+        $id_staff = $data['row']['verifikasi_1'];
+        $data['staff'] = $this->PengajuanModel->getStaff($id_staff);
+
+        $id_kabag = $data['row']['verifikasi_2'];
+        $data['kabag'] = $this->PengajuanModel->getKabag($id_kabag);
+
+        $id_direktur = $data['row']['verifikasi_3'];
+        $data['direktur'] = $this->PengajuanModel->getDirektur($id_direktur);
+
+        if ($data['row'] != null) {
+            $this->load->library('pdf');
+            $customPaper = array(0, 0, 549, 500);
+            $this->pdf->setPaper($customPaper, 'potrait');
+            $this->pdf->load_view('pengajuan/order_pembelian', $data);
+        } else {
+            $this->session->set_flashdata('message', 'Halaman Tidak Tersedia');
+            return redirect('pengajuan');
+        }
+    }
+
     public function vendor($id)
     {
         $this->form_validation->set_rules('vendor', 'Vendor', 'required');
