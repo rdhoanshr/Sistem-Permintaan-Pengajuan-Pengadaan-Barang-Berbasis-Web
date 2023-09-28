@@ -178,7 +178,6 @@ class PengajuanModel extends CI_model
 
         $kode =  sprintf("%03s", $no);
         $nomorbaru = $kode . $nomor;
-        // die(var_dump($nomorbaru));
         // End Proses Pembuatan Kode
 
         $data = [
@@ -282,7 +281,7 @@ class PengajuanModel extends CI_model
 
     public function getPengajuan_vendor($id)
     {
-        $this->db->select('pengajuan.id,no_surat,kode_pengajuan,pengajuan,jenis_pengajuan,pengajuan.tgl_pengajuan,tgl_persetujuan,keterangan,total,status,users.id_unit,nama_unit,id_user,total_vendor,rekomendasi');
+        $this->db->select('pengajuan.id,no_surat,kode_pengajuan,pengajuan,jenis_pengajuan,pengajuan.tgl_pengajuan,tgl_persetujuan,keterangan,total,status,users.id_unit,nama_unit,id_user,total_vendor,rekomendasi,user_vendor,no_faktur,tgl_faktur,pengajuan.id_vendor');
         $this->db->from('pengajuan');
         $this->db->join('surat', 'pengajuan.kode_pengajuan = surat.no_surat');
         $this->db->join('users', 'pengajuan.id_user = users.id');
@@ -491,9 +490,32 @@ class PengajuanModel extends CI_model
 
     public function konfirmasi($id, $total)
     {
+        $getVendor = $this->db->select('*')->from('pengajuan')->where('id', $id)->get()->row_array();
+
+        $bulan = date('m');
+        $tahun = date('y');
+        $tahun2 = date('Y');
+        $nomor = $tahun . "/" . $bulan;
+
+        $query = $this->db->query("SELECT MAX(MID(no_faktur,8,10)) as maxKode FROM pengajuan WHERE YEAR(tgl_faktur)=$tahun2 and id_vendor=$getVendor[id_vendor]");
+        if ($query->row_array() != null) {
+            $row = $query->row_array();
+            $i = $row['maxKode'];
+            $i++;
+            $no = $i;
+        } else {
+            $no = "1";
+        };
+
+        $kode =  sprintf("%03s", $no);
+        $nomorbaru = $nomor . $kode;
+
         $data = [
             "status" => 7,
             "total_vendor" => $total,
+            "tgl_faktur" => date('Y-m-d'),
+            "no_faktur" => $nomorbaru,
+            "user_vendor" =>  $this->ion_auth->user()->row()->id
         ];
 
         $this->db->where('id', $id);
@@ -502,8 +524,31 @@ class PengajuanModel extends CI_model
 
     public function acc($id)
     {
+        $getVendor = $this->db->select('*')->from('pengajuan')->where('id', $id)->get()->row_array();
+
+        $bulan = date('m');
+        $tahun = date('y');
+        $tahun2 = date('Y');
+        $nomor = $tahun . "/" . $bulan;
+
+        $query = $this->db->query("SELECT MAX(MID(no_faktur,8,10)) as maxKode FROM pengajuan WHERE YEAR(tgl_faktur)=$tahun2 and id_vendor=$getVendor[id_vendor]");
+        if ($query->row_array() != null) {
+            $row = $query->row_array();
+            $i = $row['maxKode'];
+            $i++;
+            $no = $i;
+        } else {
+            $no = "1";
+        };
+
+        $kode =  sprintf("%03s", $no);
+        $nomorbaru = $nomor . $kode;
+
         $data = [
             "status" => 8,
+            "tgl_faktur" => date('Y-m-d'),
+            "no_faktur" => $nomorbaru,
+            "user_vendor" =>  $this->ion_auth->user()->row()->id
         ];
 
         $this->db->where('id', $id);

@@ -327,6 +327,20 @@
                 }
             });
         });
+        $('body').on('click', '.kirim', function(e) {
+            e.preventDefault();
+            var url = $(this).attr('href');
+            Swal.fire({
+                title: 'Kirim Barang Ke Unit ?',
+                icon: 'info',
+                showCancelButton: true,
+                confirmButtonText: 'Ya'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.replace(url);
+                }
+            });
+        });
         //Date range picker
         $('#reservation').daterangepicker()
     });
@@ -628,10 +642,16 @@
             dataType: "json",
             success: function(response) {
                 if (response.gagal) {
-                    alert(response.gagal);
+                    Swal.fire({
+                        icon: 'error',
+                        title: response.gagal
+                    });
                 }
                 if (response.data) {
-                    alert(response.data);
+                    Swal.fire({
+                        icon: 'success',
+                        title: response.data
+                    });
                     $('#total').html('Rp. ' + response.total);
                 }
             },

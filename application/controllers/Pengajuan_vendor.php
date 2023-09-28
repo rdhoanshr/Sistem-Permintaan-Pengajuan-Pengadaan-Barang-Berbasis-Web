@@ -113,6 +113,36 @@ class Pengajuan_vendor extends CI_Controller
         }
     }
 
+    public function faktur($id)
+    {
+        $data['title'] = 'Faktur';
+        $data['row'] = $this->PengajuanModel->getPengajuan_vendor($id);
+        $data['barang'] = $this->PengajuanModel->detail($id);
+
+        $total = $this->PengajuanModel->totalHargaVendor($id);
+        if ($total['total'] == null) {
+            $data['total'] = '0';
+        } else {
+            $data['total'] = number_format($total['total']);
+        }
+
+        $id_uservendor = $data['row']['user_vendor'];
+        $data['user_vendor'] = $this->PengajuanModel->getStaff($id_uservendor);
+
+        $id_vendor = $data['row']['id_vendor'];
+        $data['vendor'] = $this->PengajuanModel->vendor($id_vendor);
+
+        if ($data['row'] != null) {
+            $this->load->library('pdf');
+            $customPaper = array(0, 0, 549, 500);
+            $this->pdf->setPaper($customPaper, 'potrait');
+            $this->pdf->load_view('pengajuan/faktur', $data);
+        } else {
+            $this->session->set_flashdata('message', 'Halaman Tidak Tersedia');
+            return redirect('pengajuan');
+        }
+    }
+
     public function konfirmasi($id)
     {
         $cek_detail = $this->PengajuanModel->detail($id);
@@ -128,25 +158,37 @@ class Pengajuan_vendor extends CI_Controller
 
         $total = $gettotal['total'];
 
-        $this->PengajuanModel->konfirmasi($id, $total);
-        $err = $this->db->error();
-        if ($err['code'] !== 0) {
-            echo $err['message'];
+        $user = $this->ion_auth->user()->row();
+        if ($user->ttd == null && $user->nama_lengkap == null) {
+            $this->session->set_flashdata('message', 'Konfirmasi Gagal - Harap Lengkapi Profil Anda Terlebih Dahulu');
+            redirect('pengajuan_vendor/detail/' . $id);
         } else {
-            $this->session->set_flashdata('pesanbaik', 'Pengadaan Berhasil Di Setujui');
-            redirect('pengajuan_vendor');
+            $this->PengajuanModel->konfirmasi($id, $total);
+            $err = $this->db->error();
+            if ($err['code'] !== 0) {
+                echo $err['message'];
+            } else {
+                $this->session->set_flashdata('pesanbaik', 'Pengadaan Berhasil Di Setujui');
+                redirect('pengajuan_vendor');
+            }
         }
     }
 
     public function acc($id)
     {
-        $this->PengajuanModel->acc($id);
-        $err = $this->db->error();
-        if ($err['code'] !== 0) {
-            echo $err['message'];
+        $user = $this->ion_auth->user()->row();
+        if ($user->ttd == null && $user->nama_lengkap == null) {
+            $this->session->set_flashdata('message', 'Acc Gagal - Harap Lengkapi Profil Anda Terlebih Dahulu');
+            redirect('pengajuan_vendor/detail/' . $id);
         } else {
-            $this->session->set_flashdata('pesanbaik', 'Pengadaan Berhasil Di Setujui');
-            redirect('pengajuan_vendor');
+            $this->PengajuanModel->acc($id);
+            $err = $this->db->error();
+            if ($err['code'] !== 0) {
+                echo $err['message'];
+            } else {
+                $this->session->set_flashdata('pesanbaik', 'Pengadaan Berhasil Di Setujui');
+                redirect('pengajuan_vendor');
+            }
         }
     }
 
@@ -173,13 +215,19 @@ class Pengajuan_vendor extends CI_Controller
                     redirect('pengajuan_vendor/detail/' . $id);
                 }
             }
-            $this->PengajuanModel->tolak($id);
-            $err = $this->db->error();
-            if ($err['code'] !== 0) {
-                echo $err['message'];
+            $user = $this->ion_auth->user()->row();
+            if ($user->ttd == null && $user->nama_lengkap == null) {
+                $this->session->set_flashdata('message', 'Rekomendasi Gagal - Harap Lengkapi Profil Anda Terlebih Dahulu');
+                redirect('pengajuan_vendor/detail/' . $id);
             } else {
-                $this->session->set_flashdata('pesanbaik', 'Pengadaan Berhasil Di Tolak');
-                redirect('pengajuan_vendor');
+                $this->PengajuanModel->tolak($id);
+                $err = $this->db->error();
+                if ($err['code'] !== 0) {
+                    echo $err['message'];
+                } else {
+                    $this->session->set_flashdata('pesanbaik', 'Pengadaan Berhasil Di Tolak');
+                    redirect('pengajuan_vendor');
+                }
             }
         }
     }

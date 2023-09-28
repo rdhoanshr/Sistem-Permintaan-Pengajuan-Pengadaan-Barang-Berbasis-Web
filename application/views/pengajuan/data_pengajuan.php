@@ -90,7 +90,7 @@
                                                         </button>
                                                     <?php endif; ?>
                                                     <?php if ($u['status'] == 7 || $u['status'] == 8 && $this->ion_auth->in_group('staff')) : ?>
-                                                        <a href="<?= base_url('pengajuan/penyerahan/') . $u['id']; ?>" class="btn btn-sm btn-success" onclick="return confirm('Kirim Barang Ke Unit ?')"><i class="fa fa-check"></i></a>
+                                                        <a href="<?= base_url('pengajuan/penyerahan/') . $u['id']; ?>" class="btn btn-sm btn-success kirim"><i class="fa fa-check"></i></a>
 
                                                     <?php endif; ?>
                                                 </td>

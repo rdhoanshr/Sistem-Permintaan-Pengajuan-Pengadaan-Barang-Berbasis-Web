@@ -31,8 +31,8 @@ class Vvendor extends CI_Controller
     {
         $data['title'] = 'Tambah Vendor';
 
-        $this->form_validation->set_rules('nama', 'Nama', 'required');
-        $this->form_validation->set_rules('alamat', 'Alamat', 'required');
+        $this->form_validation->set_rules('nama', 'Nama', 'required|max_length[15]');
+        $this->form_validation->set_rules('alamat', 'Alamat', 'required|max_length[15]');
         $this->form_validation->set_rules('no_telp', 'No Telp', 'required|min_length[10]|max_length[14]');
         $this->form_validation->set_rules('email', 'Email', 'required|valid_email');
         $this->form_validation->set_rules('situs_web', 'Situs Web', 'required');
@@ -65,8 +65,8 @@ class Vvendor extends CI_Controller
         $data['title'] = 'Edit Vendor';
         $data['vendor'] = $this->VendorModel->getVendor($id);
 
-        $this->form_validation->set_rules('nama', 'Nama', 'required');
-        $this->form_validation->set_rules('alamat', 'Alamat', 'required');
+        $this->form_validation->set_rules('nama', 'Nama', 'required|max_length[15]');
+        $this->form_validation->set_rules('alamat', 'Alamat', 'required|max_length[15]');
         $this->form_validation->set_rules('no_telp', 'No Telp', 'required|min_length[10]|max_length[14]');
         $this->form_validation->set_rules('email', 'Email', 'required|valid_email');
         $this->form_validation->set_rules('situs_web', 'Situs Web', 'required');

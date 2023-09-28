@@ -13,20 +13,10 @@
 <div class="content-wrapper">
     <!-- Menampilkan notif flashdata -->
     <?php if ($this->session->flashdata('message')) : ?>
-        <div class="alert alert-danger" role="alert">
-            <?php echo $this->session->flashdata('message'); ?>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
+        <div class="flash-data2" data-flashdata2="<?= $this->session->flashdata('message') ?>"></div>
     <?php endif; ?>
     <?php if ($this->session->flashdata('pesanbaik')) : ?>
-        <div class="alert alert-success" role="alert">
-            <?php echo $this->session->flashdata('pesanbaik'); ?>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
+        <div class="flash-data" data-flashdata="<?= $this->session->flashdata('pesanbaik') ?>"></div>
     <?php endif; ?>
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -86,6 +76,9 @@
                                                     <?php if ($u['status'] == 5) : ?>
                                                         <a href="<?= base_url('pengajuan_vendor/order_pembelian/') . $u['id']; ?>" class="btn btn-sm btn-success" target="_blank"><i class="fa fa-print"></i></a>
                                                         <a href="<?= base_url('pengajuan_vendor/detail/') . $u['id']; ?>" class="btn btn-sm btn-warning"><i class="fa fa-sign-in"></i></a>
+                                                    <?php elseif ($u['status'] == 1 || $u['status'] == 7 || $u['status'] == 8) : ?>
+                                                        <a href="<?= base_url('pengajuan_vendor/faktur/') . $u['id']; ?>" class="btn btn-sm btn-success" target="_blank"><i class="fa fa-print"></i></a>
+                                                        <a href="<?= base_url('pengajuan_vendor/detail/') . $u['id']; ?>" class="btn btn-sm btn-white"><i class="fa fa-eye"></i></a>
                                                     <?php else : ?>
                                                         <a href="<?= base_url('pengajuan_vendor/detail/') . $u['id']; ?>" class="btn btn-sm btn-white"><i class="fa fa-eye"></i></a>
                                                     <?php endif; ?>

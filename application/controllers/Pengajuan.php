@@ -464,6 +464,36 @@ class Pengajuan extends CI_Controller
         }
     }
 
+    public function faktur($id)
+    {
+        $data['title'] = 'Faktur';
+        $data['row'] = $this->PengajuanModel->getPengajuan_vendor($id);
+        $data['barang'] = $this->PengajuanModel->detail($id);
+
+        $total = $this->PengajuanModel->totalHargaVendor($id);
+        if ($total['total'] == null) {
+            $data['total'] = '0';
+        } else {
+            $data['total'] = number_format($total['total']);
+        }
+
+        $id_uservendor = $data['row']['user_vendor'];
+        $data['user_vendor'] = $this->PengajuanModel->getStaff($id_uservendor);
+
+        $id_vendor = $data['row']['id_vendor'];
+        $data['vendor'] = $this->PengajuanModel->vendor($id_vendor);
+
+        if ($data['row'] != null) {
+            $this->load->library('pdf');
+            $customPaper = array(0, 0, 549, 500);
+            $this->pdf->setPaper($customPaper, 'potrait');
+            $this->pdf->load_view('pengajuan/faktur', $data);
+        } else {
+            $this->session->set_flashdata('message', 'Halaman Tidak Tersedia');
+            return redirect('pengajuan');
+        }
+    }
+
     public function penyerahan($id)
     {
         $row = $this->PengajuanModel->getPengajuan($id);

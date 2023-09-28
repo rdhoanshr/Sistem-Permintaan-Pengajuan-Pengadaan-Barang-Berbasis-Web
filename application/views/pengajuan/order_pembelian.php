@@ -119,9 +119,9 @@
         <table style="width: 100%; font-size:12px;">
             <tr>
                 <td rowspan="4" style="width: 14%;"><img src="<?= $header; ?>" width="170px" height="auto" alt="Header"></td>
-                <td style="width: 55%;">&nbsp;&nbsp;&nbsp;Jl. A.Yani Km. 17,5 Komplek Citra Graha, RT. 15, RW. 22</td>
+                <td style="width: 52%;">&nbsp;&nbsp;&nbsp;Jl. A.Yani Km. 17,5 Komplek Citra Graha, RT. 15, RW. 22</td>
                 <td style="width: 1%;"></td>
-                <td style="width: 30%;">Kepada Yth.</td>
+                <td style="width: 33%;">Kepada Yth.</td>
             </tr>
             <tr>
                 <td>&nbsp;&nbsp;&nbsp;Kec. Liang Anggang, Kel. Landasan Ulin Barat</td>
