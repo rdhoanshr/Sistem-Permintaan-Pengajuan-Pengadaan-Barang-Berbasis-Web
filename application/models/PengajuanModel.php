@@ -572,4 +572,72 @@ class PengajuanModel extends CI_model
 
         $this->db->insert('penyerahan_barang', $data_penyerahan);
     }
+
+    public function totalMenunggu()
+    {
+        return  $this->db->select('*')->from('pengajuan')->where('status', 0)->get()->num_rows();
+    }
+
+    public function totalMenunggu_unit()
+    {
+        $id_user = $this->ion_auth->user()->row()->id;
+        return  $this->db->select('*')->from('pengajuan')->where('status', 0)->where('id_user', $id_user)->get()->num_rows();
+    }
+
+    public function totalProses()
+    {
+        return  $this->db->select('*')->from('pengajuan')->where('status', 2)->get()->num_rows();
+    }
+
+    public function totalProses_unit()
+    {
+        $id_user = $this->ion_auth->user()->row()->id;
+        return  $this->db->select('*')->from('pengajuan')->where('status', 2)->where('id_user', $id_user)->get()->num_rows();
+    }
+
+    public function totalTinjau()
+    {
+        return  $this->db->select('*')->from('pengajuan')->where_in('status', [3, 4, 5, 6, 7, 8])->get()->num_rows();
+    }
+
+    public function totalTinjau_unit()
+    {
+        $id_user = $this->ion_auth->user()->row()->id;
+        return  $this->db->select('*')->from('pengajuan')->where_in('status', [3, 4, 5, 6, 7, 8])->where('id_user', $id_user)->get()->num_rows();
+    }
+
+    public function totalSelesai()
+    {
+        return  $this->db->select('*')->from('pengajuan')->where('status', 1)->get()->num_rows();
+    }
+
+    public function totalSelesai_unit()
+    {
+        $id_user = $this->ion_auth->user()->row()->id;
+        return  $this->db->select('*')->from('pengajuan')->where('status', 1)->where('id_user', $id_user)->get()->num_rows();
+    }
+
+    public function totalMenunggu_vendor()
+    {
+        $id_user = $this->ion_auth->user()->row()->id_vendor;
+        return  $this->db->select('*')->from('pengajuan')->where('status', 5)->where('id_vendor', $id_user)->get()->num_rows();
+    }
+
+    public function totalTolak_vendor()
+    {
+        $id_user = $this->ion_auth->user()->row()->id_vendor;
+        return  $this->db->select('*')->from('pengajuan')->where('status', 6)->where('id_vendor', $id_user)->get()->num_rows();
+    }
+
+    public function totalSetuju_vendor()
+    {
+        $id_user = $this->ion_auth->user()->row()->id_vendor;
+        return  $this->db->select('*')->from('pengajuan')->where_in('status', [7, 8])->where('id_vendor', $id_user)->get()->num_rows();
+    }
+
+    public function totalSelesai_vendor()
+    {
+        $id_user = $this->ion_auth->user()->row()->id_vendor;
+        return  $this->db->select('*')->from('pengajuan')->where('status', 1)->where('id_vendor', $id_user)->get()->num_rows();
+    }
 }

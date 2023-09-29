@@ -11,35 +11,33 @@
     <section class="content">
         <!-- Small boxes (Stat box) -->
         <div class="row">
-            <?php if (!$this->ion_auth->in_group('kabag') && !$this->ion_auth->in_group('direktur')) : ?>
-                <div class="col-lg-3 col-xs-6">
-                    <!-- small box -->
-                    <div class="small-box bg-yellow">
-                        <div class="inner">
-                            <h3><?= $menunggu; ?></h3>
+            <div class="col-lg-3 col-xs-6">
+                <!-- small box -->
+                <div class="small-box bg-yellow">
+                    <div class="inner">
+                        <h3><?= $menunggu; ?></h3>
 
-                            <p>Pengajuan Menunggu</p>
-                        </div>
-                        <div class="icon">
-                            <i class="ion ion-bag"></i>
-                        </div>
-                        <a href="<?= base_url(); ?>pengajuan" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                        <p>Pengadaan Menunggu</p>
                     </div>
+                    <div class="icon">
+                        <i class="ion ion-bag"></i>
+                    </div>
+                    <a href="<?= base_url(); ?>pengajuan_vendor" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
                 </div>
-            <?php endif; ?>
+            </div>
             <!-- ./col -->
             <div class="col-lg-3 col-xs-6">
                 <!-- small box -->
-                <div class="small-box bg-aqua">
+                <div class="small-box bg-red">
                     <div class="inner">
-                        <h3><?= $proses; ?></h3>
+                        <h3><?= $tolak; ?></h3>
 
-                        <p>Pengajuan Di Proses</p>
+                        <p>Pengadaan Di Tolak</p>
                     </div>
                     <div class="icon">
                         <i class="ion ion-stats-bars"></i>
                     </div>
-                    <a href="<?= base_url(); ?>pengajuan" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                    <a href="<?= base_url(); ?>pengajuan_vendor" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
                 </div>
             </div>
             <!-- ./col -->
@@ -47,14 +45,14 @@
                 <!-- small box -->
                 <div class="small-box bg-green">
                     <div class="inner">
-                        <h3><?= $tinjau; ?></h3>
+                        <h3><?= $setuju; ?></h3>
 
-                        <p>Pengajuan Di Tinjau</p>
+                        <p>Pengadaan Di Tinjau</p>
                     </div>
                     <div class="icon">
                         <i class="ion ion-person-add"></i>
                     </div>
-                    <a href="<?= base_url(); ?>pengajuan" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                    <a href="<?= base_url(); ?>pengajuan_vendor" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
                 </div>
             </div>
             <!-- ./col -->
@@ -64,12 +62,12 @@
                     <div class="inner">
                         <h3><?= $selesai; ?></h3>
 
-                        <p>Pengajuan Selesai</p>
+                        <p>Pengadaan Selesai</p>
                     </div>
                     <div class="icon">
                         <i class="ion ion-pie-graph"></i>
                     </div>
-                    <a href="<?= base_url(); ?>riwayat" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                    <a href="<?= base_url(); ?>pengajuan_vendor" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
                 </div>
             </div>
             <!-- ./col -->

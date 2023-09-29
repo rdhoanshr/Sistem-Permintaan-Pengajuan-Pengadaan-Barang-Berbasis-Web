@@ -52,8 +52,10 @@ CREATE TABLE IF NOT EXISTS `detail_pengajuan` (
   CONSTRAINT `FK_detail_pengajuan_pengajuan` FOREIGN KEY (`id_pengajuan`) REFERENCES `pengajuan` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=latin1;
 
--- Membuang data untuk tabel db_pengadaan.detail_pengajuan: ~7 rows (lebih kurang)
+-- Membuang data untuk tabel db_pengadaan.detail_pengajuan: ~0 rows (lebih kurang)
 /*!40000 ALTER TABLE `detail_pengajuan` DISABLE KEYS */;
+INSERT INTO `detail_pengajuan` (`id`, `id_pengajuan`, `id_barang`, `jumlah`, `biaya`, `id_user`, `qty_vendor`, `harga_vendor`) VALUES
+	(24, 1, 2, 10, 25000000, 7, NULL, NULL);
 /*!40000 ALTER TABLE `detail_pengajuan` ENABLE KEYS */;
 
 -- membuang struktur untuk table db_pengadaan.groups
@@ -64,7 +66,7 @@ CREATE TABLE IF NOT EXISTS `groups` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
--- Membuang data untuk tabel db_pengadaan.groups: ~4 rows (lebih kurang)
+-- Membuang data untuk tabel db_pengadaan.groups: ~5 rows (lebih kurang)
 /*!40000 ALTER TABLE `groups` DISABLE KEYS */;
 INSERT INTO `groups` (`id`, `name`, `description`) VALUES
 	(1, 'unit', 'Unit'),
@@ -114,8 +116,10 @@ CREATE TABLE IF NOT EXISTS `pengajuan` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
--- Membuang data untuk tabel db_pengadaan.pengajuan: ~3 rows (lebih kurang)
+-- Membuang data untuk tabel db_pengadaan.pengajuan: ~0 rows (lebih kurang)
 /*!40000 ALTER TABLE `pengajuan` DISABLE KEYS */;
+INSERT INTO `pengajuan` (`id`, `kode_pengajuan`, `pengajuan`, `jenis_pengajuan`, `tgl_pengajuan`, `keterangan`, `total`, `verifikasi_1`, `verifikasi_2`, `verifikasi_3`, `memo_2`, `memo_3`, `catatan_2`, `catatan_3`, `status`, `id_user`, `id_vendor`, `user_vendor`, `no_faktur`, `tgl_faktur`, `total_vendor`, `rekomendasi`) VALUES
+	(1, '003/IGD/RSI-SA/01/IX/2023', 'Kesehatan', 'Alat Kesehatan', '2023-09-29', 'sadasd', 25000000, 1, 6, 14, '001/RSI-SA/01/IX/2023', '001/RSI-SA/01/IX/2023', 'Bolehhh', 'Lanjutkann!', 1, 7, 1, 10, '23/09001', '2023-09-29', NULL, '');
 /*!40000 ALTER TABLE `pengajuan` ENABLE KEYS */;
 
 -- membuang struktur untuk table db_pengadaan.penyerahan_barang
@@ -133,6 +137,8 @@ CREATE TABLE IF NOT EXISTS `penyerahan_barang` (
 
 -- Membuang data untuk tabel db_pengadaan.penyerahan_barang: ~0 rows (lebih kurang)
 /*!40000 ALTER TABLE `penyerahan_barang` DISABLE KEYS */;
+INSERT INTO `penyerahan_barang` (`id`, `id_pengajuan`, `kode_unit`, `tanggal_penyerahan`) VALUES
+	(3, 1, 1, '2023-09-29');
 /*!40000 ALTER TABLE `penyerahan_barang` ENABLE KEYS */;
 
 -- membuang struktur untuk table db_pengadaan.surat
@@ -153,7 +159,8 @@ INSERT INTO `surat` (`id_surat`, `no_surat`, `ttd_pengaju`, `ttd_aprover`, `tgl_
 	(10, '005/PB/9/2023', 'WhatsApp_Image_2023-09-01_at_19_05_58_(1)1.jpeg', NULL, '2023-09-07', NULL),
 	(11, '006/PB/9/2023', 'WhatsApp_Image_2023-09-01_at_19_05_58_(1)1.jpeg', NULL, '2023-09-27', NULL),
 	(12, '001/IGD/RSI-SA/01/IX/2023', 'WhatsApp_Image_2023-09-01_at_19_05_58_(1)1.jpeg', NULL, '2023-09-27', NULL),
-	(14, '002/IGD/RSI-SA/01/IX/2023', 'WhatsApp_Image_2023-09-01_at_19_05_58_(1)1.jpeg', 'WhatsApp_Image_2023-09-01_at_19_05_58_(1).jpeg', '2023-09-27', '2023-09-27');
+	(14, '002/IGD/RSI-SA/01/IX/2023', 'WhatsApp_Image_2023-09-01_at_19_05_58_(1)1.jpeg', 'WhatsApp_Image_2023-09-01_at_19_05_58_(1).jpeg', '2023-09-27', '2023-09-27'),
+	(15, '003/IGD/RSI-SA/01/IX/2023', 'WhatsApp_Image_2023-09-01_at_19_05_58_(1)1.jpeg', 'WhatsApp_Image_2023-09-01_at_19_05_58_(1).jpeg', '2023-09-29', '2023-09-29');
 /*!40000 ALTER TABLE `surat` ENABLE KEYS */;
 
 -- membuang struktur untuk table db_pengadaan.temp_detailpengajuan
@@ -222,11 +229,11 @@ CREATE TABLE IF NOT EXISTS `users` (
 -- Membuang data untuk tabel db_pengadaan.users: ~7 rows (lebih kurang)
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` (`id`, `ip_address`, `username`, `nama_lengkap`, `password`, `email`, `activation_selector`, `activation_code`, `forgotten_password_selector`, `forgotten_password_code`, `forgotten_password_time`, `remember_selector`, `remember_code`, `created_on`, `last_login`, `active`, `first_name`, `last_name`, `company`, `phone`, `id_unit`, `id_vendor`, `ttd`, `foto`) VALUES
-	(1, '127.0.0.1', 'staff', 'Putri Wapa, A.Md, TEM', '$2y$10$aBtR.PqzP0FMJGXFCZKK8uDg9CvaSrrHwGW5/0/soE6jxle84RV7K', 'admin@admin.com', NULL, '', NULL, NULL, NULL, NULL, NULL, 1268889823, 1695947546, 1, 'Admin', 'istrator', 'ADMIN', '0', NULL, NULL, 'logo_pt1.png', 'kisspng-flag-of-indonesia-portable-network-graphics-flag-o-cupping-therapy-method-can-cure-diabetes-mellitus-5ba9e034b71357_9580860615378596367499.jpg'),
-	(6, '::1', 'kabag', 'Madzhar Fasni, SE', '$2y$10$HGBa.hKuR5RQL5yux0YEyuAvycRDch4oXRLmR2ONtp1wFcP7RlT4i', 'kabag@gmai.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1693785028, 1695806458, 1, NULL, NULL, NULL, NULL, NULL, NULL, 'user.png', ''),
-	(7, '::1', 'unit', 'Reza Rifani, Amd', '$2y$10$pPYaHXROBXAf54B4qun2/.ExwvmXMN8QeWs9GV9WIeoCJ56s80gJq', 'unit@unit.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1693785094, 1695860476, 1, NULL, NULL, NULL, NULL, 1, NULL, 'WhatsApp_Image_2023-09-01_at_19_05_58_(1)1.jpeg', ''),
-	(10, '::1', 'vendor', 'Rizki Fauzi', '$2y$10$oPGIGCDmr59HSOyWaZHum.KB8S369yYv7IofuWypCXpfkZceT23jy', 'vendor@vendor.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1693962128, 1695916741, 1, NULL, NULL, NULL, NULL, NULL, 1, 'favicon.png', ''),
-	(14, '::1', 'direktur', 'dr. Rifqiannor, MARS', '$2y$10$gkQAk11y99jyBlLzXsy2jerrq09DPRNpeZ/E5WSxcLLUP.TOfYKIi', 'direktur@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1694070426, 1695826144, 1, NULL, NULL, NULL, NULL, NULL, NULL, 'WhatsApp_Image_2023-09-01_at_19_05_58_(1).jpeg', NULL),
+	(1, '127.0.0.1', 'staff', 'Putri Wapa, A.Md, TEM', '$2y$10$aBtR.PqzP0FMJGXFCZKK8uDg9CvaSrrHwGW5/0/soE6jxle84RV7K', 'admin@admin.com', NULL, '', NULL, NULL, NULL, NULL, NULL, 1268889823, 1695951304, 1, 'Admin', 'istrator', 'ADMIN', '0', NULL, NULL, 'logo_pt1.png', 'kisspng-flag-of-indonesia-portable-network-graphics-flag-o-cupping-therapy-method-can-cure-diabetes-mellitus-5ba9e034b71357_9580860615378596367499.jpg'),
+	(6, '::1', 'kabag', 'Madzhar Fasni, SE', '$2y$10$HGBa.hKuR5RQL5yux0YEyuAvycRDch4oXRLmR2ONtp1wFcP7RlT4i', 'kabag@gmai.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1693785028, 1695951228, 1, NULL, NULL, NULL, NULL, NULL, NULL, 'user.png', ''),
+	(7, '::1', 'unit', 'Reza Rifani, Amd', '$2y$10$pPYaHXROBXAf54B4qun2/.ExwvmXMN8QeWs9GV9WIeoCJ56s80gJq', 'unit@unit.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1693785094, 1695950606, 1, NULL, NULL, NULL, NULL, 1, NULL, 'WhatsApp_Image_2023-09-01_at_19_05_58_(1)1.jpeg', ''),
+	(10, '::1', 'vendor', 'Rizki Fauzi', '$2y$10$oPGIGCDmr59HSOyWaZHum.KB8S369yYv7IofuWypCXpfkZceT23jy', 'vendor@vendor.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1693962128, 1695950671, 1, NULL, NULL, NULL, NULL, NULL, 1, 'favicon.png', ''),
+	(14, '::1', 'direktur', 'dr. Rifqiannor, MARS', '$2y$10$gkQAk11y99jyBlLzXsy2jerrq09DPRNpeZ/E5WSxcLLUP.TOfYKIi', 'direktur@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1694070426, 1695951267, 1, NULL, NULL, NULL, NULL, NULL, NULL, 'WhatsApp_Image_2023-09-01_at_19_05_58_(1).jpeg', NULL),
 	(15, '::1', 'tacypaw', NULL, '$2y$10$siQihTvR5C0Li10IOaDEzOSXc2QA9eVkCiX4fF12mSqc4mh5BRTEy', 'fojamoxo@mailinator.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1695659836, NULL, 0, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL),
 	(16, '::1', 'cojarud', 'sabacevire21', '$2y$10$7tFuLPJTPftwczJbfjI9W.bICsOR43itlxy5hHKd4v/1nG7cXvezq', 'fusigo@mailinator.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1695778430, NULL, 0, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
@@ -268,7 +275,7 @@ CREATE TABLE IF NOT EXISTS `vendor` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
--- Membuang data untuk tabel db_pengadaan.vendor: ~0 rows (lebih kurang)
+-- Membuang data untuk tabel db_pengadaan.vendor: ~1 rows (lebih kurang)
 /*!40000 ALTER TABLE `vendor` DISABLE KEYS */;
 INSERT INTO `vendor` (`id`, `nama`, `alamat`, `no_telp`, `email`, `situs_web`, `catatan`) VALUES
 	(1, 'PT. ABC Delimaa', 'Jl. Sutoyo S', '082157820897', 'abc@abc.com', 'abc.com', '-');

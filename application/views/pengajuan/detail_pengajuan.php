@@ -220,7 +220,7 @@
                             <div class="form-group">
                                 <?php if ($this->ion_auth->in_group('staff')) : ?>
                                     <?php if ($row['status'] == 0) : ?>
-                                        <a href="<?= base_url('pengajuan/acc_staff/' . $row['id']); ?>" class="btn btn-success acc"><i class="fa fa-check"></i> Acc</a>
+                                        <a href="<?= base_url('pengajuan/acc_staff/' . $row['id']); ?>" class="btn btn-success acc"><i class="fa fa-check"></i> Acc</a> <br>
                                     <?php endif; ?>
                                 <?php endif; ?>
                                 <?php if ($this->ion_auth->in_group('kabag')) : ?>
