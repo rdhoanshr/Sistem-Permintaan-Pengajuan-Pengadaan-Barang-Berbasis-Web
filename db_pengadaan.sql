@@ -52,16 +52,8 @@ CREATE TABLE IF NOT EXISTS `detail_pengajuan` (
   CONSTRAINT `FK_detail_pengajuan_pengajuan` FOREIGN KEY (`id_pengajuan`) REFERENCES `pengajuan` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=latin1;
 
--- Membuang data untuk tabel db_pengadaan.detail_pengajuan: ~5 rows (lebih kurang)
+-- Membuang data untuk tabel db_pengadaan.detail_pengajuan: ~7 rows (lebih kurang)
 /*!40000 ALTER TABLE `detail_pengajuan` DISABLE KEYS */;
-INSERT INTO `detail_pengajuan` (`id`, `id_pengajuan`, `id_barang`, `jumlah`, `biaya`, `id_user`, `qty_vendor`, `harga_vendor`) VALUES
-	(11, 1, 1, 12, 90123000, 7, NULL, NULL),
-	(12, 1, 2, 21, 9000000, 7, NULL, NULL),
-	(15, 1, 4, 1, 200000, 7, NULL, NULL),
-	(16, 2, 1, 1, 2000000, 7, NULL, NULL),
-	(19, 2, 1, 57, 10000000, 7, NULL, NULL),
-	(22, 3, 1, 6, 44000000, 7, NULL, NULL),
-	(23, 3, 4, 2, 2999000, 7, NULL, NULL);
 /*!40000 ALTER TABLE `detail_pengajuan` ENABLE KEYS */;
 
 -- membuang struktur untuk table db_pengadaan.groups
@@ -114,17 +106,16 @@ CREATE TABLE IF NOT EXISTS `pengajuan` (
   `status` int(11) DEFAULT NULL,
   `id_user` int(11) DEFAULT NULL,
   `id_vendor` int(11) DEFAULT NULL,
+  `user_vendor` int(11) DEFAULT NULL,
+  `no_faktur` varchar(50) DEFAULT NULL,
+  `tgl_faktur` date DEFAULT NULL,
   `total_vendor` decimal(10,0) DEFAULT NULL,
   `rekomendasi` text,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
--- Membuang data untuk tabel db_pengadaan.pengajuan: ~2 rows (lebih kurang)
+-- Membuang data untuk tabel db_pengadaan.pengajuan: ~3 rows (lebih kurang)
 /*!40000 ALTER TABLE `pengajuan` DISABLE KEYS */;
-INSERT INTO `pengajuan` (`id`, `kode_pengajuan`, `pengajuan`, `jenis_pengajuan`, `tgl_pengajuan`, `keterangan`, `total`, `verifikasi_1`, `verifikasi_2`, `verifikasi_3`, `memo_2`, `memo_3`, `catatan_2`, `catatan_3`, `status`, `id_user`, `id_vendor`, `total_vendor`, `rekomendasi`) VALUES
-	(1, '004/PB/9/2023', 'Pengadaan Kantin', 'Fisik', '2023-09-07', 'Kantin Baru', 99323000, 1, 6, 14, NULL, NULL, NULL, NULL, 1, 7, 1, NULL, NULL),
-	(2, '006/PB/9/2023', 'Pariatur Alias ut s', 'Excepteur excepteur ', '2023-09-27', 'Veniam necessitatib', 12000000, 1, 6, NULL, NULL, NULL, NULL, NULL, 2, 7, NULL, NULL, NULL),
-	(3, '002/IGD/RSI-SA/01/IX/2023', 'Voluptates exercitat', 'Tempora ducimus sun', '2023-09-27', 'Consectetur rerum al', 46999000, 1, 6, 14, '003/RSI-SA/01/IX/2023', '001/RSI-SA/01/IX/2023', 'Mantap Lanjutkan', 'Gas aja', 5, 7, 1, NULL, NULL);
 /*!40000 ALTER TABLE `pengajuan` ENABLE KEYS */;
 
 -- membuang struktur untuk table db_pengadaan.penyerahan_barang
@@ -138,12 +129,10 @@ CREATE TABLE IF NOT EXISTS `penyerahan_barang` (
   KEY `FK_penyerahan_barang_unit` (`kode_unit`),
   CONSTRAINT `FK_penyerahan_barang_pengajuan` FOREIGN KEY (`id_pengajuan`) REFERENCES `pengajuan` (`id`),
   CONSTRAINT `FK_penyerahan_barang_unit` FOREIGN KEY (`kode_unit`) REFERENCES `unit` (`id_unit`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 -- Membuang data untuk tabel db_pengadaan.penyerahan_barang: ~0 rows (lebih kurang)
 /*!40000 ALTER TABLE `penyerahan_barang` DISABLE KEYS */;
-INSERT INTO `penyerahan_barang` (`id`, `id_pengajuan`, `kode_unit`, `tanggal_penyerahan`) VALUES
-	(1, 1, 1, '2023-09-20');
 /*!40000 ALTER TABLE `penyerahan_barang` ENABLE KEYS */;
 
 -- membuang struktur untuk table db_pengadaan.surat
@@ -157,7 +146,7 @@ CREATE TABLE IF NOT EXISTS `surat` (
   PRIMARY KEY (`id_surat`)
 ) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
 
--- Membuang data untuk tabel db_pengadaan.surat: ~4 rows (lebih kurang)
+-- Membuang data untuk tabel db_pengadaan.surat: ~5 rows (lebih kurang)
 /*!40000 ALTER TABLE `surat` DISABLE KEYS */;
 INSERT INTO `surat` (`id_surat`, `no_surat`, `ttd_pengaju`, `ttd_aprover`, `tgl_pengajuan`, `tgl_persetujuan`) VALUES
 	(9, '004/PB/9/2023', 'WhatsApp_Image_2023-09-01_at_19_05_58_(1)1.jpeg', 'WhatsApp_Image_2023-09-01_at_19_05_58_(1).jpeg', '2023-09-07', '2023-09-07'),
@@ -233,10 +222,10 @@ CREATE TABLE IF NOT EXISTS `users` (
 -- Membuang data untuk tabel db_pengadaan.users: ~7 rows (lebih kurang)
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` (`id`, `ip_address`, `username`, `nama_lengkap`, `password`, `email`, `activation_selector`, `activation_code`, `forgotten_password_selector`, `forgotten_password_code`, `forgotten_password_time`, `remember_selector`, `remember_code`, `created_on`, `last_login`, `active`, `first_name`, `last_name`, `company`, `phone`, `id_unit`, `id_vendor`, `ttd`, `foto`) VALUES
-	(1, '127.0.0.1', 'staff', 'Putri Wapa, A.Md, TEM', '$2y$10$aBtR.PqzP0FMJGXFCZKK8uDg9CvaSrrHwGW5/0/soE6jxle84RV7K', 'admin@admin.com', NULL, '', NULL, NULL, NULL, NULL, NULL, 1268889823, 1695855052, 1, 'Admin', 'istrator', 'ADMIN', '0', NULL, NULL, 'logo_pt1.png', 'kisspng-flag-of-indonesia-portable-network-graphics-flag-o-cupping-therapy-method-can-cure-diabetes-mellitus-5ba9e034b71357_9580860615378596367499.jpg'),
+	(1, '127.0.0.1', 'staff', 'Putri Wapa, A.Md, TEM', '$2y$10$aBtR.PqzP0FMJGXFCZKK8uDg9CvaSrrHwGW5/0/soE6jxle84RV7K', 'admin@admin.com', NULL, '', NULL, NULL, NULL, NULL, NULL, 1268889823, 1695947546, 1, 'Admin', 'istrator', 'ADMIN', '0', NULL, NULL, 'logo_pt1.png', 'kisspng-flag-of-indonesia-portable-network-graphics-flag-o-cupping-therapy-method-can-cure-diabetes-mellitus-5ba9e034b71357_9580860615378596367499.jpg'),
 	(6, '::1', 'kabag', 'Madzhar Fasni, SE', '$2y$10$HGBa.hKuR5RQL5yux0YEyuAvycRDch4oXRLmR2ONtp1wFcP7RlT4i', 'kabag@gmai.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1693785028, 1695806458, 1, NULL, NULL, NULL, NULL, NULL, NULL, 'user.png', ''),
 	(7, '::1', 'unit', 'Reza Rifani, Amd', '$2y$10$pPYaHXROBXAf54B4qun2/.ExwvmXMN8QeWs9GV9WIeoCJ56s80gJq', 'unit@unit.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1693785094, 1695860476, 1, NULL, NULL, NULL, NULL, 1, NULL, 'WhatsApp_Image_2023-09-01_at_19_05_58_(1)1.jpeg', ''),
-	(10, '::1', 'vendor', NULL, '$2y$10$oPGIGCDmr59HSOyWaZHum.KB8S369yYv7IofuWypCXpfkZceT23jy', 'vendor@vendor.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1693962128, 1695860507, 1, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL),
+	(10, '::1', 'vendor', 'Rizki Fauzi', '$2y$10$oPGIGCDmr59HSOyWaZHum.KB8S369yYv7IofuWypCXpfkZceT23jy', 'vendor@vendor.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1693962128, 1695916741, 1, NULL, NULL, NULL, NULL, NULL, 1, 'favicon.png', ''),
 	(14, '::1', 'direktur', 'dr. Rifqiannor, MARS', '$2y$10$gkQAk11y99jyBlLzXsy2jerrq09DPRNpeZ/E5WSxcLLUP.TOfYKIi', 'direktur@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1694070426, 1695826144, 1, NULL, NULL, NULL, NULL, NULL, NULL, 'WhatsApp_Image_2023-09-01_at_19_05_58_(1).jpeg', NULL),
 	(15, '::1', 'tacypaw', NULL, '$2y$10$siQihTvR5C0Li10IOaDEzOSXc2QA9eVkCiX4fF12mSqc4mh5BRTEy', 'fojamoxo@mailinator.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1695659836, NULL, 0, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL),
 	(16, '::1', 'cojarud', 'sabacevire21', '$2y$10$7tFuLPJTPftwczJbfjI9W.bICsOR43itlxy5hHKd4v/1nG7cXvezq', 'fusigo@mailinator.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1695778430, NULL, 0, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL);
@@ -271,7 +260,7 @@ INSERT INTO `users_groups` (`id`, `user_id`, `group_id`) VALUES
 CREATE TABLE IF NOT EXISTS `vendor` (
   `id` int(20) NOT NULL AUTO_INCREMENT,
   `nama` varchar(50) DEFAULT NULL,
-  `alamat` varchar(50) DEFAULT NULL,
+  `alamat` text,
   `no_telp` varchar(15) DEFAULT NULL,
   `email` varchar(50) DEFAULT NULL,
   `situs_web` varchar(50) DEFAULT NULL,
@@ -279,10 +268,10 @@ CREATE TABLE IF NOT EXISTS `vendor` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
--- Membuang data untuk tabel db_pengadaan.vendor: ~2 rows (lebih kurang)
+-- Membuang data untuk tabel db_pengadaan.vendor: ~0 rows (lebih kurang)
 /*!40000 ALTER TABLE `vendor` DISABLE KEYS */;
 INSERT INTO `vendor` (`id`, `nama`, `alamat`, `no_telp`, `email`, `situs_web`, `catatan`) VALUES
-	(1, 'PT. ABCD', 'Banjarmasin', '081232312839', 'abc@abc.com', 'abc.com', '-');
+	(1, 'PT. ABC Delimaa', 'Jl. Sutoyo S', '082157820897', 'abc@abc.com', 'abc.com', '-');
 /*!40000 ALTER TABLE `vendor` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

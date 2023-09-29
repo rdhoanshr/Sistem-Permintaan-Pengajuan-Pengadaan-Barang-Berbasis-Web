@@ -13,20 +13,10 @@
 <div class="content-wrapper">
     <!-- Menampilkan notif flashdata -->
     <?php if ($this->session->flashdata('message')) : ?>
-        <div class="alert alert-danger" role="alert">
-            <?php echo $this->session->flashdata('message'); ?>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
+        <div class="flash-data2" data-flashdata2="<?= $this->session->flashdata('message') ?>"></div>
     <?php endif; ?>
     <?php if ($this->session->flashdata('pesanbaik')) : ?>
-        <div class="alert alert-success" role="alert">
-            <?php echo $this->session->flashdata('pesanbaik'); ?>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
+        <div class="flash-data" data-flashdata="<?= $this->session->flashdata('pesanbaik') ?>"></div>
     <?php endif; ?>
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -64,6 +54,7 @@
                                     <thead>
                                         <tr>
                                             <th>No</th>
+                                            <th>#</th>
                                             <th>No Surat</th>
                                             <th>Pengadaan</th>
                                             <th>Unit</th>
@@ -71,7 +62,6 @@
                                             <th>Tanggal</th>
                                             <th>Pagu Anggaran</th>
                                             <th>Status</th>
-                                            <th>Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -80,6 +70,22 @@
                                         foreach ($pengajuan as $u) : ?>
                                             <tr>
                                                 <td><?= $i++; ?></td>
+                                                <td>
+                                                    <div class="btn-group">
+                                                        <button type="button" class="btn btn-info">Surat</button>
+                                                        <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+                                                            <span class="caret"></span>
+                                                            <span class="sr-only">Toggle Dropdown</span>
+                                                        </button>
+                                                        <ul class="dropdown-menu" role="menu">
+                                                            <li><a href="<?= base_url('riwayat/surat_pengajuan/') . $u['id']; ?>" target="_blank">Surat Pengajuan</a></li>
+                                                            <li><a href="<?= base_url('riwayat/memo_kabag/') . $u['id']; ?>" target="_blank">Memo Kabag</a></li>
+                                                            <li><a href="<?= base_url('riwayat/memo_direktur/') . $u['id']; ?>" target="_blank">Memo Direktur</a></li>
+                                                            <li><a href="<?= base_url('riwayat/order_pembelian/') . $u['id']; ?>" target="_blank">Order Pembelian</a></li>
+                                                            <li><a href="<?= base_url('riwayat/faktur/') . $u['id']; ?>" target="_blank">Faktur</a></li>
+                                                        </ul>
+                                                    </div>
+                                                </td>
                                                 <td><?= $u['no_surat']; ?></td>
                                                 <td><?= $u['pengajuan']; ?></td>
                                                 <td><?= $u['nama_unit']; ?></td>
@@ -98,10 +104,6 @@
                                                     <?= ($u['status'] == 6) ? '<button type="button" class="btn btn-sm btn-danger">Tolak</button>' : ''; ?>
                                                     <?= ($u['status'] == 7) ? '<button type="button" class="btn btn-sm btn-info">Setuju</button>' : ''; ?>
                                                     <?= ($u['status'] == 8) ? '<button type="button" class="btn btn-sm btn-info">Setuju</button>' : ''; ?>
-                                                </td>
-                                                <td>
-                                                    <a href="<?= base_url('riwayat/detail/') . $u['id']; ?>" class="btn btn-sm btn-white">Faktor <i class="fa fa-eye"></i></a>
-                                                    <a href="<?= base_url('riwayat/detail/') . $u['id']; ?>" class="btn btn-sm btn-white">Surat <i class="fa fa-eye"></i></a>
                                                 </td>
                                             </tr>
                                         <?php endforeach; ?>
