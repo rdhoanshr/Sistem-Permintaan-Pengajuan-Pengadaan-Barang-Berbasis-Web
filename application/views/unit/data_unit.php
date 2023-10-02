@@ -48,6 +48,7 @@
                                         <tr>
                                             <th>No</th>
                                             <th>Nama</th>
+                                            <th>Kode</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
@@ -58,6 +59,7 @@
                                             <tr>
                                                 <td><?= $i++; ?></td>
                                                 <td><?= $u['nama_unit']; ?></td>
+                                                <td><?= $u['kode_unit']; ?></td>
                                                 <td>
                                                     <a href="<?= base_url('unit/edit/') . $u['id_unit']; ?>" class="btn btn-sm btn-warning"><i class="fa fa-edit"></i></a>
                                                     <a href="<?= base_url('unit/hapus/') . $u['id_unit']; ?>" class="btn btn-sm btn-danger hapus"><i class="fa fa-trash"></i></a>

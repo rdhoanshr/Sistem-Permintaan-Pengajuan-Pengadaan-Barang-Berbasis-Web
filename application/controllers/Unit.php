@@ -32,6 +32,7 @@ class Unit extends CI_Controller
         $data['title'] = 'Tambah Unit';
 
         $this->form_validation->set_rules('nama_unit', 'Nama Unit', 'required');
+        $this->form_validation->set_rules('kode_unit', 'Kode Unit', 'required');
 
         if ($this->form_validation->run() == false) {
             $this->load->view('unit/tambah_unit', $data);
@@ -53,6 +54,7 @@ class Unit extends CI_Controller
         $data['unit'] = $this->UnitModel->getUnit($id);
 
         $this->form_validation->set_rules('nama_unit', 'Nama Unit', 'required');
+        $this->form_validation->set_rules('kode_unit', 'Kode Unit', 'required');
 
         if ($this->form_validation->run() == false) {
             $this->load->view('unit/edit_unit', $data);

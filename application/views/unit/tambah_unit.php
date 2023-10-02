@@ -45,6 +45,11 @@
                                     <input type="text" name="nama_unit" class="form-control">
                                     <div class="form-text text-danger"><?= form_error('nama_unit'); ?></div>
                                 </div>
+                                <div class="form-group">
+                                    <label for=""> Kode Unit </label>
+                                    <input type="text" name="kode_unit" class="form-control">
+                                    <div class="form-text text-danger"><?= form_error('kode_unit'); ?></div>
+                                </div>
 
                                 <button type="submit" class="btn btn-primary">Simpan</button>
                                 <a href="<?= base_url('unit'); ?>" class="btn btn-info">Batal</a>

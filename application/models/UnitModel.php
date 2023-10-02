@@ -14,6 +14,7 @@ class UnitModel extends CI_model
     {
         $data = [
             "nama_unit" => $this->input->post('nama_unit', true),
+            "kode_unit" => $this->input->post('kode_unit', true),
         ];
 
         $this->db->insert('unit', $data);
@@ -28,6 +29,7 @@ class UnitModel extends CI_model
     {
         $data = [
             "nama_unit" => $this->input->post('nama_unit', true),
+            "kode_unit" => $this->input->post('kode_unit', true),
         ];
 
         $this->db->where('id_unit', $id);
