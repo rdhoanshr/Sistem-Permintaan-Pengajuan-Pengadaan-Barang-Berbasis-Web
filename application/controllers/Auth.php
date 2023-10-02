@@ -30,7 +30,7 @@ class Auth extends CI_Controller
 		if (!$this->ion_auth->logged_in()) {
 			// redirect them to the login page
 			redirect('auth/login', 'refresh');
-		} else if (!$this->ion_auth->is_admin()) // remove this elseif if you want to enable this for non-admins
+		} else if (!$this->ion_auth->in_group(2)) // remove this elseif if you want to enable this for non-admins
 		{
 			// redirect them to the home page because they must be an administrator to view this
 			show_error('You must be an administrator to view this page.');
@@ -418,7 +418,7 @@ class Auth extends CI_Controller
 
 		if ($code !== FALSE) {
 			$activation = $this->ion_auth->activate($id, $code);
-		} else if ($this->ion_auth->is_admin()) {
+		} else if ($this->ion_auth->in_group(2)) {
 			$activation = $this->ion_auth->activate($id);
 		}
 
@@ -440,7 +440,7 @@ class Auth extends CI_Controller
 	 */
 	public function deactivate($id = NULL)
 	{
-		if (!$this->ion_auth->logged_in() || !$this->ion_auth->is_admin()) {
+		if (!$this->ion_auth->logged_in() || !$this->ion_auth->in_group(2)) {
 			// redirect them to the home page because they must be an administrator to view this
 			show_error('You must be an administrator to view this page.');
 		}
@@ -467,7 +467,7 @@ class Auth extends CI_Controller
 				}
 
 				// do we have the right userlevel?
-				if ($this->ion_auth->logged_in() && $this->ion_auth->is_admin()) {
+				if ($this->ion_auth->logged_in() && $this->ion_auth->in_group(2)) {
 					$this->ion_auth->deactivate($id);
 				}
 			}
@@ -536,7 +536,7 @@ class Auth extends CI_Controller
 	{
 		$this->data['title'] = $this->lang->line('create_user_heading');
 
-		if (!$this->ion_auth->logged_in() || !$this->ion_auth->in_group('staff')) {
+		if (!$this->ion_auth->logged_in() || !$this->ion_auth->in_group(2)) {
 			redirect(base_url(), 'refresh');
 		}
 
@@ -638,7 +638,7 @@ class Auth extends CI_Controller
 	 */
 	public function redirectUser()
 	{
-		if ($this->ion_auth->is_admin()) {
+		if ($this->ion_auth->in_group(2)) {
 			redirect('auth', 'refresh');
 		}
 		redirect('/', 'refresh');
@@ -653,7 +653,7 @@ class Auth extends CI_Controller
 	{
 		$this->data['title'] = $this->lang->line('edit_user_heading');
 
-		if (!$this->ion_auth->logged_in() || (!$this->ion_auth->in_group('staff') && !($this->ion_auth->user()->row()->id == $id))) {
+		if (!$this->ion_auth->logged_in() || (!$this->ion_auth->in_group(2) && !($this->ion_auth->user()->row()->id == $id))) {
 			redirect(base_url(), 'refresh');
 		}
 
@@ -727,7 +727,7 @@ class Auth extends CI_Controller
 				}
 
 				// Only allow updating groups if user is admin
-				if ($this->ion_auth->in_group('staff')) {
+				if ($this->ion_auth->in_group(2)) {
 					// Update the groups user belongs to
 					$this->ion_auth->remove_from_group('', $id);
 
@@ -811,7 +811,7 @@ class Auth extends CI_Controller
 	{
 		$this->data['title'] = $this->lang->line('create_group_title');
 
-		if (!$this->ion_auth->logged_in() || !$this->ion_auth->is_admin()) {
+		if (!$this->ion_auth->logged_in() || !$this->ion_auth->in_group(2)) {
 			redirect('auth', 'refresh');
 		}
 
@@ -864,7 +864,7 @@ class Auth extends CI_Controller
 
 		$this->data['title'] = $this->lang->line('edit_group_title');
 
-		if (!$this->ion_auth->logged_in() || !$this->ion_auth->is_admin()) {
+		if (!$this->ion_auth->logged_in() || !$this->ion_auth->in_group(2)) {
 			redirect('auth', 'refresh');
 		}
 
@@ -916,11 +916,11 @@ class Auth extends CI_Controller
 
 	public function delete_user($id)
 	{
-		if (!$this->ion_auth->logged_in() || (!$this->ion_auth->is_admin() && !($this->ion_auth->user()->row()->id == $id))) {
+		if (!$this->ion_auth->logged_in() || (!$this->ion_auth->in_group(2) && !($this->ion_auth->user()->row()->id == $id))) {
 			redirect(base_url(), 'refresh');
 		}
 
-		if ($this->ion_auth->is_admin()) {
+		if ($this->ion_auth->in_group(2)) {
 			// Update the groups user belongs to
 			if ($this->ion_auth->delete_user($id)) {
 				// redirect them back to the admin page if admin, or to the base url if non admin

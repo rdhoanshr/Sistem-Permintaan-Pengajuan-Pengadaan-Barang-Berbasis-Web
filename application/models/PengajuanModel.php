@@ -352,7 +352,7 @@ class PengajuanModel extends CI_model
             "keterangan" => $this->input->post('keterangan', true),
             "total" => implode("", $total),
         ];
-        if ($this->ion_auth->in_group('unit')) {
+        if ($this->ion_auth->in_group(1)) {
             $data['status'] = 0;
         }
 

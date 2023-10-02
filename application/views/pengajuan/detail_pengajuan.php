@@ -218,12 +218,12 @@
                                 </div>
                             <?php endif; ?>
                             <div class="form-group">
-                                <?php if ($this->ion_auth->in_group('staff')) : ?>
+                                <?php if ($this->ion_auth->in_group(2)) : ?>
                                     <?php if ($row['status'] == 0) : ?>
                                         <a href="<?= base_url('pengajuan/acc_staff/' . $row['id']); ?>" class="btn btn-success acc"><i class="fa fa-check"></i> Acc</a> <br>
                                     <?php endif; ?>
                                 <?php endif; ?>
-                                <?php if ($this->ion_auth->in_group('kabag')) : ?>
+                                <?php if ($this->ion_auth->in_group(3)) : ?>
                                     <?php if ($row['status'] == 2) : ?>
                                         <form action="<?= base_url('pengajuan/acc_kabag/' . $row['id']); ?>" method="post" id="formAccKabag">
                                             <input type="hidden" name="acc_kabag" id="acc_kabag">
@@ -231,7 +231,7 @@
                                         </form>
                                     <?php endif; ?>
                                 <?php endif; ?>
-                                <?php if ($this->ion_auth->in_group('direktur')) : ?>
+                                <?php if ($this->ion_auth->in_group(4)) : ?>
                                     <?php if ($row['status'] == 3) : ?>
                                         <form action="<?= base_url('pengajuan/acc_direktur/' . $row['id']); ?>" method="post" id="formAccDir">
                                             <input type="hidden" name="acc_direktur" id="acc_direktur">

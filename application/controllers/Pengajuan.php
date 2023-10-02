@@ -11,7 +11,7 @@ class Pengajuan extends CI_Controller
         // die(var_dump($this->ion_auth->logged_in()));
         if (!$this->ion_auth->logged_in()) {
             redirect('auth/login', 'refresh');
-        } else if ($this->ion_auth->in_group('vendor')) {
+        } else if ($this->ion_auth->in_group(5)) {
             show_error('You must be an administrator to view this page.');
         } else {
             // show_error('You must be an administrator to view this page.');
@@ -26,9 +26,9 @@ class Pengajuan extends CI_Controller
     public function index()
     {
         $data['title'] = 'Data Pengajuan';
-        if ($this->ion_auth->in_group('unit')) {
+        if ($this->ion_auth->in_group(1)) {
             $data['pengajuan'] = $this->PengajuanModel->lihat_unit();
-        } elseif ($this->ion_auth->in_group('kabag') || $this->ion_auth->in_group('direktur')) {
+        } elseif ($this->ion_auth->in_group('kabag') || $this->ion_auth->in_group(4)) {
             $data['pengajuan'] = $this->PengajuanModel->lihat_kabagdirut();
         } else {
             $data['pengajuan'] = $this->PengajuanModel->lihat();
@@ -40,7 +40,7 @@ class Pengajuan extends CI_Controller
 
     public function tambah()
     {
-        if (!$this->ion_auth->in_group('unit')) {
+        if (!$this->ion_auth->in_group(1)) {
             show_error('You must be an administrator to view this page.');
         }
         $user = $this->ion_auth->user()->row();

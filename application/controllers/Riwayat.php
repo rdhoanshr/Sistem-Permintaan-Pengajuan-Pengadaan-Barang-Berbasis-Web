@@ -10,7 +10,7 @@ class Riwayat extends CI_Controller
 
         if (!$this->ion_auth->logged_in()) {
             redirect('auth/login', 'refresh');
-        } else if ($this->ion_auth->in_group('vendor')) {
+        } else if ($this->ion_auth->in_group(5)) {
             show_error('You must be an administrator to view this page.');
         } else {
         }

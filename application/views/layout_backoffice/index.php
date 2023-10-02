@@ -11,7 +11,7 @@
     <section class="content">
         <!-- Small boxes (Stat box) -->
         <div class="row">
-            <?php if (!$this->ion_auth->in_group('kabag') && !$this->ion_auth->in_group('direktur')) : ?>
+            <?php if (!$this->ion_auth->in_group(3) && !$this->ion_auth->in_group(4)) : ?>
                 <div class="col-lg-3 col-xs-6">
                     <!-- small box -->
                     <div class="small-box bg-yellow">

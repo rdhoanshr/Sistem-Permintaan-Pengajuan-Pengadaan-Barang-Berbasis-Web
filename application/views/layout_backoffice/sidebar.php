@@ -11,7 +11,7 @@
                     </span>
                 </a>
             </li>
-            <?php if (!$this->ion_auth->in_group('vendor')) : ?>
+            <?php if (!$this->ion_auth->in_group(5)) : ?>
                 <li>
                     <a href="<?= base_url(); ?>pengajuan">
                         <i class="fa fa-files-o"></i>
@@ -36,7 +36,7 @@
                     </a>
                 </li>
             <?php endif; ?>
-            <?php if ($this->ion_auth->in_group('staff') || $this->ion_auth->in_group('kabag')) : ?>
+            <?php if ($this->ion_auth->in_group(2) || $this->ion_auth->in_group(3)) : ?>
                 <li class="treeview">
                     <a href="<?= base_url(); ?>assets/AdminLTE/#">
                         <i class="fa fa-pie-chart"></i>

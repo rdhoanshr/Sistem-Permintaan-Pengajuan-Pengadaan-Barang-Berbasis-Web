@@ -36,7 +36,7 @@
                 <div class="col-12">
                     <!-- /.box -->
                     <div class="box">
-                        <?php if ($this->ion_auth->in_group('unit')) : ?>
+                        <?php if ($this->ion_auth->in_group(1)) : ?>
                             <div class="box-header">
                                 <a href="<?= base_url('pengajuan/tambah'); ?>" class="btn btn-primary"><i class="fa fa-plus"></i> Tambah</a>
                             </div>
@@ -84,12 +84,12 @@
                                                         <a href="<?= base_url('pengajuan/edit/') . $u['id']; ?>" class="btn btn-sm btn-warning"><i class="fa fa-edit"></i></a>
                                                         <a href="<?= base_url('pengajuan/hapus/') . $u['id']; ?>" class="btn btn-sm btn-danger hapus"><i class="fa fa-trash "></i></a>
                                                     <?php endif; ?>
-                                                    <?php if ($u['status'] == 4 && $this->ion_auth->in_group('staff')) : ?>
+                                                    <?php if ($u['status'] == 4 && $this->ion_auth->in_group(2)) : ?>
                                                         <button type="button" class="btn btn-sm btn-primary text-white" data-toggle="modal" data-target="#kirim_vendor" onclick="kirim_vendor(<?= $u['id']; ?>)">
                                                             <i class="fa fa-arrow-right"></i>
                                                         </button>
                                                     <?php endif; ?>
-                                                    <?php if ($u['status'] == 7 || $u['status'] == 8 && $this->ion_auth->in_group('staff')) : ?>
+                                                    <?php if ($u['status'] == 7 || $u['status'] == 8 && $this->ion_auth->in_group(2)) : ?>
                                                         <a href="<?= base_url('pengajuan/penyerahan/') . $u['id']; ?>" class="btn btn-sm btn-success kirim"><i class="fa fa-check"></i></a>
 
                                                     <?php endif; ?>

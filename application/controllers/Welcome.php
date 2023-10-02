@@ -36,7 +36,7 @@ class Welcome extends CI_Controller
 	public function index()
 	{
 		if ($this->ion_auth->logged_in()) {
-			if ($this->ion_auth->in_group('staff')) {
+			if ($this->ion_auth->in_group(2)) {
 				$data['title'] = 'Dashboard';
 
 				$data['menunggu'] = $this->PengajuanModel->totalMenunggu();
@@ -45,7 +45,7 @@ class Welcome extends CI_Controller
 				$data['selesai'] = $this->PengajuanModel->totalSelesai();
 
 				$this->load->view('layout_backoffice/index', $data);
-			} elseif ($this->ion_auth->in_group('unit')) {
+			} elseif ($this->ion_auth->in_group(1)) {
 				$data['title'] = 'Dashboard';
 
 				$data['menunggu'] = $this->PengajuanModel->totalMenunggu_unit();
@@ -54,7 +54,7 @@ class Welcome extends CI_Controller
 				$data['selesai'] = $this->PengajuanModel->totalSelesai_unit();
 
 				$this->load->view('layout_backoffice/index', $data);
-			} elseif ($this->ion_auth->in_group('kabag')) {
+			} elseif ($this->ion_auth->in_group(3)) {
 				$data['title'] = 'Dashboard';
 
 				$data['proses'] = $this->PengajuanModel->totalProses();
@@ -62,7 +62,7 @@ class Welcome extends CI_Controller
 				$data['selesai'] = $this->PengajuanModel->totalSelesai();
 
 				$this->load->view('layout_backoffice/index', $data);
-			} elseif ($this->ion_auth->in_group('direktur')) {
+			} elseif ($this->ion_auth->in_group(4)) {
 				$data['title'] = 'Dashboard';
 
 				$data['proses'] = $this->PengajuanModel->totalProses();
@@ -70,7 +70,7 @@ class Welcome extends CI_Controller
 				$data['selesai'] = $this->PengajuanModel->totalSelesai();
 
 				$this->load->view('layout_backoffice/index', $data);
-			} elseif ($this->ion_auth->in_group('vendor')) {
+			} elseif ($this->ion_auth->in_group(5)) {
 				$data['title'] = 'Dashboard';
 
 				$data['menunggu'] = $this->PengajuanModel->totalMenunggu_vendor();

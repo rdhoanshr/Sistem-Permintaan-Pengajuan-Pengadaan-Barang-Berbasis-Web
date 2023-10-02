@@ -68,7 +68,7 @@
                                 <div class="form-text text-danger"><?= form_error('password_confirm'); ?></div>
 
                             </div>
-                            <?php if ($this->ion_auth->in_group('unit')) : ?>
+                            <?php if ($this->ion_auth->in_group(1)) : ?>
                                 <div class="form-group">
                                     <label for="">Unit</label>
                                     <select name="unit" id="unit" class="form-control">
@@ -79,7 +79,7 @@
                                     </select>
                                 </div>
                             <?php endif; ?>
-                            <?php if ($this->ion_auth->in_group('vendor')) : ?>
+                            <?php if ($this->ion_auth->in_group(5)) : ?>
                                 <div class="form-group">
                                     <label for="">Vendor</label>
                                     <select name="vendor" id="vendor" class="form-control">

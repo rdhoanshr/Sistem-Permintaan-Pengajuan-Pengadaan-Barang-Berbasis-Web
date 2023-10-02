@@ -491,10 +491,10 @@
 </script>
 <script>
     $(document).ready(function() {
-        <?php if ($this->ion_auth->in_group('unit')) : ?>
+        <?php if ($this->ion_auth->in_group(1)) : ?>
             databarang();
             detail_pengajuan();
-        <?php elseif ($this->ion_auth->in_group('staff')) : ?>
+        <?php elseif ($this->ion_auth->in_group(2)) : ?>
             detail_pengajuan();
         <?php endif; ?>
     });
