@@ -111,6 +111,7 @@ class PengajuanModel extends CI_model
         $this->db->select('*');
         $this->db->from('temp_detailpengajuan');
         $this->db->join('barang', 'temp_detailpengajuan.id_barang=barang.id_barang');
+        $this->db->join('jenis_barang', 'barang.id_jenis=jenis_barang.id_jenis');
         $this->db->where('id_pengajuan', $id);
         $this->db->where('id_user', $id_user);
 
@@ -122,6 +123,7 @@ class PengajuanModel extends CI_model
         $this->db->select_sum('biaya', 'total');
         $this->db->from('temp_detailpengajuan');
         $this->db->join('barang', 'temp_detailpengajuan.id_barang=barang.id_barang');
+        $this->db->join('jenis_barang', 'barang.id_jenis=jenis_barang.id_jenis');
         $this->db->where('id_pengajuan', $id);
         $this->db->where('id_user', $id_user);
 
@@ -133,6 +135,7 @@ class PengajuanModel extends CI_model
         $this->db->select_sum('biaya', 'total');
         $this->db->from('detail_pengajuan');
         $this->db->join('barang', 'detail_pengajuan.id_barang=barang.id_barang');
+        $this->db->join('jenis_barang', 'barang.id_jenis=jenis_barang.id_jenis');
         $this->db->where('id_pengajuan', $id);
 
         return $this->db->get()->row_array();
@@ -296,6 +299,7 @@ class PengajuanModel extends CI_model
         $this->db->select('*');
         $this->db->from('detail_pengajuan');
         $this->db->join('barang', 'detail_pengajuan.id_barang=barang.id_barang');
+        $this->db->join('jenis_barang', 'barang.id_jenis=jenis_barang.id_jenis');
         $this->db->where('id_pengajuan', $id);
 
         return $this->db->get()->result_array();
@@ -306,6 +310,7 @@ class PengajuanModel extends CI_model
         $this->db->select('*');
         $this->db->from('detail_pengajuan');
         $this->db->join('barang', 'detail_pengajuan.id_barang=barang.id_barang');
+        $this->db->join('jenis_barang', 'barang.id_jenis=jenis_barang.id_jenis');
         $this->db->where('id', $id);
 
         return $this->db->get()->row_array();
