@@ -41,6 +41,11 @@
                         <div class="box-body">
                             <form action="" method="post">
                                 <div class="form-group">
+                                    <label for=""> Kode </label>
+                                    <input type="text" name="kode" class="form-control">
+                                    <div class="form-text text-danger"><?= form_error('kode'); ?></div>
+                                </div>
+                                <div class="form-group">
                                     <label for=""> Nama </label>
                                     <input type="text" name="nama" class="form-control">
                                     <div class="form-text text-danger"><?= form_error('nama'); ?></div>

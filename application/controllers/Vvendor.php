@@ -31,6 +31,7 @@ class Vvendor extends CI_Controller
     {
         $data['title'] = 'Tambah Vendor';
 
+        $this->form_validation->set_rules('kode', 'Kode', 'required');
         $this->form_validation->set_rules('nama', 'Nama', 'required|max_length[15]');
         $this->form_validation->set_rules('alamat', 'Alamat', 'required|max_length[15]');
         $this->form_validation->set_rules('no_telp', 'No Telp', 'required|min_length[10]|max_length[14]');
@@ -42,10 +43,15 @@ class Vvendor extends CI_Controller
             $this->load->view('vendor/tambah_vendor', $data);
         } else {
             $nama = $this->input->post('nama');
+            $kode = $this->input->post('kode');
             $get_Nama = $this->VendorModel->getVendorNama($nama);
-            // die(var_dump($get_Nama['nama'] == $nama));
+            $get_Kode = $this->VendorModel->getVendorKode($kode);
+
             if ($get_Nama['nama'] == $nama) {
-                $this->session->set_flashdata('message', 'Vendor sudah ada');
+                $this->session->set_flashdata('message', 'Nama Vendor sudah ada');
+                redirect('vvendor/tambah');
+            } elseif ($get_Kode['kode'] == $kode) {
+                $this->session->set_flashdata('message', 'Kode Vendor sudah ada');
                 redirect('vvendor/tambah');
             } else {
                 $this->VendorModel->proses_tambah();
@@ -65,6 +71,7 @@ class Vvendor extends CI_Controller
         $data['title'] = 'Edit Vendor';
         $data['vendor'] = $this->VendorModel->getVendor($id);
 
+        $this->form_validation->set_rules('kode', 'Kode', 'required');
         $this->form_validation->set_rules('nama', 'Nama', 'required|max_length[15]');
         $this->form_validation->set_rules('alamat', 'Alamat', 'required|max_length[15]');
         $this->form_validation->set_rules('no_telp', 'No Telp', 'required|min_length[10]|max_length[14]');
@@ -75,13 +82,66 @@ class Vvendor extends CI_Controller
         if ($this->form_validation->run() == false) {
             $this->load->view('vendor/edit_vendor', $data);
         } else {
-            $this->VendorModel->proses_edit($id);
-            $err = $this->db->error();
-            if ($err['code'] !== 0) {
-                echo $err['message'];
+            $nama = $this->input->post('nama');
+            $kode = $this->input->post('kode');
+
+            $get_Nama = $this->VendorModel->getVendorNama($nama);
+            $get_Kode = $this->VendorModel->getVendorKode($kode);
+
+            if ($nama == $data['vendor']['nama'] && $kode == $data['vendor']['kode']) {
+                $this->VendorModel->proses_edit($id);
+                $err = $this->db->error();
+                if ($err['code'] !== 0) {
+                    echo $err['message'];
+                } else {
+                    $this->session->set_flashdata('pesanbaik', 'Vendor Berhasil Di update');
+                    redirect('vvendor');
+                }
+            } else if ($nama != $data['vendor']['nama'] && $kode == $data['vendor']['kode']) {
+                if ($get_Nama['nama'] == $nama) {
+                    $this->session->set_flashdata('message', 'Nama Vendor sudah ada');
+                    redirect('vvendor/edit/' . $id);
+                } else {
+                    $this->VendorModel->proses_edit($id);
+                    $err = $this->db->error();
+                    if ($err['code'] !== 0) {
+                        echo $err['message'];
+                    } else {
+                        $this->session->set_flashdata('pesanbaik', 'Vendor Berhasil Di update');
+                        redirect('vvendor');
+                    }
+                }
+            } else if ($nama == $data['vendor']['nama'] && $kode != $data['vendor']['kode']) {
+                if ($get_Kode['kode'] == $kode) {
+                    $this->session->set_flashdata('message', 'Kode Vendor sudah ada');
+                    redirect('vvendor/edit/' . $id);
+                } else {
+                    $this->VendorModel->proses_edit($id);
+                    $err = $this->db->error();
+                    if ($err['code'] !== 0) {
+                        echo $err['message'];
+                    } else {
+                        $this->session->set_flashdata('pesanbaik', 'Vendor Berhasil Di update');
+                        redirect('vvendor');
+                    }
+                }
             } else {
-                $this->session->set_flashdata('pesanbaik', 'Vendor Berhasil Di update');
-                redirect('vvendor');
+                if ($get_Kode['kode'] == $kode) {
+                    $this->session->set_flashdata('message', 'Kode Vendor sudah ada');
+                    redirect('vvendor/edit/' . $id);
+                } else  if ($get_Nama['nama'] == $nama) {
+                    $this->session->set_flashdata('message', 'Nama Vendor sudah ada');
+                    redirect('vvendor/edit/' . $id);
+                } else {
+                    $this->VendorModel->proses_edit($id);
+                    $err = $this->db->error();
+                    if ($err['code'] !== 0) {
+                        echo $err['message'];
+                    } else {
+                        $this->session->set_flashdata('pesanbaik', 'Vendor Berhasil Di update');
+                        redirect('vvendor');
+                    }
+                }
             }
         }
     }

@@ -129,7 +129,7 @@
                         <select name="vendor" class="form-control js-example-basic-single" style="width: 100%;">
                             <option selected disabled>-- Pilih Vendor --</option>
                             <?php foreach ($vendor as $v) : ?>
-                                <option value="<?= $v['id_vendor']; ?>"><?= $v['nama']; ?></option>
+                                <option value="<?= $v['id_vendor']; ?>"><?= $v['kode']; ?> - <?= $v['nama']; ?></option>
                             <?php endforeach; ?>
                         </select>
                     </div>

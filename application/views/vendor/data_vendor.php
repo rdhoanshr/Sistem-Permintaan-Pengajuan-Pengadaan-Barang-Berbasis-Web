@@ -46,6 +46,7 @@
                                     <thead>
                                         <tr>
                                             <th>No</th>
+                                            <th>Kode</th>
                                             <th>Nama</th>
                                             <th>Alamat</th>
                                             <th>No Telp</th>
@@ -61,6 +62,7 @@
                                         foreach ($vendor as $v) : ?>
                                             <tr>
                                                 <td><?= $i++; ?></td>
+                                                <td><?= $v['kode']; ?></td>
                                                 <td><?= $v['nama']; ?></td>
                                                 <td><?= $v['alamat']; ?></td>
                                                 <td><?= $v['no_telp']; ?></td>

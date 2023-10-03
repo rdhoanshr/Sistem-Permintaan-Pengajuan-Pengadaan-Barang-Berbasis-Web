@@ -13,6 +13,7 @@ class VendorModel extends CI_model
     public function proses_tambah()
     {
         $data = [
+            "kode" => $this->input->post('kode', true),
             "nama" => $this->input->post('nama', true),
             "alamat" => $this->input->post('alamat', true),
             "no_telp" => $this->input->post('no_telp', true),
@@ -33,9 +34,16 @@ class VendorModel extends CI_model
     {
         return $this->db->get_where('vendor', ['nama' => $nama])->row_array();
     }
+
+    public function getVendorKode($kode)
+    {
+        return $this->db->get_where('vendor', ['kode' => $kode])->row_array();
+    }
+
     public function proses_edit($id)
     {
         $data = [
+            "kode" => $this->input->post('kode', true),
             "nama" => $this->input->post('nama', true),
             "alamat" => $this->input->post('alamat', true),
             "no_telp" => $this->input->post('no_telp', true),
