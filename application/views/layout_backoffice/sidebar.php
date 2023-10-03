@@ -47,6 +47,7 @@
                     </a>
                     <ul class="treeview-menu">
                         <li><a href="<?= base_url(); ?>auth/pengguna"><i class="fa fa-circle-o"></i> Pengguna</a></li>
+                        <li><a href="<?= base_url(); ?>auth/group"><i class="fa fa-circle-o"></i> Group</a></li>
                         <li><a href="<?= base_url(); ?>barang"><i class="fa fa-circle-o"></i> Barang</a></li>
                         <li><a href="<?= base_url(); ?>unit"><i class="fa fa-circle-o"></i> Unit</a></li>
                         <li><a href="<?= base_url(); ?>vvendor"><i class="fa fa-circle-o"></i> Vendor</a></li>

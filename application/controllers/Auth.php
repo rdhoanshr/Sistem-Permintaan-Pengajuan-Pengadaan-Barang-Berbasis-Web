@@ -78,6 +78,25 @@ class Auth extends CI_Controller
 			$this->_render_page('pengguna' . DIRECTORY_SEPARATOR . 'index', $this->data);
 		}
 	}
+
+	public function group()
+	{
+		if (!$this->ion_auth->logged_in()) {
+			// redirect them to the login page
+			redirect('auth/login', 'refresh');
+		} else {
+			$this->data['title'] = 'Kelola Group';
+
+			// set the flash data error message if there is one
+			$this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
+
+			//list the users
+			$this->data['groups'] = $this->ion_auth->groups()->result();
+
+			// echo $user->email;
+			$this->_render_page('pengguna' . DIRECTORY_SEPARATOR . 'group', $this->data);
+		}
+	}
 	/**
 	 * Log the user in
 	 */
@@ -817,14 +836,15 @@ class Auth extends CI_Controller
 
 		// validate form input
 		$this->form_validation->set_rules('group_name', $this->lang->line('create_group_validation_name_label'), 'trim|required|alpha_dash');
+		$this->form_validation->set_rules('description', 'description', 'trim|required|alpha_dash');
 
 		if ($this->form_validation->run() === TRUE) {
 			$new_group_id = $this->ion_auth->create_group($this->input->post('group_name'), $this->input->post('description'));
 			if ($new_group_id) {
 				// check to see if we are creating the group
 				// redirect them back to the admin page
-				$this->session->set_flashdata('message', $this->ion_auth->messages());
-				redirect("auth", 'refresh');
+				$this->session->set_flashdata('pesanbaik', 'Tambah Data Berhasil');
+				redirect("auth/group", 'refresh');
 			} else {
 				$this->session->set_flashdata('message', $this->ion_auth->errors());
 			}
@@ -872,6 +892,7 @@ class Auth extends CI_Controller
 
 		// validate form input
 		$this->form_validation->set_rules('group_name', $this->lang->line('edit_group_validation_name_label'), 'trim|required|alpha_dash');
+		$this->form_validation->set_rules('group_description', 'description', 'trim|required|alpha_dash');
 
 		if (isset($_POST) && !empty($_POST)) {
 			if ($this->form_validation->run() === TRUE) {
@@ -880,8 +901,8 @@ class Auth extends CI_Controller
 				));
 
 				if ($group_update) {
-					$this->session->set_flashdata('message', $this->lang->line('edit_group_saved'));
-					redirect("auth", 'refresh');
+					$this->session->set_flashdata('pesanbaik', 'Update Berhasil');
+					redirect("auth/group", 'refresh');
 				} else {
 					$this->session->set_flashdata('message', $this->ion_auth->errors());
 				}
@@ -912,6 +933,26 @@ class Auth extends CI_Controller
 		];
 
 		$this->_render_page('auth' . DIRECTORY_SEPARATOR . 'edit_group', $this->data);
+	}
+
+	public function delete_group($id)
+	{
+		if (!$this->ion_auth->logged_in() || (!$this->ion_auth->in_group(2) && !($this->ion_auth->user()->row()->id == $id))) {
+			redirect(base_url(), 'refresh');
+		}
+
+		if ($this->ion_auth->in_group(2)) {
+			// Update the groups user belongs to
+			if ($this->ion_auth->delete_group($id)) {
+				// redirect them back to the admin page if admin, or to the base url if non admin
+				$this->session->set_flashdata('pesanbaik', 'Group Berhasil di Hapus');
+				redirect("auth/group", 'refresh');
+			} else {
+				// redirect them back to the admin page if admin, or to the base url if non admin
+				$this->session->set_flashdata('message', $this->ion_auth->errors());
+				redirect("auth/group", 'refresh');
+			}
+		}
 	}
 
 	public function delete_user($id)
