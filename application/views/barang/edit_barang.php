@@ -50,10 +50,14 @@
                                     <input type="text" name="nama_barang" class="form-control" value="<?= $barang['nama_barang']; ?>">
                                     <div class="form-text text-danger"><?= form_error('nama_barang'); ?></div>
                                 </div>
-                                <div class="form-group">
-                                    <label for=""> Jenis Barang </label>
-                                    <input type="text" name="jenis_barang" class="form-control" value="<?= $barang['jenis_barang']; ?>">
-                                    <div class="form-text text-danger"><?= form_error('jenis_barang'); ?></div>
+                                <div class="form-group id_jenis">
+                                    <label for="">Jenis Barang</label>
+                                    <select name="id_jenis" id="id_jenis" class="form-control">
+                                        <option selected disabled>-- Pilih Jenis Barang --</option>
+                                        <?php foreach ($jenis_barang as $u) : ?>
+                                            <option value="<?= $u['id_jenis']; ?>" <?= $u['id_jenis'] == $barang['id_jenis'] ? 'Selected' : ''; ?>><?= $u['nama_jenisbarang']; ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
                                 </div>
                                 <div class="form-group">
                                     <label for=""> Satuan </label>

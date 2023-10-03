@@ -50,10 +50,15 @@
                                     <input type="text" name="nama_barang" class="form-control">
                                     <div class="form-text text-danger"><?= form_error('nama_barang'); ?></div>
                                 </div>
-                                <div class="form-group">
-                                    <label for=""> Jenis Barang </label>
-                                    <input type="text" name="jenis_barang" class="form-control">
-                                    <div class="form-text text-danger"><?= form_error('jenis_barang'); ?></div>
+                                <div class="form-group id_jenis">
+                                    <label for="">Jenis Barang</label>
+                                    <select name="id_jenis" id="unit" class="form-control">
+                                        <option selected disabled>-- Pilih Jenis Barang --</option>
+                                        <?php foreach ($jenis_barang as $u) : ?>
+                                            <option value="<?= $u['id_jenis']; ?>"><?= $u['nama_jenisbarang']; ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+
                                 </div>
                                 <div class="form-group">
                                     <label for=""> Satuan </label>

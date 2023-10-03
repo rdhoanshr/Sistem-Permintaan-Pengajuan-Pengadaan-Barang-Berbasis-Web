@@ -16,6 +16,7 @@ class Barang extends CI_Controller
         }
 
         $this->load->model('BarangModel');
+        $this->load->model('JenisBarangModel');
     }
 
 
@@ -23,17 +24,17 @@ class Barang extends CI_Controller
     {
         $data['title'] = 'Data Barang';
         $data['barang'] = $this->BarangModel->lihat();
-
         $this->load->view('barang/data_barang', $data);
     }
 
     public function tambah()
     {
         $data['title'] = 'Tambah Barang';
+        $data['jenis_barang'] = $this->JenisBarangModel->lihat();
 
         $this->form_validation->set_rules('kode_barang', 'Kode Barang', 'required');
         $this->form_validation->set_rules('nama_barang', 'Nama Barang', 'required');
-        $this->form_validation->set_rules('jenis_barang', 'Jenis Barang', 'required');
+        $this->form_validation->set_rules('id_jenis', 'Jenis Barang', 'required');
         $this->form_validation->set_rules('satuan', 'Satuan', 'required');
         $this->form_validation->set_rules('keterangan', 'Keterangan', 'required');
 
@@ -42,6 +43,7 @@ class Barang extends CI_Controller
         } else {
             $kode = $this->input->post('kode_barang');
             $get_Kode = $this->BarangModel->getBarangKode($kode);
+
 
             if ($get_Kode['kode_barang'] == $kode) {
                 $this->session->set_flashdata('message', 'Kode Barang sudah ada');
@@ -63,10 +65,10 @@ class Barang extends CI_Controller
     {
         $data['title'] = 'Edit Barang';
         $data['barang'] = $this->BarangModel->getBarang($id);
-
+        $data['jenis_barang'] = $this->JenisBarangModel->lihat();
         $this->form_validation->set_rules('kode_barang', 'Kode Barang', 'required');
         $this->form_validation->set_rules('nama_barang', 'Nama Barang', 'required');
-        $this->form_validation->set_rules('jenis_barang', 'Jenis Barang', 'required');
+        $this->form_validation->set_rules('id_jenis', 'Jenis Barang', 'required');
         $this->form_validation->set_rules('satuan', 'Satuan', 'required');
         $this->form_validation->set_rules('keterangan', 'Keterangan', 'required');
 

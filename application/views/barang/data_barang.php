@@ -62,7 +62,7 @@
                                                 <td><?= $i++; ?></td>
                                                 <td><?= $b['kode_barang']; ?></td>
                                                 <td><?= $b['nama_barang']; ?></td>
-                                                <td><?= $b['jenis_barang']; ?></td>
+                                                <td><?= $b['nama_jenisbarang']; ?></td>
                                                 <td><?= $b['satuan']; ?> </td>
                                                 <td><?= $b['keterangan']; ?> </td>
                                                 <td>
