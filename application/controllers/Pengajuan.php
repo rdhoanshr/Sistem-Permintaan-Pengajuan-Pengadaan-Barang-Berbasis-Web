@@ -140,16 +140,22 @@ class Pengajuan extends CI_Controller
         echo json_encode($msg);
     }
 
-    public function hapus_barang($id)
+    public function hapus_barang()
     {
+        $id = $this->input->post('id');
         $this->PengajuanModel->hapus_barang($id);
         $err = $this->db->error();
         if ($err['code'] !== 0) {
-            echo $err['message'];
+            $msg = [
+                'gagal' => $err['message']
+            ];
         } else {
-            $this->session->set_flashdata('pesanbaik', 'Barang Berhasil Di Hapus');
-            redirect('pengajuan/tambah');
+            $msg = [
+                'sukses' => 'Barang Berhasil Di Hapus'
+            ];
         }
+
+        echo json_encode($msg);
     }
 
     public function detail($id)
@@ -271,22 +277,28 @@ class Pengajuan extends CI_Controller
         echo json_encode($msg);
     }
 
-    public function hapus_detail($id)
+    public function hapus_detail()
     {
-        $id_p = $this->input->get('id_p');
+        $id = $this->input->post('id');
+        $id_p = $this->input->post('id_p');
         if ($id_p != null) {
             $this->PengajuanModel->hapus_detail($id);
             $err = $this->db->error();
             if ($err['code'] !== 0) {
-                echo $err['message'];
+                $msg = [
+                    'error' => $err['message']
+                ];
             } else {
-                $this->session->set_flashdata('pesanbaik', 'Barang Berhasil Di Hapus');
-                redirect('pengajuan/edit/' . $id_p);
+                $msg = [
+                    'sukses' => 'Barang Berhasil Di Hapus'
+                ];
             }
         } else {
-            $this->session->set_flashdata('message', 'Barang Gagal Di Hapus');
-            redirect('pengajuan');
+            $msg = [
+                'gagal' => 'Barang Gagal Di Hapus'
+            ];
         }
+        echo json_encode($msg);
     }
 
     public function hapus($id)

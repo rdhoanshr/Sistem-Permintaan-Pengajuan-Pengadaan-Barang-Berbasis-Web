@@ -118,7 +118,7 @@
                                                                 <td><?= $b['nama_barang']; ?></td>
                                                                 <td><?= $b['jenis_barang']; ?></td>
                                                                 <td><?= $b['jumlah']; ?></td>
-                                                                <td><?= number_format($b['biaya']); ?></td>
+                                                                <td><?= number_format($b['biaya'], 0, ',', '.'); ?></td>
                                                             </tr>
                                                         <?php endforeach; ?>
                                                     </tbody>
@@ -128,14 +128,14 @@
                                                 <label for="">Total Biaya</label>
                                                 <br>
                                                 <label for="">
-                                                    <h4>Rp. <?= number_format($row['total']); ?></h4>
+                                                    <h4>Rp. <?= number_format($row['total'], 0, ',', '.'); ?></h4>
                                                 </label>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <?php if ($row['status'] == 1) : ?>
+                            <?php if ($row['status'] == 1 || $row['status'] == 8) : ?>
                                 <div class="form-group">
                                     <a href="<?= base_url('pengajuan_vendor'); ?>" class="btn btn-info">Kembali</a>
                                 </div>
@@ -232,7 +232,7 @@
                                                             <td><?= $cek[0]; ?></td>
                                                             <td><?= $cek[1]; ?></td>
                                                             <td>
-                                                                <?= number_format($cek[2]); ?>
+                                                                <?= number_format($cek[2], 0, ',', '.'); ?>
                                                             </td>
                                                         </tr>
                                                     <?php endforeach; ?>
@@ -274,7 +274,7 @@
                                                                             <td><?= $b['nama_barang']; ?></td>
                                                                             <td><?= $b['jenis_barang']; ?></td>
                                                                             <td><?= $b['qty_vendor']; ?></td>
-                                                                            <td>Rp. <?= number_format($b['harga_vendor']); ?></td>
+                                                                            <td>Rp. <?= number_format($b['harga_vendor'], 0, ',', '.'); ?></td>
                                                                         </tr>
                                                                     </form>
                                                                 <?php endforeach; ?>

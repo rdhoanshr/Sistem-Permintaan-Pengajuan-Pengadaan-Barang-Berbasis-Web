@@ -13,6 +13,7 @@ class BarangModel extends CI_model
     public function proses_tambah()
     {
         $data = [
+            "kode_barang" => $this->input->post('kode_barang', true),
             "nama_barang" => $this->input->post('nama_barang', true),
             "jenis_barang" => $this->input->post('jenis_barang', true),
             "satuan" => $this->input->post('satuan', true),
@@ -27,9 +28,15 @@ class BarangModel extends CI_model
         return $this->db->get_where('barang', ['id_barang' => $id])->row_array();
     }
 
+    public function getBarangKode($kode)
+    {
+        return $this->db->get_where('barang', ['kode_barang' => $kode])->row_array();
+    }
+
     public function proses_edit($id)
     {
         $data = [
+            "kode_barang" => $this->input->post('kode_barang', true),
             "nama_barang" => $this->input->post('nama_barang', true),
             "jenis_barang" => $this->input->post('jenis_barang', true),
             "satuan" => $this->input->post('satuan', true),

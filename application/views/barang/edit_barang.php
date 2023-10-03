@@ -13,7 +13,7 @@
 <div class="content-wrapper">
     <!-- Menampilkan notif flashdata -->
     <?php if ($this->session->flashdata('message')) : ?>
-        <div class="flash-data2" data-flashdata="<?= $this->session->flashdata('message') ?>"></div>
+        <div class="flash-data2" data-flashdata2="<?= $this->session->flashdata('message') ?>"></div>
     <?php endif; ?>
     <?php if ($this->session->flashdata('pesanbaik')) : ?>
         <div class="flash-data" data-flashdata="<?= $this->session->flashdata('pesanbaik') ?>"></div>
@@ -40,6 +40,11 @@
                         <!-- /.box-header -->
                         <div class="box-body">
                             <form action="" method="post">
+                                <div class="form-group">
+                                    <label for=""> Kode Barang </label>
+                                    <input type="text" name="kode_barang" class="form-control" value="<?= $barang['kode_barang']; ?>">
+                                    <div class="form-text text-danger"><?= form_error('kode_barang'); ?></div>
+                                </div>
                                 <div class="form-group">
                                     <label for=""> Nama Barang </label>
                                     <input type="text" name="nama_barang" class="form-control" value="<?= $barang['nama_barang']; ?>">

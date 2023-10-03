@@ -46,6 +46,7 @@
                                     <thead>
                                         <tr>
                                             <th>No</th>
+                                            <th>Kode</th>
                                             <th>Nama</th>
                                             <th>Jenis</th>
                                             <th>Satuan</th>
@@ -59,6 +60,7 @@
                                         foreach ($barang as $b) : ?>
                                             <tr>
                                                 <td><?= $i++; ?></td>
+                                                <td><?= $b['kode_barang']; ?></td>
                                                 <td><?= $b['nama_barang']; ?></td>
                                                 <td><?= $b['jenis_barang']; ?></td>
                                                 <td><?= $b['satuan']; ?> </td>

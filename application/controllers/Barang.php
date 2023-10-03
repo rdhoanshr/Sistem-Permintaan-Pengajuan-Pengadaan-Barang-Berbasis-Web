@@ -31,6 +31,7 @@ class Barang extends CI_Controller
     {
         $data['title'] = 'Tambah Barang';
 
+        $this->form_validation->set_rules('kode_barang', 'Kode Barang', 'required');
         $this->form_validation->set_rules('nama_barang', 'Nama Barang', 'required');
         $this->form_validation->set_rules('jenis_barang', 'Jenis Barang', 'required');
         $this->form_validation->set_rules('satuan', 'Satuan', 'required');
@@ -39,13 +40,21 @@ class Barang extends CI_Controller
         if ($this->form_validation->run() == false) {
             $this->load->view('barang/tambah_barang', $data);
         } else {
-            $this->BarangModel->proses_tambah();
-            $err = $this->db->error();
-            if ($err['code'] !== 0) {
-                echo $err['message'];
+            $kode = $this->input->post('kode_barang');
+            $get_Kode = $this->BarangModel->getBarangKode($kode);
+
+            if ($get_Kode['kode_barang'] == $kode) {
+                $this->session->set_flashdata('message', 'Kode Barang sudah ada');
+                redirect('barang/tambah');
             } else {
-                $this->session->set_flashdata('pesanbaik', 'Barang Berhasil Di tambah');
-                redirect('barang');
+                $this->BarangModel->proses_tambah();
+                $err = $this->db->error();
+                if ($err['code'] !== 0) {
+                    echo $err['message'];
+                } else {
+                    $this->session->set_flashdata('pesanbaik', 'Barang Berhasil Di tambah');
+                    redirect('barang');
+                }
             }
         }
     }
@@ -55,6 +64,7 @@ class Barang extends CI_Controller
         $data['title'] = 'Edit Barang';
         $data['barang'] = $this->BarangModel->getBarang($id);
 
+        $this->form_validation->set_rules('kode_barang', 'Kode Barang', 'required');
         $this->form_validation->set_rules('nama_barang', 'Nama Barang', 'required');
         $this->form_validation->set_rules('jenis_barang', 'Jenis Barang', 'required');
         $this->form_validation->set_rules('satuan', 'Satuan', 'required');
@@ -63,13 +73,32 @@ class Barang extends CI_Controller
         if ($this->form_validation->run() == false) {
             $this->load->view('barang/edit_barang', $data);
         } else {
-            $this->BarangModel->proses_edit($id);
-            $err = $this->db->error();
-            if ($err['code'] !== 0) {
-                echo $err['message'];
+            $kode = $this->input->post('kode_barang');
+            $get_Kode = $this->BarangModel->getBarangKode($kode);
+
+            if ($kode == $data['barang']['kode_barang']) {
+                $this->BarangModel->proses_edit($id);
+                $err = $this->db->error();
+                if ($err['code'] !== 0) {
+                    echo $err['message'];
+                } else {
+                    $this->session->set_flashdata('pesanbaik', 'Barang Berhasil Di update');
+                    redirect('barang');
+                }
             } else {
-                $this->session->set_flashdata('pesanbaik', 'Barang Berhasil Di update');
-                redirect('barang');
+                if ($get_Kode['kode_barang'] == $kode) {
+                    $this->session->set_flashdata('message', 'Kode Barang sudah ada');
+                    redirect('barang/edit/' . $id);
+                } else {
+                    $this->BarangModel->proses_edit($id);
+                    $err = $this->db->error();
+                    if ($err['code'] !== 0) {
+                        echo $err['message'];
+                    } else {
+                        $this->session->set_flashdata('pesanbaik', 'Barang Berhasil Di update');
+                        redirect('barang');
+                    }
+                }
             }
         }
     }

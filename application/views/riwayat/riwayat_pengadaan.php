@@ -93,9 +93,9 @@
                                                 <td><?= $u['tanggal_penyerahan']; ?></td>
                                                 <td>
                                                     <?php if ($u['total_vendor'] == null) : ?>
-                                                        Rp. <?= number_format($u['total']); ?>
+                                                        Rp. <?= number_format($u['total'], 0, ',', '.'); ?>
                                                     <?php else : ?>
-                                                        Rp. <?= number_format($u['total_vendor']); ?>
+                                                        Rp. <?= number_format($u['total_vendor'], 0, ',', '.'); ?>
                                                     <?php endif; ?>
                                                 </td>
                                                 <td>

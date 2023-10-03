@@ -72,7 +72,7 @@
                                             <select name="id_barang" id="id_barang" class="form-control js-example-basic-single" style="width: 100%;">
                                                 <option selected disabled>-- Pilih Barang --</option>
                                                 <?php foreach ($barang as $b) : ?>
-                                                    <option value="<?= $b['id_barang']; ?>"><?= $b['nama_barang']; ?></option>
+                                                    <option value="<?= $b['id_barang']; ?>"><?= $b['kode_barang']; ?> - <?= $b['nama_barang']; ?></option>
                                                 <?php endforeach; ?>
                                             </select>
                                             <div class="form-text text-danger"><?= form_error('id_barang'); ?></div>

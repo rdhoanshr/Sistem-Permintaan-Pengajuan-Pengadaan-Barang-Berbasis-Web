@@ -66,48 +66,48 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
-                                                <div class="form-group">
-                                                    <label for=""> Barang </label>
-                                                    <select name="id_barang" id="id_barang" class="form-control">
-                                                        <option selected disabled>-- Pilih Barang --</option>
-                                                        <?php foreach ($barang as $b) : ?>
-                                                            <option value="<?= $b['id_barang']; ?>"><?= $b['nama_barang']; ?></option>
-                                                        <?php endforeach; ?>
-                                                    </select>
-                                                    <div class="form-text text-danger"><?= form_error('id_barang'); ?></div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for=""> Jumlah </label>
-                                                    <input type="number" name="jumlah" id="jumlah" class="form-control">
-                                                    <div class="form-text text-danger"><?= form_error('jumlah'); ?></div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for=""> Pagu Biaya </label>
-                                                    <input type="number" name="biaya" id="biaya" class="form-control">
-                                                    <div class="form-text text-danger"><?= form_error('biaya'); ?></div>
-                                                </div>
-                                                <button type="button" class="btn btn-primary" onclick="insert_detail()">Tambah</button>
-                                                <br><br>
-                                                <div class="databarang">
-                                                    <div class="table-responsive">
-                                                        <table id="example1" class="table table-bordered table-striped">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th>No</th>
-                                                                    <th>Nama</th>
-                                                                    <th>Jenis</th>
-                                                                    <th>Jumlah</th>
-                                                                    <th>Biaya</th>
-                                                                    <th>Aksi</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
+                                        <div class="form-group">
+                                            <label for=""> Barang </label>
+                                            <select name="id_barang" id="id_barang" class="form-control js-example-basic-single" style="width: 100%;">
+                                                <option selected disabled>-- Pilih Barang --</option>
+                                                <?php foreach ($barang as $b) : ?>
+                                                    <option value="<?= $b['id_barang']; ?>"><?= $b['kode_barang']; ?> - <?= $b['nama_barang']; ?></option>
+                                                <?php endforeach; ?>
+                                            </select>
+                                            <div class="form-text text-danger"><?= form_error('id_barang'); ?></div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for=""> Jumlah </label>
+                                            <input type="number" name="jumlah" id="jumlah" class="form-control">
+                                            <div class="form-text text-danger"><?= form_error('jumlah'); ?></div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for=""> Pagu Biaya </label>
+                                            <input type="number" name="biaya" id="biaya" class="form-control">
+                                            <div class="form-text text-danger"><?= form_error('biaya'); ?></div>
+                                        </div>
+                                        <button type="button" class="btn btn-primary" onclick="insert_detail()">Tambah</button>
+                                        <br><br>
+                                        <div class="databarang">
+                                            <div class="table-responsive">
+                                                <table id="example1" class="table table-bordered table-striped">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>No</th>
+                                                            <th>Nama</th>
+                                                            <th>Jenis</th>
+                                                            <th>Jumlah</th>
+                                                            <th>Biaya</th>
+                                                            <th>Aksi</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
 
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
-                                                </div>
+                                                    </tbody>
+                                                </table>
                                             </div>
+                                        </div>
+                                    </div>
                                 </div>
 
                                 <button type="submit" class="btn btn-primary">Update</button>

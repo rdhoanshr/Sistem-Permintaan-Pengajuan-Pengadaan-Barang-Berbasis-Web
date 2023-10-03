@@ -55,7 +55,7 @@ class Pengajuan_vendor extends CI_Controller
             $total = $this->PengajuanModel->totalHargaVendor($id_pengajuan);
             $msg = [
                 'data' => 'Persediaan Berhasil Diinput',
-                'total' => number_format($total['total'])
+                'total' => number_format($total['total'], 0, ',', '.')
             ];
         }
 
@@ -72,7 +72,7 @@ class Pengajuan_vendor extends CI_Controller
         if ($total['total'] == null) {
             $data['total'] = '0';
         } else {
-            $data['total'] = number_format($total['total']);
+            $data['total'] = number_format($total['total'], 0, ',', '.');
         }
 
         if ($data['row']['rekomendasi'] != null) {
@@ -123,7 +123,7 @@ class Pengajuan_vendor extends CI_Controller
         if ($total['total'] == null) {
             $data['total'] = '0';
         } else {
-            $data['total'] = number_format($total['total']);
+            $data['total'] = number_format($total['total'], 0, ',', '.');
         }
 
         $id_uservendor = $data['row']['user_vendor'];

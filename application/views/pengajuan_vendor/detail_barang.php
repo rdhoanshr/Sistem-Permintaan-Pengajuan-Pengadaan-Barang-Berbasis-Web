@@ -19,7 +19,7 @@
                     <td><?= $b['nama_barang']; ?></td>
                     <td><?= $b['jenis_barang']; ?></td>
                     <td><?= $b['jumlah']; ?></td>
-                    <td><?= number_format($b['biaya']); ?></td>
+                    <td><?= number_format($b['biaya'], 0, ',', '.'); ?></td>
                     <td>
                         <a href="<?= base_url('pengajuan/hapus_detail/') . $b['id'] . '?id_p=' . $b['id_pengajuan']; ?>" class="btn btn-sm btn-danger" onclick="return confirm('Apakah Anda Yakin Menghapus Barang ini ?')"><i class="fa fa-trash"></i></a>
                     </td>
