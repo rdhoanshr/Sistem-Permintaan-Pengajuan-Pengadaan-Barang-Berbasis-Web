@@ -116,7 +116,7 @@
                                                             <tr>
                                                                 <td><?= $i++; ?></td>
                                                                 <td><?= $b['nama_barang']; ?></td>
-                                                                <td><?= $b['jenis_barang']; ?></td>
+                                                                <td><?= $b['nama_jenisbarang']; ?></td>
                                                                 <td><?= $b['jumlah']; ?></td>
                                                                 <td><?= number_format($b['biaya'], 0, ',', '.'); ?></td>
                                                             </tr>
@@ -176,8 +176,8 @@
                                                                                 <input type="hidden" name="nama_barang" value="<?= $b['nama_barang']; ?>">
                                                                             </td>
                                                                             <td>
-                                                                                <?= $b['jenis_barang']; ?>
-                                                                                <input type="hidden" name="jenis_barang" value="<?= $b['jenis_barang']; ?>">
+                                                                                <?= $b['nama_jenisbarang']; ?>
+                                                                                <input type="hidden" name="nama_jenisbarang" value="<?= $b['nama_jenisbarang']; ?>">
                                                                             </td>
                                                                             <td><input type="number" class="form-control" value="<?= ($b['qty_vendor'] != null) ? $b['qty_vendor'] : '0'; ?>" name="qty" id="qty" min="1" max="<?= $b['jumlah']; ?>"></td>
                                                                             <td><input type="number" class="form-control" name="harga" value="<?= ($b['harga_vendor'] != null) ? $b['harga_vendor'] : '0'; ?>" id="harga" min="1" max="<?= $b['biaya']; ?>"></td>

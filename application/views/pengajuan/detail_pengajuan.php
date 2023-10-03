@@ -115,7 +115,7 @@
                                                     <tr>
                                                         <td><?= $i++; ?></td>
                                                         <td><?= $b['kode_barang']; ?> - <?= $b['nama_barang']; ?></td>
-                                                        <td><?= $b['jenis_barang']; ?></td>
+                                                        <td><?= $b['nama_jenisbarang']; ?></td>
                                                         <td><?= $b['jumlah']; ?></td>
                                                         <td><?= number_format($b['biaya'], 0, ',', '.'); ?></td>
                                                     </tr>
