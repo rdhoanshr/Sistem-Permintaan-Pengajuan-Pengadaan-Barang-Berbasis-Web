@@ -32,9 +32,21 @@ class Riwayat extends CI_Controller
             $akhir = date('Y-m-d', strtotime($gettgl[1]));
 
             $data['tgl'] = $tgl;
-            $data['pengajuan'] = $this->PengajuanModel->riwayatFilter($awal, $akhir);
+            if ($this->ion_auth->in_group(1)) {
+                $user = $this->ion_auth->user()->row();
+                $id_user = $user->id;
+                $data['pengajuan'] = $this->PengajuanModel->riwayatFilterUnit($id_user, $awal, $akhir);
+            } else {
+                $data['pengajuan'] = $this->PengajuanModel->riwayatFilter($awal, $akhir);
+            }
         } else {
-            $data['pengajuan'] = $this->PengajuanModel->riwayat();
+            if ($this->ion_auth->in_group(1)) {
+                $user = $this->ion_auth->user()->row();
+                $id_user = $user->id;
+                $data['pengajuan'] = $this->PengajuanModel->riwayatUnit($id_user);
+            } else {
+                $data['pengajuan'] = $this->PengajuanModel->riwayat();
+            }
         }
 
 
@@ -50,9 +62,21 @@ class Riwayat extends CI_Controller
             $akhir = date('Y-m-d', strtotime($gettgl[1]));
 
             $data['tgl'] = $tgl;
-            $data['pengajuan'] = $this->PengajuanModel->riwayatFilter($awal, $akhir);
+            if ($this->ion_auth->in_group(1)) {
+                $user = $this->ion_auth->user()->row();
+                $id_user = $user->id;
+                $data['pengajuan'] = $this->PengajuanModel->riwayatFilterUnit($id_user, $awal, $akhir);
+            } else {
+                $data['pengajuan'] = $this->PengajuanModel->riwayatFilter($awal, $akhir);
+            }
         } else {
-            $data['pengajuan'] = $this->PengajuanModel->riwayat();
+            if ($this->ion_auth->in_group(1)) {
+                $user = $this->ion_auth->user()->row();
+                $id_user = $user->id;
+                $data['pengajuan'] = $this->PengajuanModel->riwayatUnit($id_user);
+            } else {
+                $data['pengajuan'] = $this->PengajuanModel->riwayat();
+            }
         }
 
         $this->load->library('pdf');

@@ -64,6 +64,21 @@ class PengajuanModel extends CI_model
         return $this->db->get()->result_array();
     }
 
+    public function riwayatUnit($id)
+    {
+        $this->db->select('pengajuan.id,no_surat,tgl_persetujuan,kode_pengajuan,pengajuan,jenis_pengajuan,pengajuan.tgl_pengajuan,keterangan,total,status,users.id_unit,nama_unit,tanggal_penyerahan,total_vendor');
+        $this->db->from('pengajuan');
+        $this->db->join('surat', 'pengajuan.kode_pengajuan = surat.no_surat');
+        $this->db->join('users', 'pengajuan.id_user = users.id');
+        $this->db->join('unit', 'users.id_unit = unit.id_unit');
+        $this->db->join('penyerahan_barang', 'pengajuan.id = penyerahan_barang.id_pengajuan');
+
+        $this->db->where_in('status', 1);
+        $this->db->where('id_user', $id);
+
+        return $this->db->get()->result_array();
+    }
+
     public function riwayatFilter($awal, $akhir)
     {
         $this->db->select('pengajuan.id,no_surat,tgl_persetujuan,kode_pengajuan,pengajuan,jenis_pengajuan,pengajuan.tgl_pengajuan,keterangan,total,status,users.id_unit,nama_unit,tanggal_penyerahan,total_vendor');
@@ -76,6 +91,23 @@ class PengajuanModel extends CI_model
         $this->db->where_in('status', 1);
         $this->db->where('tanggal_penyerahan >=', $awal);
         $this->db->where('tanggal_penyerahan <=', $akhir);
+
+        return $this->db->get()->result_array();
+    }
+
+    public function riwayatFilterUnit($id, $awal, $akhir)
+    {
+        $this->db->select('pengajuan.id,no_surat,tgl_persetujuan,kode_pengajuan,pengajuan,jenis_pengajuan,pengajuan.tgl_pengajuan,keterangan,total,status,users.id_unit,nama_unit,tanggal_penyerahan,total_vendor');
+        $this->db->from('pengajuan');
+        $this->db->join('surat', 'pengajuan.kode_pengajuan = surat.no_surat');
+        $this->db->join('users', 'pengajuan.id_user = users.id');
+        $this->db->join('unit', 'users.id_unit = unit.id_unit');
+        $this->db->join('penyerahan_barang', 'pengajuan.id = penyerahan_barang.id_pengajuan');
+
+        $this->db->where_in('status', 1);
+        $this->db->where('tanggal_penyerahan >=', $awal);
+        $this->db->where('tanggal_penyerahan <=', $akhir);
+        $this->db->where('id_user', $id);
 
         return $this->db->get()->result_array();
     }
@@ -230,6 +262,15 @@ class PengajuanModel extends CI_model
         $this->db->join('users', 'pengajuan.id_user = users.id');
         $this->db->join('unit', 'users.id_unit = unit.id_unit');
         $this->db->where('pengajuan.id', $id);
+
+        return $this->db->get()->row_array();
+    }
+
+    public function getPenyerahan($id)
+    {
+        $this->db->select('*');
+        $this->db->from('penyerahan_barang');
+        $this->db->where('id_pengajuan', $id);
 
         return $this->db->get()->row_array();
     }
@@ -563,7 +604,7 @@ class PengajuanModel extends CI_model
     public function penyerahan($id, $id_unit)
     {
         $data = [
-            'status' => 1
+            'status' => 6
         ];
 
         $data_penyerahan = [
@@ -576,6 +617,23 @@ class PengajuanModel extends CI_model
         $this->db->update('pengajuan', $data);
 
         $this->db->insert('penyerahan_barang', $data_penyerahan);
+    }
+
+    public function terima($id, $id_penyerahan)
+    {
+        $data = [
+            'status' => 1
+        ];
+
+        $data_penyerahan = [
+            'tanggal_terima' => date('Y-m-d')
+        ];
+
+        $this->db->where('id', $id);
+        $this->db->update('pengajuan', $data);
+
+        $this->db->where('id', $id_penyerahan);
+        $this->db->update('penyerahan_barang', $data_penyerahan);
     }
 
     public function totalMenunggu()

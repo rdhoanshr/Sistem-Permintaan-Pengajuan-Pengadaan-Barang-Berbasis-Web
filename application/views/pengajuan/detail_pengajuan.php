@@ -86,9 +86,10 @@
                                             <?= ($row['status'] == 3) ? 'Approved Kabag' : ''; ?>
                                             <?= ($row['status'] == 4) ? 'Approved Direktur' : ''; ?>
                                             <?= ($row['status'] == 5) ? 'Dikirim ke Vendor' : ''; ?>
-                                            <?= ($row['status'] == 6) ? 'Ditolak Vendor' : ''; ?>
+                                            <?= ($row['status'] == 6) ? 'Dikirim ke Unit' : ''; ?>
+                                            <!-- <?= ($row['status'] == 6) ? 'Ditolak Vendor' : ''; ?>
                                             <?= ($row['status'] == 7) ? 'Dikonfirmasi Vendor' : ''; ?>
-                                            <?= ($row['status'] == 8) ? 'Disetujui Vendor' : ''; ?>
+                                            <?= ($row['status'] == 8) ? 'Disetujui Vendor' : ''; ?> -->
                                         </div>
                                     </div>
                                 </div>
@@ -133,7 +134,7 @@
 
                                 </div>
                             </div>
-                            <?php if ($row['status'] == 6) : ?>
+                            <!-- <?php if ($row['status'] == 6) : ?>
                                 <div class="row">
                                     <div class="col-lg-12">
                                         <label for="">Rekomendasi Vendor</label>
@@ -216,7 +217,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            <?php endif; ?>
+                            <?php endif; ?> -->
                             <div class="form-group">
                                 <?php if ($this->ion_auth->in_group(2)) : ?>
                                     <?php if ($row['status'] == 0) : ?>

@@ -90,7 +90,7 @@
                                 </select>
 
                             </div>
-                            <div class="form-group vendor">
+                            <!-- <div class="form-group vendor">
                                 <label for="">Vendor</label>
                                 <select name="vendor" id="vendor" class="form-control">
                                     <option selected disabled>-- Pilih Vendor --</option>
@@ -99,7 +99,7 @@
                                     <?php endforeach; ?>
                                 </select>
 
-                            </div>
+                            </div> -->
                             <button type="submit" class="btn btn-primary">Simpan</button>
                             <a href="<?= base_url('auth/pengguna'); ?>" class="btn btn-info">Batal</a>
                             <?php echo form_close(); ?>

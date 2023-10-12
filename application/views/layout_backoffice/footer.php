@@ -341,6 +341,20 @@
                 }
             });
         });
+        $('body').on('click', '.terima', function(e) {
+            e.preventDefault();
+            var url = $(this).attr('href');
+            Swal.fire({
+                title: 'Terima Barang ?',
+                icon: 'info',
+                showCancelButton: true,
+                confirmButtonText: 'Ya'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.replace(url);
+                }
+            });
+        });
         //Date range picker
         $('#reservation').daterangepicker()
     });

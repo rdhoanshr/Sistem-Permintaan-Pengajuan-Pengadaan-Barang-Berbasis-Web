@@ -82,7 +82,7 @@
                                                             <li><a href="<?= base_url('riwayat/memo_kabag/') . $u['id']; ?>" target="_blank">Memo Kabag</a></li>
                                                             <li><a href="<?= base_url('riwayat/memo_direktur/') . $u['id']; ?>" target="_blank">Memo Direktur</a></li>
                                                             <li><a href="<?= base_url('riwayat/order_pembelian/') . $u['id']; ?>" target="_blank">Order Pembelian</a></li>
-                                                            <li><a href="<?= base_url('riwayat/faktur/') . $u['id']; ?>" target="_blank">Faktur</a></li>
+                                                            <!-- <li><a href="<?= base_url('riwayat/faktur/') . $u['id']; ?>" target="_blank">Faktur</a></li> -->
                                                         </ul>
                                                     </div>
                                                 </td>

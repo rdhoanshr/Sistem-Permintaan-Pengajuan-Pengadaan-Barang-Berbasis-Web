@@ -32,7 +32,8 @@ class Pengajuan extends CI_Controller
             $data['pengajuan'] = $this->PengajuanModel->lihat_kabagdirut();
         } else {
             $data['pengajuan'] = $this->PengajuanModel->lihat();
-            $data['vendor'] = $this->VendorModel->user_vendor();
+            // $data['vendor'] = $this->VendorModel->user_vendor();
+            $data['vendor'] = $this->VendorModel->lihat();
         }
 
         $this->load->view('pengajuan/data_pengajuan', $data);
@@ -518,6 +519,21 @@ class Pengajuan extends CI_Controller
         } else {
             $this->session->set_flashdata('pesanbaik', 'Pengajuan Telah Selesai');
             redirect('pengajuan');
+        }
+    }
+
+    public function terima($id)
+    {
+        $row = $this->PengajuanModel->getPenyerahan($id);
+        $id_penyerahan = $row['id'];
+
+        $this->PengajuanModel->terima($id, $id_penyerahan);
+        $err = $this->db->error();
+        if ($err['code'] !== 0) {
+            echo $err['message'];
+        } else {
+            $this->session->set_flashdata('pesanbaik', 'Pengajuan Telah Selesai');
+            redirect('riwayat');
         }
     }
 }

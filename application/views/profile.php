@@ -71,7 +71,7 @@
                             <?php if ($this->ion_auth->in_group(1)) : ?>
                                 <div class="form-group">
                                     <label for="">Unit</label>
-                                    <select name="unit" id="unit" class="form-control">
+                                    <select name="unit" id="unit" class="form-control js-example-basic-single" style="width: 100%;">
                                         <option selected disabled>-- Pilih Unit --</option>
                                         <?php foreach ($unit as $u) : ?>
                                             <option value="<?= $u['id_unit']; ?>" <?= ($user->id_unit == $u['id_unit']) ? 'Selected' : ''; ?>><?= $u['nama_unit']; ?></option>
@@ -79,7 +79,7 @@
                                     </select>
                                 </div>
                             <?php endif; ?>
-                            <?php if ($this->ion_auth->in_group(5)) : ?>
+                            <!-- <?php if ($this->ion_auth->in_group(5)) : ?>
                                 <div class="form-group">
                                     <label for="">Vendor</label>
                                     <select name="vendor" id="vendor" class="form-control">
@@ -89,7 +89,7 @@
                                         <?php endforeach; ?>
                                     </select>
                                 </div>
-                            <?php endif; ?>
+                            <?php endif; ?> -->
                             <div class="form-group">
                                 <label for=""> Upload Tanda Tangan </label> <br>
                                 <?php if ($user->ttd != null) : ?>

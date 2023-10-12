@@ -71,7 +71,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="">Level</label>
-                                <select name="group[]" id="group" class="form-control">
+                                <select name="group[]" id="group" class="form-control js-example-basic-single" style="width: 100%;">
                                     <?php
                                     foreach ($groups as $g) : ?>
                                         <option value="<?= $g['id']; ?>" <?= ($currentGroups['id'] == $g['id']) ? 'Selected' : ''; ?>><?= $g['name']; ?></option>
@@ -81,7 +81,7 @@
 
                             <div class="form-group unit">
                                 <label for="">Unit</label>
-                                <select name="unit" id="unit" class="form-control">
+                                <select name="unit" id="unit" class="form-control js-example-basic-single" style="width: 100%;">
                                     <option selected disabled>-- Pilih Unit --</option>
                                     <?php foreach ($unit as $u) : ?>
                                         <option value="<?= $u['id_unit']; ?>" <?= ($user->id_unit == $u['id_unit']) ? 'Selected' : ''; ?>><?= $u['nama_unit']; ?></option>
@@ -89,7 +89,7 @@
                                 </select>
 
                             </div>
-                            <div class="form-group vendor">
+                            <!-- <div class="form-group vendor">
                                 <label for="">Vendor</label>
                                 <select name="vendor" id="vendor" class="form-control">
                                     <option selected disabled>-- Pilih Vendor --</option>
@@ -98,11 +98,11 @@
                                     <?php endforeach; ?>
                                 </select>
 
-                            </div>
+                            </div> -->
 
                             <div class="form-group">
                                 <label for="">Status</label>
-                                <select name="status" id="status" class="form-control">
+                                <select name="status" id="status" class="form-control js-example-basic-single" style="width: 100%;">
                                     <option value="0" <?= ($user->active == 0) ? 'Selected' : ''; ?>>Non Aktif</option>
                                     <option value="1" <?= ($user->active == 1) ? 'Selected' : ''; ?>>Aktif</option>
                                 </select>

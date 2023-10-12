@@ -70,15 +70,15 @@ class Welcome extends CI_Controller
 				$data['selesai'] = $this->PengajuanModel->totalSelesai();
 
 				$this->load->view('layout_backoffice/index', $data);
-			} elseif ($this->ion_auth->in_group(5)) {
-				$data['title'] = 'Dashboard';
+				// } elseif ($this->ion_auth->in_group(5)) {
+				// 	$data['title'] = 'Dashboard';
 
-				$data['menunggu'] = $this->PengajuanModel->totalMenunggu_vendor();
-				$data['tolak'] = $this->PengajuanModel->totalTolak_vendor();
-				$data['setuju'] = $this->PengajuanModel->totalSetuju_vendor();
-				$data['selesai'] = $this->PengajuanModel->totalSelesai_vendor();
+				// 	$data['menunggu'] = $this->PengajuanModel->totalMenunggu_vendor();
+				// 	$data['tolak'] = $this->PengajuanModel->totalTolak_vendor();
+				// 	$data['setuju'] = $this->PengajuanModel->totalSetuju_vendor();
+				// 	$data['selesai'] = $this->PengajuanModel->totalSelesai_vendor();
 
-				$this->load->view('layout_backoffice/index_vendor', $data);
+				// 	$this->load->view('layout_backoffice/index_vendor', $data);
 			}
 		} else {
 			$data['title'] = 'Login';

@@ -41,7 +41,7 @@
 <body>
     <?php
 
-    $path = realpath('\xampp\htdocs\pengadaan\assets\img\logorsisa.png');
+    $path = realpath('\laragon\www\pengadaan\assets\img\logorsisa.png');
 
     $type = pathinfo($path, PATHINFO_EXTENSION);
     $data = file_get_contents($path);
@@ -51,7 +51,7 @@
 
     <?php
 
-    $path = realpath('\xampp\htdocs\pengadaan\assets\img\footer.png');
+    $path = realpath('\laragon\www\pengadaan\assets\img\footer.png');
 
 
     $type = pathinfo($path, PATHINFO_EXTENSION);

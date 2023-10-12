@@ -73,10 +73,11 @@
                                                     <?= ($u['status'] == 2) ? '<button type="button" class="btn btn-sm btn-primary">Approved Staff</button>' : ''; ?>
                                                     <?= ($u['status'] == 3) ? '<button type="button" class="btn btn-sm btn-success">Approved Kabag</button>' : ''; ?>
                                                     <?= ($u['status'] == 4) ? '<button type="button" class="btn btn-sm btn-success">Approved Direktur</button>' : ''; ?>
-                                                    <?= ($u['status'] == 5) ? '<button type="button" class="btn btn-sm btn-info">Dikirim ke vendor</button>' : ''; ?>
-                                                    <?= ($u['status'] == 6) ? '<button type="button" class="btn btn-sm btn-danger">Ditolak Vendor</button>' : ''; ?>
+                                                    <?= ($u['status'] == 5) ? '<button type="button" class="btn btn-sm btn-info">Dikirim ke Vendor</button>' : ''; ?>
+                                                    <?= ($u['status'] == 6) ? '<button type="button" class="btn btn-sm btn-success">Dikirim ke Unit</button>' : ''; ?>
+                                                    <!-- <?= ($u['status'] == 6) ? '<button type="button" class="btn btn-sm btn-danger">Ditolak Vendor</button>' : ''; ?>
                                                     <?= ($u['status'] == 7) ? '<button type="button" class="btn btn-sm btn-info">DiKonfirmasi Vendor</button>' : ''; ?>
-                                                    <?= ($u['status'] == 8) ? '<button type="button" class="btn btn-sm btn-info">Di Setujui Vendor</button>' : ''; ?>
+                                                    <?= ($u['status'] == 8) ? '<button type="button" class="btn btn-sm btn-info">Di Setujui Vendor</button>' : ''; ?> -->
                                                 </td>
                                                 <td>
                                                     <a href="<?= base_url('pengajuan/detail/') . $u['id']; ?>" class="btn btn-sm btn-info"><i class="fa fa-eye"></i></a>
@@ -89,9 +90,11 @@
                                                             <i class="fa fa-arrow-right"></i>
                                                         </button>
                                                     <?php endif; ?>
-                                                    <?php if ($u['status'] == 7 || $u['status'] == 8 && $this->ion_auth->in_group(2)) : ?>
-                                                        <a href="<?= base_url('pengajuan/penyerahan/') . $u['id']; ?>" class="btn btn-sm btn-success kirim"><i class="fa fa-check"></i></a>
-
+                                                    <?php if ($u['status'] == 5 && $this->ion_auth->in_group(2)) : ?>
+                                                        <a href="<?= base_url('pengajuan/penyerahan/') . $u['id']; ?>" class="btn btn-sm btn-warning kirim"><i class="fa fa-arrow-right"></i></a>
+                                                    <?php endif; ?>
+                                                    <?php if ($u['status'] == 6 && $this->ion_auth->in_group(1)) : ?>
+                                                        <a href="<?= base_url('pengajuan/terima/') . $u['id']; ?>" class="btn btn-sm btn-primary terima"><i class="fa fa-arrow-right"></i></a>
                                                     <?php endif; ?>
                                                 </td>
                                             </tr>
@@ -129,7 +132,7 @@
                         <select name="vendor" class="form-control js-example-basic-single" style="width: 100%;">
                             <option selected disabled>-- Pilih Vendor --</option>
                             <?php foreach ($vendor as $v) : ?>
-                                <option value="<?= $v['id_vendor']; ?>"><?= $v['kode']; ?> - <?= $v['nama']; ?></option>
+                                <option value="<?= $v['id']; ?>"><?= $v['kode']; ?> - <?= $v['nama']; ?></option>
                             <?php endforeach; ?>
                         </select>
                     </div>
