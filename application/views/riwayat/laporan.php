@@ -18,10 +18,6 @@
             margin-bottom: 2cm;
         }
 
-        table {
-            /* font-size: 12px; */
-        }
-
         /** Define the header rules **/
         header {
             position: fixed;
@@ -45,7 +41,7 @@
 <body>
     <?php
 
-    $path = realpath('\laragon\www\pengadaan\assets\img\header.png');
+    $path = realpath('\xampp\htdocs\pengadaan\assets\img\header.png');
 
     $type = pathinfo($path, PATHINFO_EXTENSION);
     $data = file_get_contents($path);
@@ -55,7 +51,7 @@
 
     <?php
 
-    $path = realpath('\laragon\www\pengadaan\assets\img\footer.png');
+    $path = realpath('\xampp\htdocs\pengadaan\assets\img\footer.png');
 
 
     $type = pathinfo($path, PATHINFO_EXTENSION);

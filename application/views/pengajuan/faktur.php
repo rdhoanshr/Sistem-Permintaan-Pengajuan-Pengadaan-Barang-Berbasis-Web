@@ -62,7 +62,7 @@
 
     <?php
     $pathttd = '/' . $user_vendor['id'] . '/' . $user_vendor['ttd'];
-    $path = realpath('/laragon/www/pengadaan/uploads/ttd/') . $pathttd;
+    $path = realpath('/xampp/htdocs/pengadaan/uploads/ttd/') . $pathttd;
 
     $type = pathinfo($path, PATHINFO_EXTENSION);
 

@@ -41,7 +41,7 @@
 <body>
     <?php
 
-    $path = realpath('\laragon\www\pengadaan\assets\img\logorsisa.png');
+    $path = realpath('\xampp\htdocs\pengadaan\assets\img\logorsisa.png');
 
     $type = pathinfo($path, PATHINFO_EXTENSION);
     $data = file_get_contents($path);
@@ -51,7 +51,7 @@
 
     <?php
 
-    $path = realpath('\laragon\www\pengadaan\assets\img\footer.png');
+    $path = realpath('\xampp\htdocs\pengadaan\assets\img\footer.png');
 
 
     $type = pathinfo($path, PATHINFO_EXTENSION);
@@ -62,7 +62,7 @@
 
     <?php
     $pathttd = '/' . $row['id_user'] . '/' . $row['ttd'];
-    $path = realpath('/laragon/www/pengadaan/uploads/ttd/') . $pathttd;
+    $path = realpath('/xampp/htdocs/pengadaan/uploads/ttd/') . $pathttd;
 
     $type = pathinfo($path, PATHINFO_EXTENSION);
 
@@ -76,7 +76,7 @@
 
     <?php
     $pathttd = '/' . $staff['id'] . '/' . $staff['ttd'];
-    $path = realpath('/laragon/www/pengadaan/uploads/ttd/') . $pathttd;
+    $path = realpath('/xampp/htdocs/pengadaan/uploads/ttd/') . $pathttd;
 
     $type = pathinfo($path, PATHINFO_EXTENSION);
 
@@ -90,7 +90,7 @@
 
     <?php
     $pathttd = '/' . $kabag['id'] . '/' . $kabag['ttd'];
-    $path = realpath('/laragon/www/pengadaan/uploads/ttd/') . $pathttd;
+    $path = realpath('/xampp/htdocs/pengadaan/uploads/ttd/') . $pathttd;
 
     $type = pathinfo($path, PATHINFO_EXTENSION);
 
@@ -104,7 +104,7 @@
 
     <?php
     $pathttd = '/' . $direktur['id'] . '/' . $direktur['ttd'];
-    $path = realpath('/laragon/www/pengadaan/uploads/ttd/') . $pathttd;
+    $path = realpath('/xampp/htdocs/pengadaan/uploads/ttd/') . $pathttd;
 
     $type = pathinfo($path, PATHINFO_EXTENSION);
 
