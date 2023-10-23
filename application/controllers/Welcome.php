@@ -42,6 +42,7 @@ class Welcome extends CI_Controller
 				$data['menunggu'] = $this->PengajuanModel->totalMenunggu();
 				$data['proses'] = $this->PengajuanModel->totalProses();
 				$data['tinjau'] = $this->PengajuanModel->totalTinjau();
+				$data['tolak'] = $this->PengajuanModel->totalTolak();
 				$data['selesai'] = $this->PengajuanModel->totalSelesai();
 
 				$this->load->view('layout_backoffice/index', $data);
@@ -51,6 +52,7 @@ class Welcome extends CI_Controller
 				$data['menunggu'] = $this->PengajuanModel->totalMenunggu_unit();
 				$data['proses'] = $this->PengajuanModel->totalProses_unit();
 				$data['tinjau'] = $this->PengajuanModel->totalTinjau_unit();
+				$data['tolak'] = $this->PengajuanModel->totalTolak_unit();
 				$data['selesai'] = $this->PengajuanModel->totalSelesai_unit();
 
 				$this->load->view('layout_backoffice/index', $data);
@@ -59,6 +61,7 @@ class Welcome extends CI_Controller
 
 				$data['proses'] = $this->PengajuanModel->totalProses();
 				$data['tinjau'] = $this->PengajuanModel->totalTinjau();
+				$data['tolak'] = $this->PengajuanModel->totalTolak();
 				$data['selesai'] = $this->PengajuanModel->totalSelesai();
 
 				$this->load->view('layout_backoffice/index', $data);
@@ -67,6 +70,7 @@ class Welcome extends CI_Controller
 
 				$data['proses'] = $this->PengajuanModel->totalProses();
 				$data['tinjau'] = $this->PengajuanModel->totalTinjau();
+				$data['tolak'] = $this->PengajuanModel->totalTolak();
 				$data['selesai'] = $this->PengajuanModel->totalSelesai();
 
 				$this->load->view('layout_backoffice/index', $data);

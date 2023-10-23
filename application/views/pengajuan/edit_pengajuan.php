@@ -35,6 +35,38 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12">
+                    <?php if ($row['status'] == 11 || $row['status'] == 12 || $row['status'] == 13) : ?>
+                        <div class="box">
+                            <div class="box-body">
+                                <table class="table table-sm">
+                                    <tr class="text-bold">
+                                        <td style="width :10%">Status</td>
+                                        <td>:</td>
+                                        <td style="width :89%" class="text-danger">Ditolak <?php if ($row['status'] == 11) {
+                                                                                                echo "Staff";
+                                                                                            } elseif ($row['status'] == 12) {
+                                                                                                echo "Kabag";
+                                                                                            } else {
+                                                                                                echo "Direktur";
+                                                                                            } ?></td>
+                                    </tr>
+                                    <tr class="text-bold">
+                                        <td>Alasan</td>
+                                        <td>:</td>
+                                        <td class="text-danger">
+                                            <?php if ($row['status'] == 11) {
+                                                echo $row['alasan_1'];
+                                            } elseif ($row['status'] == 12) {
+                                                echo $row['alasan_2'];
+                                            } else {
+                                                echo $row['alasan_3'];
+                                            } ?>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    <?php endif; ?>
                     <!-- /.box -->
                     <div class="box">
                         <!-- /.box-header -->

@@ -13,6 +13,54 @@ class PengajuanModel extends CI_model
         return $this->db->get()->result_array();
     }
 
+    public function lihat_Tolak()
+    {
+        $this->db->select('pengajuan.id,kode_pengajuan,pengajuan,jenis_pengajuan,tgl_pengajuan,keterangan,total,status,users.id_unit,nama_unit');
+        $this->db->from('pengajuan');
+        $this->db->join('users', 'pengajuan.id_user = users.id');
+        $this->db->join('unit', 'users.id_unit = unit.id_unit');
+        $this->db->where_not_in('status', 1);
+        $this->db->where_in('status', [11, 12, 13]);
+
+        return $this->db->get()->result_array();
+    }
+
+    public function lihat_Menunggu()
+    {
+        $this->db->select('pengajuan.id,kode_pengajuan,pengajuan,jenis_pengajuan,tgl_pengajuan,keterangan,total,status,users.id_unit,nama_unit');
+        $this->db->from('pengajuan');
+        $this->db->join('users', 'pengajuan.id_user = users.id');
+        $this->db->join('unit', 'users.id_unit = unit.id_unit');
+        $this->db->where_not_in('status', 1);
+        $this->db->where_in('status', [0]);
+
+        return $this->db->get()->result_array();
+    }
+
+    public function lihat_Proses()
+    {
+        $this->db->select('pengajuan.id,kode_pengajuan,pengajuan,jenis_pengajuan,tgl_pengajuan,keterangan,total,status,users.id_unit,nama_unit');
+        $this->db->from('pengajuan');
+        $this->db->join('users', 'pengajuan.id_user = users.id');
+        $this->db->join('unit', 'users.id_unit = unit.id_unit');
+        $this->db->where_not_in('status', 1);
+        $this->db->where_in('status', [2]);
+
+        return $this->db->get()->result_array();
+    }
+
+    public function lihat_Tinjau()
+    {
+        $this->db->select('pengajuan.id,kode_pengajuan,pengajuan,jenis_pengajuan,tgl_pengajuan,keterangan,total,status,users.id_unit,nama_unit');
+        $this->db->from('pengajuan');
+        $this->db->join('users', 'pengajuan.id_user = users.id');
+        $this->db->join('unit', 'users.id_unit = unit.id_unit');
+        $this->db->where_not_in('status', 1);
+        $this->db->where_in('status', [3, 4, 5, 6]);
+
+        return $this->db->get()->result_array();
+    }
+
     public function lihat_vendor()
     {
         $id_user = $this->ion_auth->user()->row()->id_vendor;
@@ -37,6 +85,45 @@ class PengajuanModel extends CI_model
         return $this->db->get()->result_array();
     }
 
+    public function lihat_kabagdirutTolak()
+    {
+        $this->db->select('pengajuan.id,kode_pengajuan,pengajuan,jenis_pengajuan,tgl_pengajuan,keterangan,total,status,users.id_unit,nama_unit');
+        $this->db->from('pengajuan');
+        $this->db->join('users', 'pengajuan.id_user = users.id');
+        $this->db->join('unit', 'users.id_unit = unit.id_unit');
+        $this->db->where_not_in('status', 0);
+        $this->db->where_not_in('status', 1);
+        $this->db->where_in('status', [11, 12, 13]);
+
+        return $this->db->get()->result_array();
+    }
+
+    public function lihat_kabagdirutProses()
+    {
+        $this->db->select('pengajuan.id,kode_pengajuan,pengajuan,jenis_pengajuan,tgl_pengajuan,keterangan,total,status,users.id_unit,nama_unit');
+        $this->db->from('pengajuan');
+        $this->db->join('users', 'pengajuan.id_user = users.id');
+        $this->db->join('unit', 'users.id_unit = unit.id_unit');
+        $this->db->where_not_in('status', 0);
+        $this->db->where_not_in('status', 1);
+        $this->db->where_in('status', [2]);
+
+        return $this->db->get()->result_array();
+    }
+
+    public function lihat_kabagdirutTinjau()
+    {
+        $this->db->select('pengajuan.id,kode_pengajuan,pengajuan,jenis_pengajuan,tgl_pengajuan,keterangan,total,status,users.id_unit,nama_unit');
+        $this->db->from('pengajuan');
+        $this->db->join('users', 'pengajuan.id_user = users.id');
+        $this->db->join('unit', 'users.id_unit = unit.id_unit');
+        $this->db->where_not_in('status', 0);
+        $this->db->where_not_in('status', 1);
+        $this->db->where_in('status', [3, 4, 5, 6]);
+
+        return $this->db->get()->result_array();
+    }
+
     public function lihat_unit()
     {
         $id_user = $this->ion_auth->user()->row()->id;
@@ -46,6 +133,66 @@ class PengajuanModel extends CI_model
         $this->db->join('unit', 'users.id_unit = unit.id_unit');
         $this->db->where('users.id', $id_user);
         $this->db->where_not_in('status', 1);
+
+        return $this->db->get()->result_array();
+    }
+
+    public function lihat_unitTolak()
+    {
+        $id_user = $this->ion_auth->user()->row()->id;
+        $this->db->select('pengajuan.id,kode_pengajuan,pengajuan,jenis_pengajuan,tgl_pengajuan,keterangan,total,status,users.id_unit,nama_unit');
+        $this->db->from('pengajuan');
+        $this->db->join('users', 'pengajuan.id_user = users.id');
+        $this->db->join('unit', 'users.id_unit = unit.id_unit');
+        $this->db->where('users.id', $id_user);
+        $this->db->where_not_in('status', 1);
+        $this->db->where_in('status', [11, 12, 13]);
+
+
+        return $this->db->get()->result_array();
+    }
+
+    public function lihat_unitMenunggu()
+    {
+        $id_user = $this->ion_auth->user()->row()->id;
+        $this->db->select('pengajuan.id,kode_pengajuan,pengajuan,jenis_pengajuan,tgl_pengajuan,keterangan,total,status,users.id_unit,nama_unit');
+        $this->db->from('pengajuan');
+        $this->db->join('users', 'pengajuan.id_user = users.id');
+        $this->db->join('unit', 'users.id_unit = unit.id_unit');
+        $this->db->where('users.id', $id_user);
+        $this->db->where_not_in('status', 1);
+        $this->db->where_in('status', [0]);
+
+
+        return $this->db->get()->result_array();
+    }
+
+    public function lihat_unitProses()
+    {
+        $id_user = $this->ion_auth->user()->row()->id;
+        $this->db->select('pengajuan.id,kode_pengajuan,pengajuan,jenis_pengajuan,tgl_pengajuan,keterangan,total,status,users.id_unit,nama_unit');
+        $this->db->from('pengajuan');
+        $this->db->join('users', 'pengajuan.id_user = users.id');
+        $this->db->join('unit', 'users.id_unit = unit.id_unit');
+        $this->db->where('users.id', $id_user);
+        $this->db->where_not_in('status', 1);
+        $this->db->where_in('status', [2]);
+
+
+        return $this->db->get()->result_array();
+    }
+
+    public function lihat_unitTinjau()
+    {
+        $id_user = $this->ion_auth->user()->row()->id;
+        $this->db->select('pengajuan.id,kode_pengajuan,pengajuan,jenis_pengajuan,tgl_pengajuan,keterangan,total,status,users.id_unit,nama_unit');
+        $this->db->from('pengajuan');
+        $this->db->join('users', 'pengajuan.id_user = users.id');
+        $this->db->join('unit', 'users.id_unit = unit.id_unit');
+        $this->db->where('users.id', $id_user);
+        $this->db->where_not_in('status', 1);
+        $this->db->where_in('status', [3, 4, 5, 6]);
+
 
         return $this->db->get()->result_array();
     }
@@ -257,7 +404,7 @@ class PengajuanModel extends CI_model
 
     public function getPengajuan($id)
     {
-        $this->db->select('pengajuan.id,kode_pengajuan,pengajuan,jenis_pengajuan,tgl_pengajuan,keterangan,total,status,users.id_unit,nama_unit,id_user,total_vendor,rekomendasi,kode_unit,nama_lengkap,ttd,memo_2,catatan_2,verifikasi_2,memo_3,catatan_3,verifikasi_3,pengajuan.id_vendor,verifikasi_1');
+        $this->db->select('pengajuan.id,kode_pengajuan,pengajuan,jenis_pengajuan,tgl_pengajuan,keterangan,total,status,users.id_unit,nama_unit,id_user,total_vendor,rekomendasi,kode_unit,nama_lengkap,ttd,memo_2,catatan_2,verifikasi_2,memo_3,catatan_3,verifikasi_3,pengajuan.id_vendor,verifikasi_1,alasan_1,alasan_2,alasan_3');
         $this->db->from('pengajuan');
         $this->db->join('users', 'pengajuan.id_user = users.id');
         $this->db->join('unit', 'users.id_unit = unit.id_unit');
@@ -414,6 +561,40 @@ class PengajuanModel extends CI_model
 
         $this->db->where('id', $id);
         $this->db->delete('pengajuan');
+    }
+
+    public function tolak_staff($id, $get)
+    {
+        $user = $this->ion_auth->user()->row();
+        $data = [
+            "status" => 11,
+            "alasan_1" => $get,
+        ];
+
+        $this->db->where('id', $id);
+        $this->db->update('pengajuan', $data);
+    }
+
+    public function tolak_kabag($id, $get)
+    {
+        $data = [
+            "status" => 12,
+            "alasan_2" => $get,
+        ];
+
+        $this->db->where('id', $id);
+        $this->db->update('pengajuan', $data);
+    }
+
+    public function tolak_direktur($id, $get)
+    {
+        $data = [
+            "status" => 13,
+            "alasan_3" => $get,
+        ];
+
+        $this->db->where('id', $id);
+        $this->db->update('pengajuan', $data);
     }
 
     public function acc_staff($id)
@@ -674,10 +855,23 @@ class PengajuanModel extends CI_model
         return  $this->db->select('*')->from('pengajuan')->where('status', 1)->get()->num_rows();
     }
 
+
     public function totalSelesai_unit()
     {
         $id_user = $this->ion_auth->user()->row()->id;
         return  $this->db->select('*')->from('pengajuan')->where('status', 1)->where('id_user', $id_user)->get()->num_rows();
+    }
+
+    public function totalTolak()
+    {
+        return  $this->db->select('*')->from('pengajuan')->where_in('status', [11, 12, 13])->get()->num_rows();
+    }
+
+    public function totalTolak_unit()
+    {
+        $id_user = $this->ion_auth->user()->row()->id;
+
+        return  $this->db->select('*')->from('pengajuan')->where_in('status', [11, 12, 13])->where('id_user', $id_user)->get()->num_rows();
     }
 
     public function totalMenunggu_vendor()

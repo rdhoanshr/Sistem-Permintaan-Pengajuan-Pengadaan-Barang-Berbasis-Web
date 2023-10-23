@@ -103,6 +103,9 @@
                                             <?= ($row['status'] == 4) ? 'Approved Direktur' : ''; ?>
                                             <?= ($row['status'] == 5) ? 'Dikirim ke Vendor' : ''; ?>
                                             <?= ($row['status'] == 6) ? 'Dikirim ke Unit' : ''; ?>
+                                            <?= ($row['status'] == 11) ? 'Ditolak Staff' : ''; ?>
+                                            <?= ($row['status'] == 12) ? 'Ditolak Kabag' : ''; ?>
+                                            <?= ($row['status'] == 13) ? 'Ditolak Direktur' : ''; ?>
                                             <!-- <?= ($row['status'] == 6) ? 'Ditolak Vendor' : ''; ?>
                                             <?= ($row['status'] == 7) ? 'Dikonfirmasi Vendor' : ''; ?>
                                             <?= ($row['status'] == 8) ? 'Disetujui Vendor' : ''; ?> -->
@@ -147,7 +150,22 @@
                                             <h4>Rp. <?= number_format($row['total'], 0, ',', '.'); ?></h4>
                                         </label>
                                     </div>
-
+                                    <?php if ($row['status'] == 11) : ?>
+                                        <div class="form-group">
+                                            <label for=""> Alasan Penolakan : </label> <br>
+                                            <label for="" class="text-danger"><?= $row['alasan_1']; ?></label>
+                                        </div>
+                                    <?php elseif ($row['status'] == 12) : ?>
+                                        <div class="form-group">
+                                            <label for=""> Alasan Penolakan : </label> <br>
+                                            <label for="" class="text-danger"><?= $row['alasan_2']; ?></label>
+                                        </div>
+                                    <?php elseif ($row['status'] == 13) : ?>
+                                        <div class="form-group">
+                                            <label for=""> Alasan Penolakan : </label> <br>
+                                            <label for="" class="text-danger"><?= $row['alasan_3']; ?></label>
+                                        </div>
+                                    <?php endif; ?>
                                 </div>
                             </div>
                             <!-- <?php if ($row['status'] == 6) : ?>
@@ -237,14 +255,21 @@
                             <div class="form-group">
                                 <?php if ($this->ion_auth->in_group(2)) : ?>
                                     <?php if ($row['status'] == 0) : ?>
-                                        <a href="<?= base_url('pengajuan/acc_staff/' . $row['id']); ?>" class="btn btn-success acc"><i class="fa fa-check"></i> Acc</a> <br>
+                                        <form action="<?= base_url('pengajuan/tolak_staff/' . $row['id']); ?>" method="post" id="formTolakStaff">
+                                            <input type="hidden" name="tolak_staff" id="tolak_staff">
+                                            <a href="<?= base_url('pengajuan/acc_staff/' . $row['id']); ?>" class="btn btn-success acc"><i class="fa fa-check"></i> Acc</a>
+                                            <button type="button" class="btn btn-danger" onclick="tolakStaff()"><i class="fa fa-ban"></i> Tolak</button>
+                                        </form>
                                     <?php endif; ?>
                                 <?php endif; ?>
                                 <?php if ($this->ion_auth->in_group(3)) : ?>
                                     <?php if ($row['status'] == 2) : ?>
                                         <form action="<?= base_url('pengajuan/acc_kabag/' . $row['id']); ?>" method="post" id="formAccKabag">
                                             <input type="hidden" name="acc_kabag" id="acc_kabag">
+                                            <input type="hidden" id="urlkabag" value="<?= base_url('pengajuan/tolak_kabag/' . $row['id']); ?>">
+                                            <input type="hidden" name="tolak_kabag" id="tolak_kabag">
                                             <button type="button" class="btn btn-success" onclick="konfirm()"><i class="fa fa-check"></i> Acc</button>
+                                            <button type="button" class="btn btn-danger" onclick="tolakKabag()"><i class="fa fa-ban"></i> Tolak</button>
                                         </form>
                                     <?php endif; ?>
                                 <?php endif; ?>
@@ -252,19 +277,23 @@
                                     <?php if ($row['status'] == 3) : ?>
                                         <form action="<?= base_url('pengajuan/acc_direktur/' . $row['id']); ?>" method="post" id="formAccDir">
                                             <input type="hidden" name="acc_direktur" id="acc_direktur">
+                                            <input type="hidden" id="urldirektur" value="<?= base_url('pengajuan/tolak_direktur/' . $row['id']); ?>">
+                                            <input type="hidden" name="tolak_direktur" id="tolak_direktur">
                                             <button type="button" class="btn btn-success" onclick="acc()"><i class="fa fa-check"></i> Acc</button>
+                                            <button type="button" class="btn btn-danger" onclick="tolakDirektur()"><i class="fa fa-ban"></i> Tolak</button>
+
                                         </form>
                                     <?php endif; ?>
                                 <?php endif; ?>
                                 <br>
                                 <a href="<?= base_url(); ?>pengajuan/surat_unit/<?= $row['id']; ?>" class="btn btn-warning" target="_blank"><i class="fa fa-print"></i> Surat</a>
-                                <?php if ($row['status'] != 0 && $row['status'] != 2) : ?>
+                                <?php if ($row['status'] != 0 && $row['status'] != 2 && $row['status'] != 11 && $row['status'] != 12) : ?>
                                     <a href="<?= base_url(); ?>pengajuan/memo_kabag/<?= $row['id']; ?>" class="btn btn-warning" target="_blank"><i class="fa fa-print"></i> Memo Kabag</a>
                                 <?php endif; ?>
-                                <?php if ($row['status'] != 0 && $row['status'] != 2 && $row['status'] != 3) : ?>
+                                <?php if ($row['status'] != 0 && $row['status'] != 2 && $row['status'] != 3 && $row['status'] != 11 && $row['status'] != 12 && $row['status'] != 13) : ?>
                                     <a href="<?= base_url(); ?>pengajuan/memo_direktur/<?= $row['id']; ?>" class="btn btn-warning" target="_blank"><i class="fa fa-print"></i> Memo Direktur</a>
                                 <?php endif; ?>
-                                <?php if ($row['status'] != 0 && $row['status'] != 2 && $row['status'] != 3 && $row['status'] != 4) : ?>
+                                <?php if ($row['status'] != 0 && $row['status'] != 2 && $row['status'] != 3 && $row['status'] != 4 && $row['status'] != 11 && $row['status'] != 12 && $row['status'] != 13) : ?>
                                     <a href="<?= base_url(); ?>pengajuan/order_pembelian/<?= $row['id']; ?>" class="btn btn-warning" target="_blank"><i class="fa fa-print"></i> Order Pembelian</a>
                                 <?php endif; ?>
                                 <?php if ($row['status'] == 1 || $row['status'] == 7 || $row['status'] == 8) : ?>

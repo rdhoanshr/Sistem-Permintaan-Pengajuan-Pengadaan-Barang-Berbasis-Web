@@ -27,12 +27,55 @@ class Pengajuan extends CI_Controller
     {
         $data['title'] = 'Data Pengajuan';
         if ($this->ion_auth->in_group(1)) {
-            $data['pengajuan'] = $this->PengajuanModel->lihat_unit();
+            $param = $this->input->get('param');
+            if (isset($param) && $param != null) {
+                if ($param == 'tolak') {
+                    $data['pengajuan'] = $this->PengajuanModel->lihat_unitTolak();
+                } elseif ($param == 'menunggu') {
+                    $data['pengajuan'] = $this->PengajuanModel->lihat_unitMenunggu();
+                } elseif ($param == 'proses') {
+                    $data['pengajuan'] = $this->PengajuanModel->lihat_unitProses();
+                } elseif ($param == 'tinjau') {
+                    $data['pengajuan'] = $this->PengajuanModel->lihat_unitTinjau();
+                } else {
+                    $data['pengajuan'] = $this->PengajuanModel->lihat_unit();
+                }
+            } else {
+                $data['pengajuan'] = $this->PengajuanModel->lihat_unit();
+            }
         } elseif ($this->ion_auth->in_group('kabag') || $this->ion_auth->in_group(4)) {
-            $data['pengajuan'] = $this->PengajuanModel->lihat_kabagdirut();
+            $param = $this->input->get('param');
+            if (isset($param) && $param != null) {
+                if ($param == 'tolak') {
+                    $data['pengajuan'] = $this->PengajuanModel->lihat_kabagdirutTolak();
+                } elseif ($param == 'proses') {
+                    $data['pengajuan'] = $this->PengajuanModel->lihat_kabagdirutProses();
+                } elseif ($param == 'tinjau') {
+                    $data['pengajuan'] = $this->PengajuanModel->lihat_kabagdirutTinjau();
+                } else {
+                    $data['pengajuan'] = $this->PengajuanModel->lihat_kabagdirut();
+                }
+            } else {
+                $data['pengajuan'] = $this->PengajuanModel->lihat_kabagdirut();
+            }
         } else {
-            $data['pengajuan'] = $this->PengajuanModel->lihat();
-            // $data['vendor'] = $this->VendorModel->user_vendor();
+            $param = $this->input->get('param');
+            if (isset($param) && $param != null) {
+                if ($param == 'tolak') {
+                    $data['pengajuan'] = $this->PengajuanModel->lihat_Tolak();
+                } elseif ($param == 'menunggu') {
+                    $data['pengajuan'] = $this->PengajuanModel->lihat_Menunggu();
+                } elseif ($param == 'proses') {
+                    $data['pengajuan'] = $this->PengajuanModel->lihat_Proses();
+                } elseif ($param == 'tinjau') {
+                    $data['pengajuan'] = $this->PengajuanModel->lihat_Tinjau();
+                } else {
+                    $data['pengajuan'] = $this->PengajuanModel->lihat();
+                }
+            } else {
+                $data['pengajuan'] = $this->PengajuanModel->lihat();
+            }
+
             $data['vendor'] = $this->VendorModel->lihat();
         }
 
@@ -329,6 +372,78 @@ class Pengajuan extends CI_Controller
             $this->session->set_flashdata('pesanbaik', 'Pengajuan Berhasil Di Setujui');
             redirect('pengajuan');
         }
+    }
+
+    public function tolak_staff($id)
+    {
+        $get = $this->input->post('alasan');
+        if ($get == null) {
+            $msg = [
+                'gagal' => 'Gagal - Alasan Harus Diisi'
+            ];
+        } else {
+            $user = $this->ion_auth->user()->row();
+            if ($user->ttd == null) {
+                $msg = [
+                    'gagal' => 'Tolak Pengajuan Gagal - Harap Lengkapi Profil Anda Terlebih Dahulu'
+                ];
+            } else {
+                $this->PengajuanModel->tolak_staff($id, $get);
+
+                $msg = [
+                    'sukses' => 'Pengajuan Berhasil Di Tolak'
+                ];
+            }
+        }
+        echo json_encode($msg);
+    }
+
+    public function tolak_kabag($id)
+    {
+        $get = $this->input->post('alasan');
+        if ($get == null) {
+            $msg = [
+                'gagal' => 'Gagal - Alasan Harus Diisi'
+            ];
+        } else {
+            $user = $this->ion_auth->user()->row();
+            if ($user->ttd == null) {
+                $msg = [
+                    'gagal' => 'Tolak Pengajuan Gagal - Harap Lengkapi Profil Anda Terlebih Dahulu'
+                ];
+            } else {
+                $this->PengajuanModel->tolak_kabag($id, $get);
+
+                $msg = [
+                    'sukses' => 'Pengajuan Berhasil Di Tolak'
+                ];
+            }
+        }
+        echo json_encode($msg);
+    }
+
+    public function tolak_direktur($id)
+    {
+        $get = $this->input->post('alasan');
+        if ($get == null) {
+            $msg = [
+                'gagal' => 'Gagal - Alasan Harus Diisi'
+            ];
+        } else {
+            $user = $this->ion_auth->user()->row();
+            if ($user->ttd == null) {
+                $msg = [
+                    'gagal' => 'Tolak Pengajuan Gagal - Harap Lengkapi Profil Anda Terlebih Dahulu'
+                ];
+            } else {
+                $this->PengajuanModel->tolak_direktur($id, $get);
+
+                $msg = [
+                    'sukses' => 'Pengajuan Berhasil Di Tolak'
+                ];
+            }
+        }
+        echo json_encode($msg);
     }
 
     public function acc_kabag($id)

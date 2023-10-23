@@ -355,9 +355,193 @@
                 }
             });
         });
+        $('body').on('click', '.dashboard-kosong', function(e) {
+            e.preventDefault();
+            Swal.fire({
+                icon: 'error',
+                title: 'Tidak Ada Data',
+            });
+        });
         //Date range picker
         $('#reservation').daterangepicker()
     });
+
+    function tolakStaff() {
+        (async () => {
+            const {
+                value: text
+            } = await
+            Swal.fire({
+                title: 'Apakah Anda Yakin Menolak?',
+                icon: 'warning',
+                text: 'Input Alasan Penolakan',
+                input: 'textarea',
+                inputAttributes: {
+                    maxlength: 500
+                },
+                showCancelButton: true,
+                confirmButtonText: 'Ya',
+                reverseButtons: false,
+                inputValidator: (value) => {
+                    if (!value) {
+                        return 'Alasan Penolakan tidak boleh kosong!'
+                    } else {
+                        $('#tolak_staff').val(value)
+                    }
+                }
+            })
+
+            if (text) {
+                var cttn = $('#tolak_staff').val();
+                var url = $('#formTolakStaff').attr('action');
+                $.ajax({
+                    type: "post",
+                    url: url,
+                    data: {
+                        alasan: cttn
+                    },
+                    dataType: "json",
+                    success: function(response) {
+                        if (response.sukses) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Berhasil Di Tolak!'
+                            });
+                            window.location.reload();
+                        }
+                        if (response.gagal) {
+                            Swal.fire({
+                                icon: 'error',
+                                title: response.gagal
+                            });
+                        }
+                    },
+                    error: function(xhr, ajaxOptions, thrownError) {
+                        alert(xhr.status + "\n" + xhr.responseText + "\n" +
+                            thrownError);
+                    }
+                });
+            }
+        })()
+    }
+
+    function tolakKabag() {
+        (async () => {
+            const {
+                value: text
+            } = await
+            Swal.fire({
+                title: 'Apakah Anda Yakin Menolak?',
+                icon: 'warning',
+                text: 'Input Alasan Penolakan',
+                input: 'textarea',
+                inputAttributes: {
+                    maxlength: 500
+                },
+                showCancelButton: true,
+                confirmButtonText: 'Ya',
+                reverseButtons: false,
+                inputValidator: (value) => {
+                    if (!value) {
+                        return 'Alasan Penolakan tidak boleh kosong!'
+                    } else {
+                        $('#tolak_kabag').val(value)
+                    }
+                }
+            })
+
+            if (text) {
+                var cttn = $('#tolak_kabag').val();
+                var url = $('#urlkabag').val();
+                $.ajax({
+                    type: "post",
+                    url: url,
+                    data: {
+                        alasan: cttn
+                    },
+                    dataType: "json",
+                    success: function(response) {
+                        if (response.sukses) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Berhasil Di Tolak!'
+                            });
+                            window.location.reload();
+                        }
+                        if (response.gagal) {
+                            Swal.fire({
+                                icon: 'error',
+                                title: response.gagal
+                            });
+                        }
+                    },
+                    error: function(xhr, ajaxOptions, thrownError) {
+                        alert(xhr.status + "\n" + xhr.responseText + "\n" +
+                            thrownError);
+                    }
+                });
+            }
+        })()
+    }
+
+    function tolakDirektur() {
+        (async () => {
+            const {
+                value: text
+            } = await
+            Swal.fire({
+                title: 'Apakah Anda Yakin Menolak?',
+                icon: 'warning',
+                text: 'Input Alasan Penolakan',
+                input: 'textarea',
+                inputAttributes: {
+                    maxlength: 500
+                },
+                showCancelButton: true,
+                confirmButtonText: 'Ya',
+                reverseButtons: false,
+                inputValidator: (value) => {
+                    if (!value) {
+                        return 'Alasan Penolakan tidak boleh kosong!'
+                    } else {
+                        $('#tolak_direktur').val(value)
+                    }
+                }
+            })
+
+            if (text) {
+                var cttn = $('#tolak_direktur').val();
+                var url = $('#urldirektur').val();
+                $.ajax({
+                    type: "post",
+                    url: url,
+                    data: {
+                        alasan: cttn
+                    },
+                    dataType: "json",
+                    success: function(response) {
+                        if (response.sukses) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Berhasil Di Tolak!'
+                            });
+                            window.location.reload();
+                        }
+                        if (response.gagal) {
+                            Swal.fire({
+                                icon: 'error',
+                                title: response.gagal
+                            });
+                        }
+                    },
+                    error: function(xhr, ajaxOptions, thrownError) {
+                        alert(xhr.status + "\n" + xhr.responseText + "\n" +
+                            thrownError);
+                    }
+                });
+            }
+        })()
+    }
 
     function konfirm() {
         (async () => {

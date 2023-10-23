@@ -25,7 +25,7 @@
         </h1>
         <ol class="breadcrumb">
             <li><a href="<?= base_url(); ?>"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li class="active">Data Pengajuan</li>
+            <li class="active"><a href="<?= base_url(); ?>pengajuan"> Data Pengajuan </a></li>
         </ol>
     </section>
 
@@ -39,6 +39,15 @@
                         <?php if ($this->ion_auth->in_group(1)) : ?>
                             <div class="box-header">
                                 <a href="<?= base_url('pengajuan/tambah'); ?>" class="btn btn-primary"><i class="fa fa-plus"></i> Tambah</a>
+                                <?php if (isset($_GET['param'])) : ?>
+                                    <a href="<?= base_url('pengajuan'); ?>" class="btn btn-warning"><i class="fa fa-filter"></i> Lihat Semua Data</a>
+                                <?php endif; ?>
+                            </div>
+                        <?php else : ?>
+                            <div class="box-header">
+                                <?php if (isset($_GET['param'])) : ?>
+                                    <a href="<?= base_url('pengajuan'); ?>" class="btn btn-warning"><i class="fa fa-filter"></i> Lihat Semua Data</a>
+                                <?php endif; ?>
                             </div>
                         <?php endif; ?>
                         <!-- /.box-header -->
@@ -75,12 +84,24 @@
                                                     <?= ($u['status'] == 4) ? '<button type="button" class="btn btn-sm btn-success">Approved Direktur</button>' : ''; ?>
                                                     <?= ($u['status'] == 5) ? '<button type="button" class="btn btn-sm btn-info">Dikirim ke Vendor</button>' : ''; ?>
                                                     <?= ($u['status'] == 6) ? '<button type="button" class="btn btn-sm btn-success">Dikirim ke Unit</button>' : ''; ?>
+                                                    <?= ($u['status'] == 11) ? '<button type="button" class="btn btn-sm btn-danger">Ditolak Staff</button>' : ''; ?>
+                                                    <?= ($u['status'] == 12) ? '<button type="button" class="btn btn-sm btn-danger">Ditolak Kabag</button>' : ''; ?>
+                                                    <?= ($u['status'] == 13) ? '<button type="button" class="btn btn-sm btn-danger">Ditolak Direktur</button>' : ''; ?>
                                                     <!-- <?= ($u['status'] == 6) ? '<button type="button" class="btn btn-sm btn-danger">Ditolak Vendor</button>' : ''; ?>
                                                     <?= ($u['status'] == 7) ? '<button type="button" class="btn btn-sm btn-info">DiKonfirmasi Vendor</button>' : ''; ?>
                                                     <?= ($u['status'] == 8) ? '<button type="button" class="btn btn-sm btn-info">Di Setujui Vendor</button>' : ''; ?> -->
                                                 </td>
                                                 <td>
                                                     <a href="<?= base_url('pengajuan/detail/') . $u['id']; ?>" class="btn btn-sm btn-info"><i class="fa fa-eye"></i></a>
+                                                    <?php if ($u['status'] == 11 && $this->ion_auth->in_group(1)) : ?>
+                                                        <a href="<?= base_url('pengajuan/edit/') . $u['id']; ?>" class="btn btn-sm btn-warning"><i class="fa fa-edit"></i></a>
+                                                    <?php endif; ?>
+                                                    <?php if ($u['status'] == 12 && $this->ion_auth->in_group(1)) : ?>
+                                                        <a href="<?= base_url('pengajuan/edit/') . $u['id']; ?>" class="btn btn-sm btn-warning"><i class="fa fa-edit"></i></a>
+                                                    <?php endif; ?>
+                                                    <?php if ($u['status'] == 13 && $this->ion_auth->in_group(1)) : ?>
+                                                        <a href="<?= base_url('pengajuan/edit/') . $u['id']; ?>" class="btn btn-sm btn-warning"><i class="fa fa-edit"></i></a>
+                                                    <?php endif; ?>
                                                     <?php if ($u['status'] == 0) : ?>
                                                         <a href="<?= base_url('pengajuan/edit/') . $u['id']; ?>" class="btn btn-sm btn-warning"><i class="fa fa-edit"></i></a>
                                                         <a href="<?= base_url('pengajuan/hapus/') . $u['id']; ?>" class="btn btn-sm btn-danger hapus"><i class="fa fa-trash "></i></a>
