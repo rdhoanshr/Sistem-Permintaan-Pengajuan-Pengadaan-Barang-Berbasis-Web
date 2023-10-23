@@ -51,7 +51,12 @@
                                         </div>
                                         <div class="form-group">
                                             <label for=""> Jenis Pengajuan </label>
-                                            <input type="text" name="jenis_pengajuan" class="form-control">
+                                            <select name="jenis_pengajuan" class="form-control js-example-basic-single" style="width: 100%;">
+                                                <option selected disabled>-- Pilih Jenis Pengajuan --</option>
+                                                <option value="Barang habis pakai">Barang habis pakai</option>
+                                                <option value="Barang tidak habis pakai">Barang tidak habis pakai</option>
+                                            </select>
+                                            <!-- <input type="text" name="jenis_pengajuan" class="form-control"> -->
                                             <div class="form-text text-danger"><?= form_error('jenis_pengajuan'); ?></div>
                                         </div>
                                         <div class="form-group">
