@@ -73,6 +73,22 @@
                                         </div>
                                     </div>
                                     <div class="form-group row">
+                                        <label for="" class="col-sm-4">Umur Pengajuan</label>
+                                        <div class="col-sm-8">
+                                            : <?php
+                                                $awal = date_create($row['tgl_pengajuan']);
+                                                $akhir = date_create('now');
+                                                $diff = date_diff($awal, $akhir);
+
+                                                if ($diff->d == 0) {
+                                                    echo 'Baru diajukan';
+                                                } else {
+                                                    echo $diff->d . " Hari";
+                                                }
+                                                ?>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
                                         <label for="" class="col-sm-4">Keterangan</label>
                                         <div class="col-sm-8">
                                             : <?= $row['keterangan']; ?>
